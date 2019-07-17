@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>OSM Diff 310 - 2019-07-16</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+
+	
+	<!-- ESRI Leaflet -->
+	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<style>
+		body {
+			padding: 2px;
+			padding-top: 65px;
+			margin: 0;
+		}
+		html, body, #map {
+			/* height: 95%;
+			width: 100vw; */
+			width: calc( 100vw - 64px );
+			height: calc( 100vh - 100px );
+			margin: auto;
+		}
+		#basemaps-picker {
+			position: absolute;
+			top: 75px;
+			right: 35px;
+			z-index: 400;
+			background: white;
+			padding: 10px;
+		}
+		.dropdown-menu {
+			overflow-y: scroll;
+			max-height: 800px;
+		}
+	</style>
+	
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<!-- Navbar Container -->
+	<div class="container">
+
+		<!-- Navbar Header [contains both toggle button and navbar brand] -->
+		<div class="navbar-header">
+			<!-- Toggle Button [handles opening navbar components on mobile screens]-->
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded="false">
+				<i class="glyphicon glyphicon-align-center"></i>
+			</button>
+
+			<!-- Navbar Brand -->
+			<p class="navbar-brand">
+				OSM Diff 310:16 Processed 2019-07-16
+			</p>
+		</div>
+
+
+		<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
+		<div class="collapse navbar-collapse" id="exampleNavComponents">
+
+			<!-- Navbar Menu -->
+			<ul class="nav navbar-nav navbar-right">
+
+				<!-- Navbar link with a dropdown menu -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						More Maps from this Diff
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="../index.html"><b>Home</b></a></li>
+						
+						<li><a href="./map_0.html">Diff 310:0</a></li>
+						
+						<li><a href="./map_1.html">Diff 310:1</a></li>
+						
+						<li><a href="./map_2.html">Diff 310:2</a></li>
+						
+						<li><a href="./map_3.html">Diff 310:3</a></li>
+						
+						<li><a href="./map_4.html">Diff 310:4</a></li>
+						
+						<li><a href="./map_5.html">Diff 310:5</a></li>
+						
+						<li><a href="./map_6.html">Diff 310:6</a></li>
+						
+						<li><a href="./map_7.html">Diff 310:7</a></li>
+						
+						<li><a href="./map_8.html">Diff 310:8</a></li>
+						
+						<li><a href="./map_9.html">Diff 310:9</a></li>
+						
+						<li><a href="./map_10.html">Diff 310:10</a></li>
+						
+						<li><a href="./map_11.html">Diff 310:11</a></li>
+						
+						<li><a href="./map_12.html">Diff 310:12</a></li>
+						
+						<li><a href="./map_13.html">Diff 310:13</a></li>
+						
+						<li><a href="./map_14.html">Diff 310:14</a></li>
+						
+						<li><a href="./map_15.html">Diff 310:15</a></li>
+						
+						<li><a href="./map_16.html">Diff 310:16</a></li>
+						
+						<li><a href="./map_17.html">Diff 310:17</a></li>
+						
+						<li><a href="./map_18.html">Diff 310:18</a></li>
+						
+						<li><a href="./map_19.html">Diff 310:19</a></li>
+						
+						<li><a href="./map_20.html">Diff 310:20</a></li>
+						
+						<li><a href="./map_21.html">Diff 310:21</a></li>
+						
+						<li><a href="./map_22.html">Diff 310:22</a></li>
+						
+						<li><a href="./map_23.html">Diff 310:23</a></li>
+						
+						<li><a href="./map_24.html">Diff 310:24</a></li>
+						
+						<li><a href="./map_25.html">Diff 310:25</a></li>
+						
+						<li><a href="./map_26.html">Diff 310:26</a></li>
+						
+						<li><a href="./map_27.html">Diff 310:27</a></li>
+						
+						<li><a href="./map_28.html">Diff 310:28</a></li>
+						
+						<li><a href="./map_29.html">Diff 310:29</a></li>
+						
+						<li><a href="./map_30.html">Diff 310:30</a></li>
+						
+						<li><a href="./map_31.html">Diff 310:31</a></li>
+						
+						<li><a href="./map_32.html">Diff 310:32</a></li>
+						
+						<li><a href="./map_33.html">Diff 310:33</a></li>
+						
+						<li><a href="./map_34.html">Diff 310:34</a></li>
+						
+						<li><a href="./map_35.html">Diff 310:35</a></li>
+						
+						<li><a href="./map_36.html">Diff 310:36</a></li>
+						
+						<li><a href="./map_37.html">Diff 310:37</a></li>
+						
+						<li><a href="./map_38.html">Diff 310:38</a></li>
+						
+						<li><a href="./map_39.html">Diff 310:39</a></li>
+						
+						<li><a href="./map_40.html">Diff 310:40</a></li>
+						
+						<li><a href="./map_41.html">Diff 310:41</a></li>
+						
+						<li><a href="./map_42.html">Diff 310:42</a></li>
+						
+						<li><a href="./map_43.html">Diff 310:43</a></li>
+						
+						<li><a href="./map_44.html">Diff 310:44</a></li>
+						
+						<li><a href="./map_45.html">Diff 310:45</a></li>
+						
+						<li><a href="./map_46.html">Diff 310:46</a></li>
+						
+						<li><a href="./map_47.html">Diff 310:47</a></li>
+						
+						<li><a href="./map_48.html">Diff 310:48</a></li>
+						
+						<li><a href="./map_49.html">Diff 310:49</a></li>
+						
+						<li><a href="./map_50.html">Diff 310:50</a></li>
+						
+						<li><a href="./map_51.html">Diff 310:51</a></li>
+						
+						<li><a href="./map_52.html">Diff 310:52</a></li>
+						
+						<li><a href="./map_53.html">Diff 310:53</a></li>
+						
+						<li><a href="./map_54.html">Diff 310:54</a></li>
+						
+						<li><a href="./map_55.html">Diff 310:55</a></li>
+						
+						<li><a href="./map_56.html">Diff 310:56</a></li>
+						
+						<li><a href="./map_57.html">Diff 310:57</a></li>
+						
+						<li><a href="./map_58.html">Diff 310:58</a></li>
+						
+						<li><a href="./map_59.html">Diff 310:59</a></li>
+						
+						<li><a href="./map_60.html">Diff 310:60</a></li>
+						
+						<li><a href="./map_61.html">Diff 310:61</a></li>
+						
+						<li><a href="./map_62.html">Diff 310:62</a></li>
+						
+						<li><a href="./map_63.html">Diff 310:63</a></li>
+						
+						<li><a href="./map_64.html">Diff 310:64</a></li>
+						
+						<li><a href="./map_65.html">Diff 310:65</a></li>
+						
+						<li><a href="./map_66.html">Diff 310:66</a></li>
+						
+						<li><a href="./map_67.html">Diff 310:67</a></li>
+						
+						<li><a href="./map_68.html">Diff 310:68</a></li>
+						
+						<li><a href="./map_69.html">Diff 310:69</a></li>
+						
+						<li><a href="./map_70.html">Diff 310:70</a></li>
+						
+						<li><a href="./map_71.html">Diff 310:71</a></li>
+						
+						<li><a href="./map_72.html">Diff 310:72</a></li>
+						
+						<li><a href="./map_73.html">Diff 310:73</a></li>
+						
+						<li><a href="./map_74.html">Diff 310:74</a></li>
+						
+						<li><a href="./map_75.html">Diff 310:75</a></li>
+						
+						<li><a href="./map_76.html">Diff 310:76</a></li>
+						
+						<li><a href="./map_77.html">Diff 310:77</a></li>
+						
+						<li><a href="./map_78.html">Diff 310:78</a></li>
+						
+						<li><a href="./map_79.html">Diff 310:79</a></li>
+						
+						<li><a href="./map_80.html">Diff 310:80</a></li>
+						
+						<li><a href="./map_81.html">Diff 310:81</a></li>
+						
+						<li><a href="./map_82.html">Diff 310:82</a></li>
+						
+						<li><a href="./map_83.html">Diff 310:83</a></li>
+						
+						<li><a href="./map_84.html">Diff 310:84</a></li>
+						
+						<li><a href="./map_85.html">Diff 310:85</a></li>
+						
+						<li><a href="./map_86.html">Diff 310:86</a></li>
+						
+						<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
+					</ul>
+				</li>
+			</ul>	
+		</div>
+	</div>
+</nav>
+
+<div id="map"></div>
+<div id="basemaps-picker" class="leaflet-bar">
+		<select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+		  <option value="Default">Default Basemap</option>
+		  <option value="ShadedRelief">Shaded Relief</option>
+		  <option value="Streets">Esri Streets</option>
+		  <option value="Imagery">Imagery</option>
+		  <option value="ImageryClarity">Imagery (Clarity)</option>
+		  <option value="ImageryFirefly">Imagery (Firefly)</option>
+		  <option value="Physical">Physical</option>
+		</select>
+	  </div>
+<script>
+	var myWays = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"diff_id": 310, "osm_id": 20229688, "tags": "{'name': 'Schooner Road', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Suffolk, NY', 'tiger:reviewed': 'no', 'tiger:zip_left': '11768', 'tiger:name_base': 'Schooner', 'tiger:name_type': 'Rd', 'tiger:zip_right': '11768'}", "meta": "{'version': '3', 'changeset': '0', 'timestamp': '2019-07-15T09:39:25Z'}", "tainted": true, "type": 0, "created_date": "2019-07-16", "pk": "557"}, "geometry": {"type": "LineString", "coordinates": [[-73.346808, 40.9138477], [-73.3467085, 40.9136726]]}}, {"type": "Feature", "properties": {"diff_id": 310, "osm_id": 20229688, "tags": "{'name': 'Schooner Road', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Suffolk, NY', 'tiger:reviewed': 'no', 'tiger:zip_left': '11768', 'tiger:name_base': 'Schooner', 'tiger:name_type': 'Rd', 'tiger:zip_right': '11768'}", "meta": "{'version': '3', 'changeset': '0', 'timestamp': '2019-07-15T09:39:25Z'}", "tainted": true, "type": 0, "created_date": "2019-07-16", "pk": "694"}, "geometry": {"type": "LineString", "coordinates": [[-73.346808, 40.9138477], [-73.3467085, 40.9136726]]}}, {"type": "Feature", "properties": {"diff_id": 310, "osm_id": 20229688, "tags": "{'name': 'Schooner Road', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Suffolk, NY', 'tiger:reviewed': 'no', 'tiger:zip_left': '11768', 'tiger:name_base': 'Schooner', 'tiger:name_type': 'Rd', 'tiger:zip_right': '11768'}", "meta": "{'version': '3', 'changeset': '0', 'timestamp': '2019-07-15T09:39:25Z'}", "tainted": true, "type": 0, "created_date": "2019-07-16", "pk": "831"}, "geometry": {"type": "LineString", "coordinates": [[-73.346808, 40.9138477], [-73.3467085, 40.9136726]]}}]};
+	// var myWays = JSON.parse(myWays);
+	var myRoutes = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"route_id": "244732011", "from_date": "2012-01-01T00:00:00Z", "to_date": null, "dot_id": "244732", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{00CB79B4-A39B-4A90-9DF4-CD7E3DF2AF82}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:34.609Z", "model_edited_date": "2019-07-12T15:46:34.609Z", "pk": "310732"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.3337439555056, 40.9179170002212], [-73.33398905234156, 40.91826698305673], [-73.33419304838861, 40.91857502561456], [-73.33428101412551, 40.91866601447958], [-73.33457302943206, 40.91888804229887], [-73.33467904521274, 40.9189459626786], [-73.33479698822681, 40.91896397044562], [-73.33487505643468, 40.91896203536918], [-73.3349459793463, 40.91894198140639], [-73.33500095786312, 40.918908996105785], [-73.33557699711393, 40.918412966083935], [-73.33575597669274, 40.91828899001718], [-73.33598301183669, 40.9181759762036], [-73.33713100254275, 40.917752958369206], [-73.33732100443146, 40.91769597685434], [-73.33754597922623, 40.91766499147289], [-73.33773003380722, 40.91766998741499], [-73.33868400897921, 40.91778597699189], [-73.3391079470045, 40.91783802508461], [-73.34095997936599, 40.91810799262951]]]}}, {"type": "Feature", "properties": {"route_id": "245478011", "from_date": "2018-01-01T00:00:00Z", "to_date": null, "dot_id": "245478", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{086D5E55-CDDF-4D8A-8DEC-5A58C2F315FF}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:34.668Z", "model_edited_date": "2019-07-12T15:46:34.668Z", "pk": "310751"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.33714498178826, 40.914130032913114], [-73.33695599496649, 40.91394796113614], [-73.33654599094376, 40.91359695633024], [-73.3363810359971, 40.913469997937355], [-73.33621896034313, 40.91339397508498], [-73.33602704068952, 40.91334796773279], [-73.33523198979167, 40.91329901760913], [-73.33484498367795, 40.913267035771206], [-73.33459996023691, 40.91325998356848], [-73.33442198896213, 40.91327804052402], [-73.33411200948832, 40.91336102790575], [-73.33384298576877, 40.913468026686054], [-73.33353998532456, 40.91355201416019], [-73.33339094823921, 40.91358102689561], [-73.33308615080233, 40.91358090815447]]]}}, {"type": "Feature", "properties": {"route_id": "253772011", "from_date": "2012-01-01T00:00:00Z", "to_date": null, "dot_id": "253772", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{7CB4F2FB-7A0E-4B2C-B53A-74618319027A}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:35.715Z", "model_edited_date": "2019-07-12T15:46:35.715Z", "pk": "311149"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.38740797066421, 40.94110295597073], [-73.38712700531666, 40.941391959568165], [-73.38620905091227, 40.942281966235164], [-73.38592198794117, 40.94253800289513], [-73.38532697393656, 40.94297096303593], [-73.38504702599408, 40.943158998029006], [-73.38473198469713, 40.943309968868334], [-73.38430005710525, 40.943480018598486], [-73.38408597080522, 40.943544035921434], [-73.38339397324967, 40.94367602647684], [-73.38298701113393, 40.94373796727768], [-73.38259797553623, 40.94377601722004], [-73.38236394797056, 40.94377597621655], [-73.38231104006621, 40.94376802750947], [-73.38199604252381, 40.94369298539176], [-73.38180100389638, 40.9436189958709], [-73.38160398182214, 40.94349003051354], [-73.38059902398362, 40.94270502852274], [-73.37998305303385, 40.94218103667985], [-73.37953896829994, 40.94178403597767], [-73.37807304477802, 40.94031397249351], [-73.37664694778397, 40.9388839954765], [-73.37525095461964, 40.93749802289559], [-73.37494803964641, 40.93720298082765], [-73.37411500597605, 40.93642800236866], [-73.3730069477302, 40.9354620442646], [-73.37206606017074, 40.934717956904606], [-73.37077703296872, 40.93370402226076], [-73.3703529563211, 40.9334059946161], [-73.3692780449319, 40.932724035454676], [-73.36757899489871, 40.93173804370581], [-73.36632803007952, 40.93104996088269], [-73.36345204832935, 40.92949099112432], [-73.36285103184362, 40.929150969729896], [-73.36202704687861, 40.928606002219766], [-73.36178200583996, 40.92847704139583], [-73.36152095950303, 40.928371002679995], [-73.3612250308057, 40.928277979254794], [-73.36089404021354, 40.9282100387809], [-73.36045504871016, 40.928162990913656], [-73.35990605310106, 40.928165000400924], [-73.35935598900879, 40.92816699206591], [-73.35916203520964, 40.92814801759375], [-73.35888002188588, 40.928087974688104], [-73.35819101338622, 40.92786395826469], [-73.35780697547821, 40.92771301205413], [-73.35745504314352, 40.92755099199699], [-73.3572789739681, 40.92744300167547], [-73.3571030055187, 40.92730699819805], [-73.35646004186967, 40.92671601845077], [-73.35629298344656, 40.92660401148902], [-73.35609898873174, 40.92651504052568], [-73.3558470334, 40.92645496844413], [-73.35537204075476, 40.92639000272896], [-73.35495799302144, 40.92630996088106], [-73.35409798449318, 40.9260720399377], [-73.352397971762, 40.92565699730067], [-73.3522740320567, 40.9256119884004], [-73.35213503381384, 40.92552298611688], [-73.35080494847236, 40.92433601239094], [-73.35052399989577, 40.924066982887176], [-73.35038905673957, 40.923882013144166], [-73.3503160446247, 40.92369000257882], [-73.3502949997576, 40.923499996705814], [-73.3503039520809, 40.92322601678023], [-73.35034799272414, 40.922925965855306], [-73.35056697097635, 40.922042999437494], [-73.3510670111625, 40.92030596722413], [-73.35128902931082, 40.91940502679905], [-73.35144700474633, 40.91866296893756], [-73.35145298268773, 40.91856099570649], [-73.35144499873239, 40.91849998861098], [-73.35141605029831, 40.91843201593809], [-73.35137405317224, 40.91837304464894], [-73.3513049883299, 40.91830900219199], [-73.35114297913056, 40.918210031237045], [-73.35100199572686, 40.91814901352305], [-73.35066100965311, 40.918027034039724]]]}}, {"type": "Feature", "properties": {"route_id": "254597011", "from_date": "2012-01-01T00:00:00Z", "to_date": null, "dot_id": "254597", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{2CF3C02E-A006-41AD-A4A1-0A68EC6B524E}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:35.837Z", "model_edited_date": "2019-07-12T15:46:35.837Z", "pk": "311198"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34095997936599, 40.91810799262951], [-73.34406298807892, 40.91875198488622], [-73.34493194312742, 40.91894497962215], [-73.34515395966997, 40.91898500866616], [-73.34535098254204, 40.918993961885455], [-73.3454520446512, 40.91898901675803], [-73.34558003218015, 40.91897103627304], [-73.34585405766188, 40.918896960525274], [-73.34592997498717, 40.918866972756824], [-73.34608099025967, 40.91879698662682], [-73.34657099727363, 40.91850000105087], [-73.34680497545702, 40.91836499622779], [-73.34703999449717, 40.91827396404336], [-73.34726700859117, 40.918222991530975], [-73.34743603118528, 40.91820703848023], [-73.34807894875007, 40.91818301347179], [-73.34845796820773, 40.918127010260974], [-73.34920796084313, 40.917946965843036], [-73.34946601747886, 40.91791300787392], [-73.34977698365002, 40.91790502859739], [-73.35016502900744, 40.91793003926173], [-73.35047394180884, 40.917975985621815], [-73.35066100965311, 40.918027034039724]]]}}, {"type": "Feature", "properties": {"route_id": "254620011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "254620", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{CBA6DC7A-DCD0-426B-A62F-1D35E596C98C}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:35.839Z", "model_edited_date": "2019-07-12T15:46:35.839Z", "pk": "311199"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35658500200624, 40.906423955899434], [-73.35627694903008, 40.90653702689521], [-73.35623501862536, 40.90655696700125], [-73.35584298419158, 40.90677702375229], [-73.35566105660526, 40.90690297126394], [-73.35506705298717, 40.907333991009594], [-73.35488301464386, 40.90745396197287], [-73.35449797079814, 40.907611959667776], [-73.35374394756835, 40.90788800554309], [-73.35337899244718, 40.9079970133821], [-73.35318597756648, 40.908023982503344], [-73.35254901168413, 40.908061002794035], [-73.35199204375212, 40.90807997635916], [-73.35139097185365, 40.90816803731024], [-73.35124500118624, 40.908170003496664], [-73.35105102534206, 40.908140025714275], [-73.35058904905772, 40.908024963128305], [-73.35026004939311, 40.90793396082007], [-73.34991794788101, 40.90785898418384], [-73.34908698658163, 40.90778097099973], [-73.34803794481329, 40.90767802836047], [-73.347493042323, 40.90765598722036], [-73.34711796508721, 40.907660969682546], [-73.34661197075935, 40.90768803443507], [-73.34634494793913, 40.90772600125814], [-73.3457319511039, 40.90783503006021], [-73.34524702862554, 40.907954991756604], [-73.3448769749317, 40.90808695948997], [-73.344530022384, 40.9082399757612], [-73.34419198075085, 40.90842599756655]]]}}, {"type": "Feature", "properties": {"route_id": "254633011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "254633", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{04C1552C-2708-43F4-8267-3845CA81536D}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:35.841Z", "model_edited_date": "2019-07-12T15:46:35.841Z", "pk": "311200"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34161701058947, 40.914502965119546], [-73.34153494455954, 40.91449403788804], [-73.34082994575722, 40.914547039137304], [-73.3399110338157, 40.91462596129456], [-73.33946403655257, 40.91464204359553], [-73.33890698199532, 40.914609968050605], [-73.3385569646042, 40.91457997281912], [-73.33765104133599, 40.9144199963948], [-73.33751905138342, 40.91437999007594], [-73.33736995698766, 40.91430703852941], [-73.33714498178826, 40.914130032913114]]]}}, {"type": "Feature", "properties": {"route_id": "254649011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "254649", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{E5F7DEC7-D216-46CC-83F0-0022A94CD8CD}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:35.846Z", "model_edited_date": "2019-07-12T15:46:35.846Z", "pk": "311202"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34095997936599, 40.91810799262951], [-73.34132802672109, 40.91642504178267], [-73.34145295593429, 40.91567900928101], [-73.34152696610802, 40.915197975011], [-73.34161701058947, 40.914502965119546], [-73.34165699427177, 40.91405296861476], [-73.34169202252365, 40.91393898293581], [-73.34210705320532, 40.913400968959635], [-73.34247894571324, 40.91305897420357], [-73.34262400085709, 40.91292296947472], [-73.34312998701625, 40.91231302546807], [-73.34367694885047, 40.91168799417922], [-73.34440802698025, 40.91101200759899], [-73.34453694354134, 40.9108609957753], [-73.34472805861412, 40.91060602558801], [-73.3448390367641, 40.910402960800106], [-73.34488899000222, 40.910232979404995], [-73.34491099034956, 40.91008403536252], [-73.34490700030229, 40.90988697666784], [-73.34482199459825, 40.90960101857045], [-73.34470096455256, 40.90929796877254], [-73.3445319457861, 40.90897198043003], [-73.34419198075085, 40.90842599756655], [-73.343932951795, 40.90803403930714], [-73.34345197095803, 40.90733001281734], [-73.34329798867759, 40.907106027262614], [-73.3430410552563, 40.90677796267237], [-73.34279496490707, 40.90649599335082], [-73.34268797405022, 40.90639203629931], [-73.34226503719741, 40.90593196078907], [-73.3421640536517, 40.90581097472392], [-73.34207803635618, 40.90564696613882], [-73.34204395223843, 40.90550000849515], [-73.3420330032596, 40.905348969684304], [-73.34205199162496, 40.90523997760468], [-73.34205895897217, 40.90521296418748], [-73.34213998417903, 40.90503496329344], [-73.34222795220121, 40.90492597216477], [-73.34273205153052, 40.90448904241483], [-73.34281097097565, 40.90438100170016], [-73.34284399408693, 40.90428995664464], [-73.34320405429409, 40.902873963367426], [-73.34321797035852, 40.90271598554149], [-73.343144017045, 40.90188800240461], [-73.34310500402637, 40.90159603786957], [-73.34305296861335, 40.90139297379322], [-73.34298603254615, 40.901296979028]]]}}, {"type": "Feature", "properties": {"route_id": "244539011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "244539", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:11:23Z", "created_by": "ELRS", "global_id": "{379716FC-8B23-4ECD-BC58-668CEDCE8133}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:17.324Z", "model_edited_date": "2019-07-12T15:52:17.324Z", "pk": "466786"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34145295593429, 40.91567900928101], [-73.33939494794217, 40.915609029568984], [-73.3392689781573, 40.91563198658543], [-73.33918897925881, 40.915659028681944], [-73.33898000242846, 40.915776993170006]]]}}, {"type": "Feature", "properties": {"route_id": "245047011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "245047", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:11:23Z", "created_by": "ELRS", "global_id": "{B4FFF928-45CE-432B-A62C-4290EF2967A7}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:18.315Z", "model_edited_date": "2019-07-12T15:52:18.315Z", "pk": "467270"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.33888694843455, 40.91692297912098], [-73.33868400897921, 40.91778597699189]]]}}, {"type": "Feature", "properties": {"route_id": "254568011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254568", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{788CFFAB-31BB-4AE7-A783-0235EE7900E3}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.310Z", "model_edited_date": "2019-07-12T15:52:30.310Z", "pk": "473446"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34587200304277, 40.90532195949705], [-73.34484601838714, 40.904758027014005], [-73.34452094372936, 40.904582030672074], [-73.34414698593002, 40.90436200364424], [-73.344080946133, 40.90428701069061], [-73.34404898115268, 40.90419296008017], [-73.3440559679782, 40.90410802636465], [-73.34408804536412, 40.90403101959643], [-73.34417200468954, 40.90395403730264], [-73.34472798816958, 40.90363999017963], [-73.34523604097497, 40.90337200316199]]]}}, {"type": "Feature", "properties": {"route_id": "254569011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254569", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{0E42D2C8-03EF-4ACB-8A6D-6BAE963E3BE1}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.312Z", "model_edited_date": "2019-07-12T15:52:30.312Z", "pk": "473447"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35105102534206, 40.908140025714275], [-73.35131198070292, 40.907486004759576], [-73.35173397365998, 40.906681962740635], [-73.3518679880719, 40.90638202556944], [-73.35190697776558, 40.90631799664643], [-73.35200300468291, 40.90620902312683], [-73.35217897945448, 40.90606002631002]]]}}, {"type": "Feature", "properties": {"route_id": "254577011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254577", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{47189C47-E2A5-489F-B0D6-B1CCBF6CA114}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.322Z", "model_edited_date": "2019-07-12T15:52:30.322Z", "pk": "473453"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34760998210801, 40.911285030513724], [-73.347636002103, 40.91125099349248], [-73.34772497352603, 40.91105400607273], [-73.3477590298708, 40.91090703581961], [-73.34776498952928, 40.91074398926937], [-73.34777395433677, 40.91058900275695], [-73.3478410482116, 40.91041701372703], [-73.34786404829048, 40.910323031240104], [-73.3479209788943, 40.91031601021407], [-73.3479940527933, 40.91027102723461], [-73.34801300049008, 40.9102110362828], [-73.34799994590699, 40.910144011058115], [-73.34794701192641, 40.91010496925301], [-73.34786800072902, 40.9100879832657], [-73.34778895512639, 40.9101009928374], [-73.34774600738118, 40.9101329857457], [-73.34772995743782, 40.91019103645641], [-73.34775095034959, 40.91027303840817], [-73.34778705689165, 40.91030598406177], [-73.34786404829048, 40.910323031240104]]]}}, {"type": "Feature", "properties": {"route_id": "254584011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254584", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{1163AB7D-95FA-4F13-9738-E15F42F48B44}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.334Z", "model_edited_date": "2019-07-12T15:52:30.334Z", "pk": "473459"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34905298015677, 40.90526297136008], [-73.3502609817541, 40.904256971006895]]]}}, {"type": "Feature", "properties": {"route_id": "254585011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254585", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{1574CC01-B601-4EBB-982F-A54B277B8544}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.335Z", "model_edited_date": "2019-07-12T15:52:30.335Z", "pk": "473460"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35075003112473, 40.91440796948324], [-73.35097903435224, 40.91439097754296], [-73.35118502250252, 40.91435401892091], [-73.35133204246058, 40.91429603914343], [-73.35145198671445, 40.914219025803256], [-73.35288201458049, 40.91280298497702]]]}}, {"type": "Feature", "properties": {"route_id": "254586011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254586", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{9A26A96A-F4C4-4C38-8206-67E55444F9E8}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.337Z", "model_edited_date": "2019-07-12T15:52:30.337Z", "pk": "473461"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34760998210801, 40.911285030513724], [-73.34750396716662, 40.911413043749086], [-73.34710001111982, 40.91172802218774], [-73.34689699062062, 40.91185104094097], [-73.34646197380236, 40.91205900902946], [-73.3461099902725, 40.912194032131076], [-73.34574204973399, 40.91230702622962], [-73.34551203212229, 40.91238398541818], [-73.34510505781243, 40.91256703873246], [-73.34475297249585, 40.912763039225446], [-73.34448904154387, 40.91293796507242], [-73.34425904901568, 40.91312797039944], [-73.34407496933378, 40.913290980662936], [-73.34374902329202, 40.91362400227907], [-73.34325600307103, 40.91413297723904], [-73.34305204539542, 40.91438803042758], [-73.34297296573448, 40.91452102046625], [-73.34285594155988, 40.91480398588729], [-73.34279902859329, 40.91500503328487], [-73.34276099042069, 40.91519202951541]]]}}, {"type": "Feature", "properties": {"route_id": "254591011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254591", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{EBDA7D90-B095-4191-BF39-0E4927C99DC3}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.346Z", "model_edited_date": "2019-07-12T15:52:30.346Z", "pk": "473466"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34205199162496, 40.90523997760468], [-73.34159700499652, 40.90514596786756], [-73.34101102492052, 40.905044036297156], [-73.3408910301073, 40.90503303155475], [-73.34063901145517, 40.90504102484361], [-73.33973397785792, 40.905064027229876], [-73.3388150405578, 40.90509700104006], [-73.33793005741722, 40.90513000660298], [-73.33705205340252, 40.90516400681038], [-73.33686094140587, 40.9051719695078], [-73.33617497334986, 40.90519900451836], [-73.33570898960521, 40.90520299831467], [-73.33559403222495, 40.905189988971074], [-73.33549804799321, 40.90515896751407]]]}}, {"type": "Feature", "properties": {"route_id": "254592011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254592", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{FF82E3BB-7FEA-41BA-868D-FDF98B5F0FDF}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.348Z", "model_edited_date": "2019-07-12T15:52:30.348Z", "pk": "473467"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.33816894716766, 40.90939199534187], [-73.33827201763816, 40.909879994066635], [-73.33843000917447, 40.91090601133538], [-73.33863602249006, 40.912190974760726], [-73.33866699878888, 40.912238982473575], [-73.33874297162252, 40.91229196230807], [-73.33887296961527, 40.912344999875714], [-73.33901404958206, 40.91236802072122], [-73.33933205326802, 40.91239097767973], [-73.33964404938602, 40.91239303915488], [-73.3401609480734, 40.912411021200256], [-73.34036701853081, 40.91240398909291], [-73.34050297461269, 40.912366041417734], [-73.34056799649878, 40.91232995512963], [-73.34069402789983, 40.91223304323531], [-73.34143796171324, 40.91139097614966], [-73.34151602184647, 40.911236984176135], [-73.34154403112586, 40.91111397976096], [-73.34152497507391, 40.9109500332947], [-73.34139700269516, 40.9105879690479]]]}}, {"type": "Feature", "properties": {"route_id": "254595011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254595", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{BC713242-AD4A-4F21-A698-D992E27D332C}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.354Z", "model_edited_date": "2019-07-12T15:52:30.354Z", "pk": "473470"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34694497150967, 40.90443404131961], [-73.34645103852958, 40.904058987971226], [-73.34602999965406, 40.90377001230425], [-73.3458700085576, 40.90366800019577], [-73.34558797808702, 40.903518026510774], [-73.34529601127322, 40.903399977473036], [-73.34523604097497, 40.90337200316199], [-73.34514795703696, 40.90330498164308], [-73.3450250368864, 40.90313999510991], [-73.34489901377152, 40.902909026453244], [-73.34488500034367, 40.902813972647415], [-73.34489097798952, 40.90279802448769]]]}}, {"type": "Feature", "properties": {"route_id": "254601011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254601", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{C604B3FF-1510-494B-B81A-D462D3FCE744}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.361Z", "model_edited_date": "2019-07-12T15:52:30.361Z", "pk": "473474"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35297704467756, 40.90712796009692], [-73.35217897945448, 40.90606002631002], [-73.35202702410409, 40.905848962440636], [-73.35179604312638, 40.905506965589986], [-73.35176204017883, 40.905418022422495]]]}}, {"type": "Feature", "properties": {"route_id": "254602011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254602", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{288E56C0-6227-41C6-A900-88279D595E06}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.363Z", "model_edited_date": "2019-07-12T15:52:30.363Z", "pk": "473475"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35050101620803, 40.913114034497454], [-73.34990394862189, 40.91344499595122], [-73.34934805308305, 40.91373402675888], [-73.34927298326892, 40.91373502374449], [-73.34919201685742, 40.91370098584918], [-73.34911603022518, 40.91356703223032], [-73.34881799038406, 40.91302301462504]]]}}, {"type": "Feature", "properties": {"route_id": "254606011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254606", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{61B9587E-BB81-49CA-9D5A-97903E415DFA}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.377Z", "model_edited_date": "2019-07-12T15:52:30.377Z", "pk": "473479"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35103400516542, 40.90479201595418], [-73.34981594357514, 40.905792025250705]]]}}, {"type": "Feature", "properties": {"route_id": "254612011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254612", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{8797D2A4-4988-48C3-9FAF-CAA28FDE6990}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.387Z", "model_edited_date": "2019-07-12T15:52:30.387Z", "pk": "473485"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35068604562409, 40.916657030855305], [-73.3510269553698, 40.91664803528496], [-73.35119003973317, 40.91660803093091], [-73.35132696597726, 40.916555041314176], [-73.35145102645231, 40.916475024222116], [-73.35155502045788, 40.91637102947906], [-73.35162002574022, 40.91628296153149], [-73.35240401635326, 40.91514395772542], [-73.35264196951998, 40.91486703417465], [-73.35335497890873, 40.914070027692375], [-73.3534479608671, 40.913931013556265], [-73.35351101954309, 40.91372500408265], [-73.353514058757, 40.91352597425919], [-73.35346499668404, 40.91334502674061], [-73.35338997812327, 40.91321000877829], [-73.35327501867887, 40.91307198817616], [-73.35314395167495, 40.912961031127864], [-73.35288201458049, 40.91280298497702], [-73.35237903162462, 40.91251601453542], [-73.351771001542, 40.91215601794569], [-73.35171999308662, 40.91215402761516]]]}}, {"type": "Feature", "properties": {"route_id": "254614011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254614", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{155ECD76-06C9-4F7D-A642-FAC09B38166D}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.390Z", "model_edited_date": "2019-07-12T15:52:30.390Z", "pk": "473487"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35177794872995, 40.900771008751605], [-73.35079499022557, 40.900998993995486], [-73.35064598653899, 40.90105199065271], [-73.35056504091574, 40.90111803128468], [-73.35052602415685, 40.90118800461183], [-73.35050004866214, 40.90127302745763], [-73.35038803639621, 40.9018200032022], [-73.35034796887822, 40.90189401495861], [-73.35028094973062, 40.90194899481492], [-73.35017996133753, 40.90199502118215], [-73.34987700187875, 40.902108958783906], [-73.3495860371041, 40.902279996904134], [-73.34940199226247, 40.90240995785156], [-73.34843694524035, 40.90320504320708], [-73.34836205654817, 40.90326603453284], [-73.34694497150967, 40.90443404131961], [-73.34587200304277, 40.90532195949705], [-73.34527204906364, 40.90582301435296], [-73.3444430318321, 40.90650597829239], [-73.34371100672918, 40.907103043528636], [-73.34345197095803, 40.90733001281734]]]}}, {"type": "Feature", "properties": {"route_id": "254617011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254617", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{C2D999D3-488E-488F-8B29-9783CF8CA56B}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.395Z", "model_edited_date": "2019-07-12T15:52:30.395Z", "pk": "473490"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34827194213155, 40.90472599682627], [-73.34905298015677, 40.90526297136008], [-73.34981594357514, 40.905792025250705], [-73.35066702152342, 40.90638295744824]]]}}, {"type": "Feature", "properties": {"route_id": "254618011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254618", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{2E8317D8-58F6-43B3-B4AC-F848814B033D}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.397Z", "model_edited_date": "2019-07-12T15:52:30.397Z", "pk": "473491"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35050101620803, 40.913114034497454], [-73.35077699055653, 40.912946022967155], [-73.35108904672747, 40.91272601111906], [-73.3513639525656, 40.91249096455719], [-73.35165498882988, 40.91220399255237], [-73.35171999308662, 40.91215402761516], [-73.35194661289309, 40.911930062533585]]]}}, {"type": "Feature", "properties": {"route_id": "254629011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254629", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{0E45ECFD-9DE8-42D9-810E-71FCA701F362}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.414Z", "model_edited_date": "2019-07-12T15:52:30.414Z", "pk": "473501"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.3525239510509, 40.902010972623714], [-73.35232896313246, 40.90209898547578], [-73.35199098395712, 40.90229899366687], [-73.35175895090484, 40.902454034931786], [-73.35147699822603, 40.90263997954484], [-73.35066704925094, 40.90311400936178], [-73.35044295218431, 40.903217005993454], [-73.35002999281234, 40.90338098511431], [-73.34978803801664, 40.903504983429656], [-73.3497160343359, 40.90355502735177], [-73.34951494969914, 40.90371600177926], [-73.34927000085601, 40.90390301107651], [-73.34867899762604, 40.90439898756949], [-73.34827194213155, 40.90472599682627], [-73.346908946062, 40.90584703602768], [-73.34630504183322, 40.906359029166914], [-73.3455769806266, 40.90695499219641], [-73.3448230227384, 40.90758904221643], [-73.34459295460846, 40.90774004342955], [-73.34440502642092, 40.907839043510684], [-73.34413599956511, 40.90796201044031], [-73.343932951795, 40.90803403930714]]]}}, {"type": "Feature", "properties": {"route_id": "254637011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254637", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{21C267B6-636F-44C6-948B-15F70024EACF}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.425Z", "model_edited_date": "2019-07-12T15:52:30.425Z", "pk": "473507"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.3444430318321, 40.90650597829239], [-73.34388596946852, 40.90612000885096], [-73.34336905846286, 40.90578100403932], [-73.34311901878154, 40.905605000943616], [-73.34295694642776, 40.90551502542073], [-73.34292596996313, 40.90546701880758], [-73.34292374260258, 40.905436682609164]]]}}, {"type": "Feature", "properties": {"route_id": "254638011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254638", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{368D981C-B03C-4E3F-9F8F-164DB3DE18FE}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.427Z", "model_edited_date": "2019-07-12T15:52:30.427Z", "pk": "473508"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35176204017883, 40.905418022422495], [-73.35209403599006, 40.905364036880215], [-73.35228697745477, 40.905311035807614], [-73.35244302719678, 40.90529497989573], [-73.35254602155712, 40.90530699080084], [-73.3525779685843, 40.90532095905845], [-73.35266305390735, 40.90540396605309], [-73.35312794964385, 40.90601800677811], [-73.35357201791844, 40.906620037989576], [-73.35366397372316, 40.90676601713398], [-73.35366595473988, 40.90682495674893], [-73.35362798622992, 40.906867021701494], [-73.35297704467756, 40.90712796009692], [-73.35243503291665, 40.907310011366924], [-73.35206500856417, 40.90740804312537], [-73.35173195453316, 40.907465976840975], [-73.35152099163854, 40.90748899337456], [-73.35131198070292, 40.907486004759576]]]}}, {"type": "Feature", "properties": {"route_id": "254639011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254639", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{5F03F5C5-C9E2-4CE4-B028-F0D7F7563366}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.429Z", "model_edited_date": "2019-07-12T15:52:30.429Z", "pk": "473509"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.3430410552563, 40.90677796267237], [-73.34283797775403, 40.90683701791639], [-73.34153995229342, 40.9071059741007], [-73.34143797605621, 40.90711495626955], [-73.3413670481869, 40.90711204427455], [-73.34079904407457, 40.9069980294368], [-73.34051804806262, 40.90694903617568], [-73.34024498856078, 40.9069340259589], [-73.34003997332435, 40.90694701830258], [-73.33773198944272, 40.90721696971915], [-73.33760595729021, 40.90726199332394], [-73.33749897657421, 40.90733800822944], [-73.33743200795138, 40.90743297600975], [-73.3374029418417, 40.90756001775452], [-73.33741804096664, 40.90798099151874], [-73.33743298449619, 40.908066961606124], [-73.3374759464806, 40.90817198193638], [-73.33757194538201, 40.908250022869936], [-73.33768495866519, 40.908283990488265], [-73.33784800263922, 40.908283008252745], [-73.33791902426994, 40.9082679981773], [-73.33816900937003, 40.90818999070571], [-73.3385790397322, 40.908078978379656], [-73.33917997684844, 40.90793999804475], [-73.33981205611624, 40.907809029581855], [-73.34037303344262, 40.907681988478636], [-73.34050103794796, 40.907634017647354], [-73.3406120338406, 40.9075540042052], [-73.34066498808664, 40.90747801955735], [-73.34079904407457, 40.9069980294368]]]}}, {"type": "Feature", "properties": {"route_id": "254640011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254640", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{3BFDCC8D-9700-43F5-9394-B828120FD5F3}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.430Z", "model_edited_date": "2019-07-12T15:52:30.430Z", "pk": "473510"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34722600914341, 40.902759998215316], [-73.34669497259452, 40.90322196382402], [-73.34602999965406, 40.90377001230425], [-73.34511505663754, 40.90451498387312], [-73.34484601838714, 40.904758027014005]]]}}, {"type": "Feature", "properties": {"route_id": "254644011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254644", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{2E52CAC9-59E3-4587-AC23-AC04392A94F3}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.436Z", "model_edited_date": "2019-07-12T15:52:30.436Z", "pk": "473513"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34488899000222, 40.910232979404995], [-73.34460698040482, 40.910242982845126], [-73.34314595176814, 40.91040404431097], [-73.34259998664659, 40.91045699994034], [-73.34139700269516, 40.9105879690479], [-73.34032403488244, 40.91069503486359], [-73.33846996110263, 40.91089902052792], [-73.33843000917447, 40.91090601133538], [-73.33813597561615, 40.91097401622487], [-73.33781495407145, 40.91108603988452], [-73.3372479927885, 40.91126099373953], [-73.33673999064274, 40.91143796639173], [-73.33651902425068, 40.91154197159034], [-73.33633095868065, 40.91165500856389], [-73.33608801272953, 40.91182102993765], [-73.33593397863528, 40.91189798560747], [-73.3356519463556, 40.91198903721885], [-73.3354289968731, 40.91202995687163], [-73.33514396323798, 40.91205601745464], [-73.33494605187926, 40.91205496093391], [-73.33479594874464, 40.91203198494762], [-73.33478999242712, 40.91202802555177]]]}}, {"type": "Feature", "properties": {"route_id": "254646011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254646", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{4CB65C19-87F1-43F5-8E48-B07F45471C21}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.444Z", "model_edited_date": "2019-07-12T15:52:30.444Z", "pk": "473515"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34630504183322, 40.906359029166914], [-73.34756199112209, 40.90723297625137], [-73.3478579890398, 40.90745700958063], [-73.34799398526609, 40.907579032842605], [-73.34803794481329, 40.90767802836047]]]}}, {"type": "Feature", "properties": {"route_id": "254653011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254653", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{A9CBE553-A626-40F3-930C-4C92DCFC0688}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.454Z", "model_edited_date": "2019-07-12T15:52:30.454Z", "pk": "473521"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34945005140855, 40.91203003331848], [-73.3501500017277, 40.91128096125363], [-73.35023200583983, 40.911148998841774], [-73.35029296258354, 40.91102304069359]]]}}, {"type": "Feature", "properties": {"route_id": "254660011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254660", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{82B6FA6C-6828-4179-B824-8CFD38FDDF98}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.465Z", "model_edited_date": "2019-07-12T15:52:30.465Z", "pk": "473527"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.33981205611624, 40.907809029581855], [-73.33996400274485, 40.90873100770017], [-73.33999198330272, 40.90889400201672], [-73.34012005264883, 40.9096599806112], [-73.34032403488244, 40.91069503486359]]]}}, {"type": "Feature", "properties": {"route_id": "254661011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254661", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{87E51752-5392-4D13-B7CC-D9C7415D36D5}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.467Z", "model_edited_date": "2019-07-12T15:52:30.467Z", "pk": "473528"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34259998664659, 40.91045699994034], [-73.34254899525183, 40.91024998745772], [-73.3419630533026, 40.90847197290989]]]}}, {"type": "Feature", "properties": {"route_id": "254663011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254663", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{DB431AB3-FF06-4A68-A9E2-940AADC136CF}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.470Z", "model_edited_date": "2019-07-12T15:52:30.470Z", "pk": "473530"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34812196999634, 40.91687497247145], [-73.34794400698782, 40.91607703102212], [-73.34781797017831, 40.91564501087101], [-73.34772902474543, 40.91546402994723], [-73.34725704416762, 40.914661963332684], [-73.34654597210975, 40.91341499210754], [-73.34636601564948, 40.91314595938196], [-73.34574204973399, 40.91230702622962]]]}}, {"type": "Feature", "properties": {"route_id": "254666011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254666", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{9F93BC13-39CB-4E41-BAA2-9221EB8905EC}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.477Z", "model_edited_date": "2019-07-12T15:52:30.477Z", "pk": "473533"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.33285904663794, 40.90983103469636], [-73.3329450552519, 40.90983398984161], [-73.33309795657685, 40.90982097735482], [-73.3333329555073, 40.90978699222913], [-73.33348598344081, 40.90975002022684], [-73.33377098977675, 40.90964901814231], [-73.3341500088307, 40.90947803173367], [-73.33441894897553, 40.90936895907888], [-73.33466696418508, 40.909312999990405], [-73.33490905389566, 40.909284969147], [-73.33506799349873, 40.9092820399367], [-73.3352990308807, 40.9092969961852], [-73.33705097883463, 40.909547024421386], [-73.33722797330387, 40.90955804455681], [-73.33748204873463, 40.909553961847024], [-73.3376980202784, 40.90952104460129], [-73.33816894716766, 40.90939199534187], [-73.33913994782783, 40.909083957093], [-73.33999198330272, 40.90889400201672], [-73.3419630533026, 40.90847197290989], [-73.34357699305734, 40.90813395723946], [-73.34379003894676, 40.90807999823004], [-73.343932951795, 40.90803403930714]]]}}, {"type": "Feature", "properties": {"route_id": "254673011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254673", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{87456DAB-4013-4D1B-B492-231983A8B3D7}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.487Z", "model_edited_date": "2019-07-12T15:52:30.487Z", "pk": "473539"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34908698658163, 40.90778097099973], [-73.34944799723087, 40.907467982714955], [-73.35009596997463, 40.90688300966555], [-73.35066702152342, 40.90638295744824], [-73.35104000126901, 40.90603203205793], [-73.35176204017883, 40.905418022422495], [-73.35179496984316, 40.90529202296925], [-73.35173897863264, 40.904725979979325], [-73.35174400757231, 40.90464299949502], [-73.35177698461857, 40.904538979861655], [-73.35187895476783, 40.90437703512499], [-73.35205298882249, 40.904196032822526], [-73.35213894836248, 40.90412898190718], [-73.35246603484289, 40.903909000459166], [-73.35332497782056, 40.903378998389115]]]}}, {"type": "Feature", "properties": {"route_id": "254674011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254674", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{CFCC0A1A-F23B-4AAE-B54B-13DD11080BAF}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.489Z", "model_edited_date": "2019-07-12T15:52:30.489Z", "pk": "473540"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35066721129891, 40.917401989227365], [-73.35066999890233, 40.91712097486375], [-73.35068604562409, 40.916657030855305], [-73.35075003112473, 40.91440796948324], [-73.35075096945657, 40.91392597361588], [-73.35072296611969, 40.91367200243232], [-73.35066897298177, 40.913469994963464], [-73.35050101620803, 40.913114034497454], [-73.3502820478872, 40.91276103707241], [-73.35006102190349, 40.912509978498655], [-73.34986100261985, 40.91233101263058], [-73.3496879935477, 40.912188014007086], [-73.34945005140855, 40.91203003331848], [-73.34919002822164, 40.91189101274846], [-73.34890997771824, 40.911759991997336], [-73.34851704412107, 40.911617985500854], [-73.3479120449415, 40.91141402780335], [-73.34760998210801, 40.911285030513724], [-73.3462369655337, 40.910643983436515], [-73.34594801382977, 40.91049895576358], [-73.34574201954564, 40.910346019779425], [-73.3455899601001, 40.91019196573778], [-73.3454710563792, 40.910012985201206], [-73.34533894197963, 40.909740043345494], [-73.34523804822103, 40.909615007754255], [-73.34512800718764, 40.90951398178632], [-73.34497302877068, 40.90941996731344], [-73.34470096455256, 40.90929796877254]]]}}, {"type": "Feature", "properties": {"route_id": "254677011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254677", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{6F7C3280-EFC6-452F-B383-70555DD12EBF}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.494Z", "model_edited_date": "2019-07-12T15:52:30.494Z", "pk": "473543"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35176204017883, 40.905418022422495], [-73.35170602696802, 40.90526399814841], [-73.35161603924985, 40.90519200001713], [-73.35103400516542, 40.90479201595418], [-73.35079299989265, 40.90463399415576], [-73.35039799695278, 40.90435702691044], [-73.3502609817541, 40.904256971006895], [-73.34951494969914, 40.90371600177926]]]}}, {"type": "Feature", "properties": {"route_id": "254678011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254678", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{400F0617-712C-4EA5-9618-A276D97DE779}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.496Z", "model_edited_date": "2019-07-12T15:52:30.496Z", "pk": "473544"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.35068604562409, 40.916657030855305], [-73.35011605956008, 40.91665698237247], [-73.34972405052103, 40.91667704407294], [-73.348404017194, 40.9168359558962], [-73.34812196999634, 40.91687497247145], [-73.34763702414838, 40.91695999304295], [-73.34745497668769, 40.916965040393784], [-73.34730698497359, 40.916952019528196], [-73.34706894873706, 40.91690699082007], [-73.34688103939986, 40.91682800025195], [-73.34571801683748, 40.916114021909536], [-73.34557500795951, 40.91600603772353], [-73.34548500609914, 40.91590097595073], [-73.34457096784304, 40.914304008229905], [-73.34441695432025, 40.9140900225681], [-73.34430603905896, 40.91398096633321], [-73.34410097565252, 40.91383803952778], [-73.34397098906759, 40.91375095839674], [-73.34374902329202, 40.91362400227907]]]}}, {"type": "Feature", "properties": {"route_id": "254683011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "254683", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{71F81BB5-816E-4590-B2CB-EEB78D30F982}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:30.505Z", "model_edited_date": "2019-07-12T15:52:30.505Z", "pk": "473549"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.34281097097565, 40.90438100170016], [-73.34326102221824, 40.904605999859385], [-73.34428496587836, 40.90517496147677], [-73.34458094185467, 40.90536098978268], [-73.34527204906364, 40.90582301435296]]]}}, {"type": "Feature", "properties": {"route_id": "261790011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "261790", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{1C6C7471-151C-4BD1-ACAC-C5C84E2F81F4}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:31.821Z", "model_edited_date": "2019-07-12T15:52:31.821Z", "pk": "474233"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.3560280015714, 40.90863996288582], [-73.354579957287, 40.90906996879083], [-73.35436804137844, 40.9091360344116]]]}}, {"type": "Feature", "properties": {"route_id": "261791011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "261791", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:52:07Z", "created_by": "ELRS", "global_id": "{7D7CFE35-B948-4524-8A79-0204077AA61E}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:31.822Z", "model_edited_date": "2019-07-12T15:52:31.822Z", "pk": "474234"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.354579957287, 40.90906996879083], [-73.35473900346247, 40.909441019699436], [-73.35481800681802, 40.909716976412355], [-73.35485497395847, 40.90997395724477]]]}}]};
+
+	var map = L.map('map').setView([40.913760149999995, -73.34675825], 17.0);
+	var layer = L.esri.basemapLayer('Streets').addTo(map);
+	var layerLabels;
+
+	function setBasemap(basemap) {
+		if (layer) {
+			map.removeLayer(layer);
+		}
+		if (!basemap.includes('Default')) {
+			layer = L.esri.basemapLayer(basemap);
+			map.addLayer(layer);
+		}
+
+		if (layerLabels) {
+			map.removeLayer(layerLabels);
+		}
+
+		if (basemap.includes('Imagery')) {
+			layerLabels = L.esri.basemapLayer('ImageryLabels');
+			map.addLayer(layerLabels);
+		}
+
+		if (basemap === 'Default') {
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+				maxZoom: 18,
+				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+					'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+					'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+				id: 'mapbox.streets'
+			}).addTo(map);
+		}
+	}
+
+	function changeBasemap(basemaps) {
+		var basemap = basemaps.value;
+		setBasemap(basemap);
+	}
+
+	// var myMay = L.map('map', )
+	// var geojsonlayer = L.geoJson.ajax('data/milepoint.geojson');
+	// console.log(geojsonlayer);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets'
+	}).addTo(map);
+
+	function getMilepointColor(x) {
+		switch(x){
+			case 1:
+				return '#0483bb';
+			case 2:
+				return '#4bb1e7';
+			case 3:
+				return '#88d2f2';
+			case 5:
+				return '#8f12c7';
+		}
+	};
+	L.geoJSON(myRoutes, {style: function(feature) {
+		return { 'color': getMilepointColor(feature.properties.roadway_type) };
+	}}).bindPopup(function (layer) {
+		return '<dl>'.concat(
+			'<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
+			'<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
+			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order, '</dd>',
+			'<dt>Roadway Type:</dt> <dd>', layer.feature.properties.roadway_type, '</dd>',
+			'<dt>Route Signing:</dt> <dd>', layer.feature.properties.roadway_signing, '</dd>',
+			'<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
+			'<dt>Route Suffix:</dt> <dd>', layer.feature.properties.route_suffix, '</dd>',
+			'<dt>Direction Code:</dt> <dd>', layer.feature.properties.direction, '</dd>',
+			'<dt>County:</dt> <dd>', layer.feature.properties.county, '</dd>',
+			'<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
+			'</dl>');
+		// return `
+		// 	<dl>
+		// 	<dt>Route ID:</dt> <dd>${layer.feature.properties.route_id}</dd>
+		// 	<dt>From Date:</dt> <dd>${layer.feature.properties.from_date}</dd>
+		// 	<dt>County Order:</dt> <dd>${layer.feature.properties.county_order}</dd>
+		// 	<dt>Roadway Type:</dt> <dd>${layer.feature.properties.roadway_type}</dd>
+		// 	<dt>Route Signing:</dt> <dd>${layer.feature.properties.roadway_signing}<dd>
+		// 	<dt>Route Number:</dt> <dd>${layer.feature.properties.route_number}</dd>
+		// 	<dt>Route Suffix:</dt> <dd>${layer.feature.properties.route_suffix}</dd>
+		// 	<dt>Direction Code:</dt> <dd>${layer.feature.properties.direction}</dd>
+		// 	<dt>County:</dt> <dd>${layer.feature.properties.county}</dd>
+		// 	<dt>Parkway:</dt> <dd>${layer.feature.properties.parkway_flag}</dd>
+		// 	</dl>`;
+		}).addTo(map);
+	
+	L.geoJSON(myWays).setStyle({
+		color: '#ffff7f',
+		dashArray: '4',
+	}).bindPopup(
+		function(layer) {
+			return '<dl>'.concat(
+				'<dt>OSM ID:</dt> <dd>', layer.feature.properties.osm_id , '</dd>',
+				'<dt>Tags:</dt> <dd>', layer.feature.properties.tags , '</dd>',
+				'<dt>Meta:</dt> <dd>', layer.feature.properties.meta, '</dd>',
+				'<dt>OSM Feature Type:</dt> <dd>', layer.feature.properties.type , '</dd>',
+				'<dt>Tainted:</dt> <dd>', layer.feature.properties.tainted, '</dd>',
+				'</dl>');
+			// return `<dl>
+			// <dt>OSM ID:</dt> <dd>${layer.feature.properties.osm_id}<dd>
+			// <dt>Tags:</dt> <dd>${layer.feature.properties.tags}<dd>
+			// <dt>Meta:</dt> <dd>${layer.feature.properties.meta}<dd>
+			// <dt>OSM Feature Type</dt> <dd>${layer.feature.properties.type}<dd>
+			// </dl>`;
+		}
+	).addTo(map);
+
+	// var layer = L.esri.basemapLayer('Imagery').addTo(map);
+	// var layerLabels = L.esri.basemapLayer('ImageryLabels');
+	// map.addLayer(layer);
+	// map.addLayer(layerLabels);
+	// mymap.on('click', onMapClick);
+
+</script>
+
+</body>
+</html>

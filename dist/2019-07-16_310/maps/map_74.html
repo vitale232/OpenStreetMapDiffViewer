@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>OSM Diff 310 - 2019-07-16</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+
+	
+	<!-- ESRI Leaflet -->
+	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<style>
+		body {
+			padding: 2px;
+			padding-top: 65px;
+			margin: 0;
+		}
+		html, body, #map {
+			/* height: 95%;
+			width: 100vw; */
+			width: calc( 100vw - 64px );
+			height: calc( 100vh - 100px );
+			margin: auto;
+		}
+		#basemaps-picker {
+			position: absolute;
+			top: 75px;
+			right: 35px;
+			z-index: 400;
+			background: white;
+			padding: 10px;
+		}
+		.dropdown-menu {
+			overflow-y: scroll;
+			max-height: 800px;
+		}
+	</style>
+	
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<!-- Navbar Container -->
+	<div class="container">
+
+		<!-- Navbar Header [contains both toggle button and navbar brand] -->
+		<div class="navbar-header">
+			<!-- Toggle Button [handles opening navbar components on mobile screens]-->
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded="false">
+				<i class="glyphicon glyphicon-align-center"></i>
+			</button>
+
+			<!-- Navbar Brand -->
+			<p class="navbar-brand">
+				OSM Diff 310:74 Processed 2019-07-16
+			</p>
+		</div>
+
+
+		<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
+		<div class="collapse navbar-collapse" id="exampleNavComponents">
+
+			<!-- Navbar Menu -->
+			<ul class="nav navbar-nav navbar-right">
+
+				<!-- Navbar link with a dropdown menu -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						More Maps from this Diff
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="../index.html"><b>Home</b></a></li>
+						
+						<li><a href="./map_0.html">Diff 310:0</a></li>
+						
+						<li><a href="./map_1.html">Diff 310:1</a></li>
+						
+						<li><a href="./map_2.html">Diff 310:2</a></li>
+						
+						<li><a href="./map_3.html">Diff 310:3</a></li>
+						
+						<li><a href="./map_4.html">Diff 310:4</a></li>
+						
+						<li><a href="./map_5.html">Diff 310:5</a></li>
+						
+						<li><a href="./map_6.html">Diff 310:6</a></li>
+						
+						<li><a href="./map_7.html">Diff 310:7</a></li>
+						
+						<li><a href="./map_8.html">Diff 310:8</a></li>
+						
+						<li><a href="./map_9.html">Diff 310:9</a></li>
+						
+						<li><a href="./map_10.html">Diff 310:10</a></li>
+						
+						<li><a href="./map_11.html">Diff 310:11</a></li>
+						
+						<li><a href="./map_12.html">Diff 310:12</a></li>
+						
+						<li><a href="./map_13.html">Diff 310:13</a></li>
+						
+						<li><a href="./map_14.html">Diff 310:14</a></li>
+						
+						<li><a href="./map_15.html">Diff 310:15</a></li>
+						
+						<li><a href="./map_16.html">Diff 310:16</a></li>
+						
+						<li><a href="./map_17.html">Diff 310:17</a></li>
+						
+						<li><a href="./map_18.html">Diff 310:18</a></li>
+						
+						<li><a href="./map_19.html">Diff 310:19</a></li>
+						
+						<li><a href="./map_20.html">Diff 310:20</a></li>
+						
+						<li><a href="./map_21.html">Diff 310:21</a></li>
+						
+						<li><a href="./map_22.html">Diff 310:22</a></li>
+						
+						<li><a href="./map_23.html">Diff 310:23</a></li>
+						
+						<li><a href="./map_24.html">Diff 310:24</a></li>
+						
+						<li><a href="./map_25.html">Diff 310:25</a></li>
+						
+						<li><a href="./map_26.html">Diff 310:26</a></li>
+						
+						<li><a href="./map_27.html">Diff 310:27</a></li>
+						
+						<li><a href="./map_28.html">Diff 310:28</a></li>
+						
+						<li><a href="./map_29.html">Diff 310:29</a></li>
+						
+						<li><a href="./map_30.html">Diff 310:30</a></li>
+						
+						<li><a href="./map_31.html">Diff 310:31</a></li>
+						
+						<li><a href="./map_32.html">Diff 310:32</a></li>
+						
+						<li><a href="./map_33.html">Diff 310:33</a></li>
+						
+						<li><a href="./map_34.html">Diff 310:34</a></li>
+						
+						<li><a href="./map_35.html">Diff 310:35</a></li>
+						
+						<li><a href="./map_36.html">Diff 310:36</a></li>
+						
+						<li><a href="./map_37.html">Diff 310:37</a></li>
+						
+						<li><a href="./map_38.html">Diff 310:38</a></li>
+						
+						<li><a href="./map_39.html">Diff 310:39</a></li>
+						
+						<li><a href="./map_40.html">Diff 310:40</a></li>
+						
+						<li><a href="./map_41.html">Diff 310:41</a></li>
+						
+						<li><a href="./map_42.html">Diff 310:42</a></li>
+						
+						<li><a href="./map_43.html">Diff 310:43</a></li>
+						
+						<li><a href="./map_44.html">Diff 310:44</a></li>
+						
+						<li><a href="./map_45.html">Diff 310:45</a></li>
+						
+						<li><a href="./map_46.html">Diff 310:46</a></li>
+						
+						<li><a href="./map_47.html">Diff 310:47</a></li>
+						
+						<li><a href="./map_48.html">Diff 310:48</a></li>
+						
+						<li><a href="./map_49.html">Diff 310:49</a></li>
+						
+						<li><a href="./map_50.html">Diff 310:50</a></li>
+						
+						<li><a href="./map_51.html">Diff 310:51</a></li>
+						
+						<li><a href="./map_52.html">Diff 310:52</a></li>
+						
+						<li><a href="./map_53.html">Diff 310:53</a></li>
+						
+						<li><a href="./map_54.html">Diff 310:54</a></li>
+						
+						<li><a href="./map_55.html">Diff 310:55</a></li>
+						
+						<li><a href="./map_56.html">Diff 310:56</a></li>
+						
+						<li><a href="./map_57.html">Diff 310:57</a></li>
+						
+						<li><a href="./map_58.html">Diff 310:58</a></li>
+						
+						<li><a href="./map_59.html">Diff 310:59</a></li>
+						
+						<li><a href="./map_60.html">Diff 310:60</a></li>
+						
+						<li><a href="./map_61.html">Diff 310:61</a></li>
+						
+						<li><a href="./map_62.html">Diff 310:62</a></li>
+						
+						<li><a href="./map_63.html">Diff 310:63</a></li>
+						
+						<li><a href="./map_64.html">Diff 310:64</a></li>
+						
+						<li><a href="./map_65.html">Diff 310:65</a></li>
+						
+						<li><a href="./map_66.html">Diff 310:66</a></li>
+						
+						<li><a href="./map_67.html">Diff 310:67</a></li>
+						
+						<li><a href="./map_68.html">Diff 310:68</a></li>
+						
+						<li><a href="./map_69.html">Diff 310:69</a></li>
+						
+						<li><a href="./map_70.html">Diff 310:70</a></li>
+						
+						<li><a href="./map_71.html">Diff 310:71</a></li>
+						
+						<li><a href="./map_72.html">Diff 310:72</a></li>
+						
+						<li><a href="./map_73.html">Diff 310:73</a></li>
+						
+						<li><a href="./map_74.html">Diff 310:74</a></li>
+						
+						<li><a href="./map_75.html">Diff 310:75</a></li>
+						
+						<li><a href="./map_76.html">Diff 310:76</a></li>
+						
+						<li><a href="./map_77.html">Diff 310:77</a></li>
+						
+						<li><a href="./map_78.html">Diff 310:78</a></li>
+						
+						<li><a href="./map_79.html">Diff 310:79</a></li>
+						
+						<li><a href="./map_80.html">Diff 310:80</a></li>
+						
+						<li><a href="./map_81.html">Diff 310:81</a></li>
+						
+						<li><a href="./map_82.html">Diff 310:82</a></li>
+						
+						<li><a href="./map_83.html">Diff 310:83</a></li>
+						
+						<li><a href="./map_84.html">Diff 310:84</a></li>
+						
+						<li><a href="./map_85.html">Diff 310:85</a></li>
+						
+						<li><a href="./map_86.html">Diff 310:86</a></li>
+						
+						<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
+					</ul>
+				</li>
+			</ul>	
+		</div>
+	</div>
+</nav>
+
+<div id="map"></div>
+<div id="basemaps-picker" class="leaflet-bar">
+		<select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+		  <option value="Default">Default Basemap</option>
+		  <option value="ShadedRelief">Shaded Relief</option>
+		  <option value="Streets">Esri Streets</option>
+		  <option value="Imagery">Imagery</option>
+		  <option value="ImageryClarity">Imagery (Clarity)</option>
+		  <option value="ImageryFirefly">Imagery (Firefly)</option>
+		  <option value="Physical">Physical</option>
+		</select>
+	  </div>
+<script>
+	var myWays = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"diff_id": 310, "osm_id": 20238824, "tags": "{'name': 'Beach Drive', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Suffolk, NY', 'tiger:reviewed': 'no', 'tiger:name_base': 'Beach', 'tiger:name_type': 'Dr'}", "meta": "{'version': '3', 'changeset': '0', 'timestamp': '2019-07-15T10:55:43Z'}", "tainted": true, "type": 0, "created_date": "2019-07-16", "pk": "561"}, "geometry": {"type": "LineString", "coordinates": [[-73.4436376, 40.9344266], [-73.4422558, 40.934538], [-73.4421298, 40.9345481], [-73.4417863, 40.934571], [-73.4416759, 40.9345347], [-73.4415757, 40.9344831]]}}, {"type": "Feature", "properties": {"diff_id": 310, "osm_id": 20238824, "tags": "{'name': 'Beach Drive', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Suffolk, NY', 'tiger:reviewed': 'no', 'tiger:name_base': 'Beach', 'tiger:name_type': 'Dr'}", "meta": "{'version': '3', 'changeset': '0', 'timestamp': '2019-07-15T10:55:43Z'}", "tainted": true, "type": 0, "created_date": "2019-07-16", "pk": "698"}, "geometry": {"type": "LineString", "coordinates": [[-73.4436376, 40.9344266], [-73.4422558, 40.934538], [-73.4421298, 40.9345481], [-73.4417863, 40.934571], [-73.4416759, 40.9345347], [-73.4415757, 40.9344831]]}}, {"type": "Feature", "properties": {"diff_id": 310, "osm_id": 20238824, "tags": "{'name': 'Beach Drive', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Suffolk, NY', 'tiger:reviewed': 'no', 'tiger:name_base': 'Beach', 'tiger:name_type': 'Dr'}", "meta": "{'version': '3', 'changeset': '0', 'timestamp': '2019-07-15T10:55:43Z'}", "tainted": true, "type": 0, "created_date": "2019-07-16", "pk": "835"}, "geometry": {"type": "LineString", "coordinates": [[-73.4436376, 40.9344266], [-73.4422558, 40.934538], [-73.4421298, 40.9345481], [-73.4417863, 40.934571], [-73.4416759, 40.9345347], [-73.4415757, 40.9344831]]}}]};
+	// var myWays = JSON.parse(myWays);
+	var myRoutes = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"route_id": "254527011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "254527", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{931BB7EF-F36D-4C7D-9333-08ED87D6A62B}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:35.804Z", "model_edited_date": "2019-07-12T15:46:35.804Z", "pk": "311188"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.44326204981778, 40.921442976135275], [-73.4425390523199, 40.92142303250713], [-73.44198805633673, 40.92137604316783], [-73.44168696462712, 40.92138296349906], [-73.4411830460372, 40.92144001711356], [-73.44105004836558, 40.9214749709636], [-73.44093301240314, 40.92152302178155], [-73.44078098150833, 40.921625006810714], [-73.44066201851426, 40.92174995859879], [-73.44058901245799, 40.92188003582165], [-73.44053899101608, 40.92207302867044], [-73.44053095238472, 40.92241999358806], [-73.44056298202062, 40.92256797591672], [-73.44063500551484, 40.92270199649533], [-73.4408470037559, 40.92294897726492], [-73.44093705950584, 40.92309396089153], [-73.44097000701997, 40.92320799580232], [-73.4409650354472, 40.923374033873976], [-73.44079095947697, 40.92405997177681], [-73.44048403497332, 40.92516802303893]]]}}, {"type": "Feature", "properties": {"route_id": "276140011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "276140", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2018-03-06T18:11:23Z", "created_by": "ELRS", "global_id": "{35048E9D-E078-46A1-8CA6-DEEB5734D744}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 52, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:52:22.154Z", "model_edited_date": "2019-07-12T15:52:22.154Z", "pk": "469232"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-73.44048403497332, 40.92516802303893], [-73.44021199253095, 40.9252570338207], [-73.4400300174904, 40.92533402111962], [-73.43981802854624, 40.92545501078511], [-73.43961303162935, 40.925616990444524], [-73.43950002097476, 40.92575102934824], [-73.43924896945452, 40.92614902182125], [-73.43909099070933, 40.92648296679883], [-73.43903798988163, 40.92655998714462], [-73.43895605741903, 40.926634994303335], [-73.43878695715445, 40.92674503266556], [-73.43871895770252, 40.92677302707465], [-73.43828603540467, 40.92691002826444], [-73.43820103185304, 40.926954006192446], [-73.43805396376443, 40.92713703546235], [-73.43763595825753, 40.92765400814628], [-73.43754895052567, 40.92778299272429], [-73.43742894620782, 40.92790099079932], [-73.43735695669336, 40.92794199172337], [-73.4372389529397, 40.92797002808464], [-73.43708997352029, 40.92798197070486], [-73.43655096498755, 40.92790800400558], [-73.43648504666113, 40.927898012092086]]]}}]};
+
+	var map = L.map('map').setView([40.934465681658466, -73.44260539137586], 17.0);
+	var layer = L.esri.basemapLayer('Streets').addTo(map);
+	var layerLabels;
+
+	function setBasemap(basemap) {
+		if (layer) {
+			map.removeLayer(layer);
+		}
+		if (!basemap.includes('Default')) {
+			layer = L.esri.basemapLayer(basemap);
+			map.addLayer(layer);
+		}
+
+		if (layerLabels) {
+			map.removeLayer(layerLabels);
+		}
+
+		if (basemap.includes('Imagery')) {
+			layerLabels = L.esri.basemapLayer('ImageryLabels');
+			map.addLayer(layerLabels);
+		}
+
+		if (basemap === 'Default') {
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+				maxZoom: 18,
+				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+					'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+					'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+				id: 'mapbox.streets'
+			}).addTo(map);
+		}
+	}
+
+	function changeBasemap(basemaps) {
+		var basemap = basemaps.value;
+		setBasemap(basemap);
+	}
+
+	// var myMay = L.map('map', )
+	// var geojsonlayer = L.geoJson.ajax('data/milepoint.geojson');
+	// console.log(geojsonlayer);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets'
+	}).addTo(map);
+
+	function getMilepointColor(x) {
+		switch(x){
+			case 1:
+				return '#0483bb';
+			case 2:
+				return '#4bb1e7';
+			case 3:
+				return '#88d2f2';
+			case 5:
+				return '#8f12c7';
+		}
+	};
+	L.geoJSON(myRoutes, {style: function(feature) {
+		return { 'color': getMilepointColor(feature.properties.roadway_type) };
+	}}).bindPopup(function (layer) {
+		return '<dl>'.concat(
+			'<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
+			'<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
+			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order, '</dd>',
+			'<dt>Roadway Type:</dt> <dd>', layer.feature.properties.roadway_type, '</dd>',
+			'<dt>Route Signing:</dt> <dd>', layer.feature.properties.roadway_signing, '</dd>',
+			'<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
+			'<dt>Route Suffix:</dt> <dd>', layer.feature.properties.route_suffix, '</dd>',
+			'<dt>Direction Code:</dt> <dd>', layer.feature.properties.direction, '</dd>',
+			'<dt>County:</dt> <dd>', layer.feature.properties.county, '</dd>',
+			'<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
+			'</dl>');
+		// return `
+		// 	<dl>
+		// 	<dt>Route ID:</dt> <dd>${layer.feature.properties.route_id}</dd>
+		// 	<dt>From Date:</dt> <dd>${layer.feature.properties.from_date}</dd>
+		// 	<dt>County Order:</dt> <dd>${layer.feature.properties.county_order}</dd>
+		// 	<dt>Roadway Type:</dt> <dd>${layer.feature.properties.roadway_type}</dd>
+		// 	<dt>Route Signing:</dt> <dd>${layer.feature.properties.roadway_signing}<dd>
+		// 	<dt>Route Number:</dt> <dd>${layer.feature.properties.route_number}</dd>
+		// 	<dt>Route Suffix:</dt> <dd>${layer.feature.properties.route_suffix}</dd>
+		// 	<dt>Direction Code:</dt> <dd>${layer.feature.properties.direction}</dd>
+		// 	<dt>County:</dt> <dd>${layer.feature.properties.county}</dd>
+		// 	<dt>Parkway:</dt> <dd>${layer.feature.properties.parkway_flag}</dd>
+		// 	</dl>`;
+		}).addTo(map);
+	
+	L.geoJSON(myWays).setStyle({
+		color: '#ffff7f',
+		dashArray: '4',
+	}).bindPopup(
+		function(layer) {
+			return '<dl>'.concat(
+				'<dt>OSM ID:</dt> <dd>', layer.feature.properties.osm_id , '</dd>',
+				'<dt>Tags:</dt> <dd>', layer.feature.properties.tags , '</dd>',
+				'<dt>Meta:</dt> <dd>', layer.feature.properties.meta, '</dd>',
+				'<dt>OSM Feature Type:</dt> <dd>', layer.feature.properties.type , '</dd>',
+				'<dt>Tainted:</dt> <dd>', layer.feature.properties.tainted, '</dd>',
+				'</dl>');
+			// return `<dl>
+			// <dt>OSM ID:</dt> <dd>${layer.feature.properties.osm_id}<dd>
+			// <dt>Tags:</dt> <dd>${layer.feature.properties.tags}<dd>
+			// <dt>Meta:</dt> <dd>${layer.feature.properties.meta}<dd>
+			// <dt>OSM Feature Type</dt> <dd>${layer.feature.properties.type}<dd>
+			// </dl>`;
+		}
+	).addTo(map);
+
+	// var layer = L.esri.basemapLayer('Imagery').addTo(map);
+	// var layerLabels = L.esri.basemapLayer('ImageryLabels');
+	// map.addLayer(layer);
+	// map.addLayer(layerLabels);
+	// mymap.on('click', onMapClick);
+
+</script>
+
+</body>
+</html>
