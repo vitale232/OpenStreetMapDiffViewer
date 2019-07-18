@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+
 	<title>{{ document_title }}</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
 	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
 
-	
+
 	<!-- ESRI Leaflet -->
 	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	
+
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-	
+
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
@@ -52,7 +52,7 @@
 		}
 		#basemaps-picker {
 			position: absolute;
-			top: 75px;
+			bottom: 40px;
 			right: 35px;
 			z-index: 400;
 			background: #222222;
@@ -83,7 +83,7 @@
 			color: #777;
 		}
 	</style>
-	
+
 </head>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<!-- Navbar Container -->
@@ -123,7 +123,7 @@
 						<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
 					</ul>
 				</li>
-			</ul>	
+			</ul>
 		</div>
 	</div>
 </nav>
@@ -206,7 +206,7 @@
 			'<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
 			'<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
 			'<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
-			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order, '</dd>',
+			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order.toString().padStart(2, 0), '</dd>',
 			'<dt>Roadway Type:</dt> <dd>', dataDefinitions.roadwayType[layer.feature.properties.roadway_type], '</dd>',
 			'<dt>Route Signing:</dt> <dd>', dataDefinitions.roadwaySigning[layer.feature.properties.roadway_signing], '</dd>',
 			'<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
@@ -216,7 +216,7 @@
 			'<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
 			'</dl>');
 		}).addTo(map);
-	
+
 	L.geoJSON(myWays).setStyle({
 		color: '#ffff7f',
 		dashArray: '4',
@@ -247,7 +247,7 @@
 
 		}
 	}
-	var legend = L.control({position: 'bottomright'});
+	var legend = L.control({position: 'bottomleft'});
 	legend.onAdd = function(map) {
 		var div = L.DomUtil.create('div', 'info legend');
 		var htmlLabels = [];
@@ -258,7 +258,7 @@
 			'Milepoint Non-Mainline',
 			'OpenStreetMap Geometry',
 		];
-		
+
 		for (var i = 0; i < labels.length; i++) {
 			htmlLabels.push(
 				'<i style="background:' + getLegendColor(i) + '"></i>' + labels[i]

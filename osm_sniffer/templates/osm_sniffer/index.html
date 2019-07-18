@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+
 	<title>{{ document_title }}</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
 	<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
 
-	
+
 	<!-- ESRI Leaflet -->
 	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
 
@@ -53,28 +53,28 @@
 			max-height: 400px;
 		}
 	</style>
-	
+
 </head>
 <nav class="navbar navbar-default navbar-fixed-top">
 		<!-- Navbar Container -->
 		<div class="container">
-	
+
 			<!-- Navbar Header [contains both toggle button and navbar brand] -->
 			<div class="navbar-header navbar-left">
-	
+
 				<!-- Navbar Brand -->
 				<p class="navbar-brand">
 					{{ page_title }}
 				</p>
 			</div>
-	
-	
+
+
 			<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
 			<div class="collapse navbar-collapse" id="exampleNavComponents">
-	
+
 				<!-- Navbar Menu -->
 				<ul class="nav navbar-nav navbar-right">
-	
+
 					<!-- Navbar link with a dropdown menu -->
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -89,17 +89,17 @@
 							<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
 						</ul>
 					</li>
-				</ul>	
+				</ul>
 			</div>
 		</div>
 	</nav>
 <h2> About this project </h2>
 <p>
     This project was developed in an attempt to assist NYSDOT employees in maintaining
-    their Milepoint Linear Referencing System (LRS). The LRS is a GIS dataset that maps the roadways 
-    of New York State to their correct geospatial location. The GIS lines which make up the data 
-    have "m-values" embedded in their vertices, which allows NYSDOT and its stakeholders to refer 
-    to a location on a roadway by a ROUTE_ID and the "measure location". This system is similar to the 
+    their Milepoint Linear Referencing System (LRS). The LRS is a GIS dataset that maps the roadways
+    of New York State to their correct geospatial location. The GIS lines which make up the data
+    have "m-values" embedded in their vertices, which allows NYSDOT and its stakeholders to refer
+    to a location on a roadway by a ROUTE_ID and the "measure location". This system is similar to the
     mile markers you see along highways.
 </p>
 <p>
@@ -109,16 +109,16 @@
     or difference files.
 </p>
 <p>
-    OpenStreetMap is a modern web mapping dataset that is similar in characteristics to more popular mapping 
-    products, such as Google Maps and Bing Maps. There are some major differences between OSM and 
-    the commodotized mapping datasets. Namely, OSM is open in that anyone can download or edit the data. 
+    OpenStreetMap is a modern web mapping dataset that is similar in characteristics to more popular mapping
+    products, such as Google Maps and Bing Maps. There are some major differences between OSM and
+    the commodotized mapping datasets. Namely, OSM is open in that anyone can download or edit the data.
     OSM has an active community base in Europe, and its popularity is increasing in the United States as well.
     As contributors edit the "ways", or roads, in OSM, the edits show up in the OSM diff files, which we download
     from a company called <a href="https://download.geofabrik.de/north-america/us/new-york.html">Geofabrik</a>.
 </p>
 <p>
-    Whenever a new diff file is available from OSM, we process the latest changes in a database. The locations 
-    where changes were made are recorded, and a map is rendered of the area showing the New York State LRS and the 
+    Whenever a new diff file is available from OSM, we process the latest changes in a database. The locations
+    where changes were made are recorded, and a map is rendered of the area showing the New York State LRS and the
     OSM diff data for that location. Hopefully this will help NYSDOT realize roadway realignments and mapping errors
     more rapidly.
 </p>
@@ -157,14 +157,14 @@
 		<div id="collapse2" class="panel-collapse collapse">
 		<div class="panel-body">
 			<p>
-				The OSM data that are visualized in these maps have been through the wringer. First of all, the OSM diffs were intended to 
-				let systems know that the OSM source data has changed. It's probably not intended for human consumption. Further, the OSM 
+				The OSM data that are visualized in these maps have been through the wringer. First of all, the OSM diffs were intended to
+				let systems know that the OSM source data has changed. It's probably not intended for human consumption. Further, the OSM
 				data format is not immediately GIS-friendly. The data are processed by 3 separate tools prior to making their way into this map.
 				Sometimes georeferencing errors will occur in these processes.
 			</p>
 			<p>
-				If you are unclear as to what the OSM geometry should be, you can click on the yellow line, which will bring up a pop-up with 
-				that way's data. In the popup, click on the OSM ID, which should be a blue hyperlink. This will take you to the OSM data for that 
+				If you are unclear as to what the OSM geometry should be, you can click on the yellow line, which will bring up a pop-up with
+				that way's data. In the popup, click on the OSM ID, which should be a blue hyperlink. This will take you to the OSM data for that
 				particular roadway, which will include the true geometry as represented in OSM along with the edit history for that stretch of road.
 			</p>
 		</div>
