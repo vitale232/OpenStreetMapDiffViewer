@@ -57,15 +57,6 @@ class Command(BaseCommand):
                 )
             except OsmDiff.DoesNotExist:
                 raise CommandError('No OsmDiff objects for diff_id=%s' % diff_id)
-            choices = {
-                'roadwayDirection' : {choice[0]: choice[1] for choice in MilepointRoute.DIRECTION_CHOICES},
-                'roadwayType' : {choice[0]: choice[1] for choice in MilepointRoute.ROADWAY_TYPE_CHOICES},
-                'roadwaySigning' : {choice[0]: choice[1] for choice in MilepointRoute.SIGNING_CHOICES},
-                'county' : {choice[0]: choice[1] for choice in MilepointRoute.COUNTY_CHOICES},
-                'roadwayQualifier' : {choice[0]: choice[1] for choice in MilepointRoute.ROUTE_QUALIFIER_CHOICES},
-                'roadwayFeature' : {choice[0]: choice[1] for choice in MilepointRoute.ROADWAY_FEATURE_CHOICES},
-                'routeSuffix': {choice[0]: choice[1] for choice in MilepointRoute.ROUTE_SUFFIX_CHOICES},
-            }
 
             map_context = {
                 'document_title': 'OSM Diff {diff_id}:{j:03d} - {today}'.format(
@@ -83,7 +74,7 @@ class Command(BaseCommand):
                 'map_y': polygon.the_geom.centroid.y,
                 'milepoint_geojson': serialize('geojson', routes).replace(r'\"', "'"),
                 'ways_geojson': serialize('geojson', ways).replace(r'\"', "'"),
-                'data_dict': json.dumps(choices),
+                'data_dict': json.dumps(MilepointRoute.MILEPOINT_CHOICES),
             }
             output_path = os.path.abspath(os.path.join(
                 os.path.dirname(__file__),

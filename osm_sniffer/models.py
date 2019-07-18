@@ -236,5 +236,15 @@ class MilepointRoute(models.Model):
     model_created_date = models.DateTimeField(auto_now_add=True)
     model_edited_date = models.DateTimeField(auto_now=True)
 
+    MILEPOINT_CHOICES = {
+        'roadwayDirection' : {choice[0]: choice[1] for choice in DIRECTION_CHOICES},
+        'roadwayType' : {choice[0]: choice[1] for choice in ROADWAY_TYPE_CHOICES},
+        'roadwaySigning' : {choice[0]: choice[1] for choice in SIGNING_CHOICES},
+        'county' : {choice[0]: choice[1] for choice in COUNTY_CHOICES},
+        'roadwayQualifier' : {choice[0]: choice[1] for choice in ROUTE_QUALIFIER_CHOICES},
+        'roadwayFeature' : {choice[0]: choice[1] for choice in ROADWAY_FEATURE_CHOICES},
+        'routeSuffix': {choice[0]: choice[1] for choice in ROUTE_SUFFIX_CHOICES},
+    }
+
     def shape_length(self):
         return self.the_geom.length

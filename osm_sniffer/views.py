@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 
 from django.contrib.gis.db.models import Collect
@@ -42,6 +43,7 @@ def map_view(request, diff_id):
         'links': [['./test.html', 'Dead link'], ['https://google.com', 'Google']],
         'milepoint_geojson': serialize('geojson', routes).replace(r'\"', "'"),
         'ways_geojson': serialize('geojson', ways).replace(r'\"', "'"),
+        'data_dict': json.dumps(MilepointRoute.MILEPOINT_CHOICES)
     }
     return render(request, 'osm_sniffer/map.html', context)
 
