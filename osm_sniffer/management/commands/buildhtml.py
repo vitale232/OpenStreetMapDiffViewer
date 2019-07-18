@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 import shutil
 import subprocess
@@ -56,14 +57,33 @@ class Command(BaseCommand):
                 )
             except OsmDiff.DoesNotExist:
                 raise CommandError('No OsmDiff objects for diff_id=%s' % diff_id)
+            choices = {
+                'roadwayDirection' : {choice[0]: choice[1] for choice in MilepointRoute.DIRECTION_CHOICES},
+                'roadwayType' : {choice[0]: choice[1] for choice in MilepointRoute.ROADWAY_TYPE_CHOICES},
+                'roadwaySigning' : {choice[0]: choice[1] for choice in MilepointRoute.SIGNING_CHOICES},
+                'county' : {choice[0]: choice[1] for choice in MilepointRoute.COUNTY_CHOICES},
+                'roadwayQualifier' : {choice[0]: choice[1] for choice in MilepointRoute.ROUTE_QUALIFIER_CHOICES},
+                'roadwayFeature' : {choice[0]: choice[1] for choice in MilepointRoute.ROADWAY_FEATURE_CHOICES},
+                'routeSuffix': {choice[0]: choice[1] for choice in MilepointRoute.ROUTE_SUFFIX_CHOICES},
+            }
+
             map_context = {
-                'document_title': f'OSM Diff {diff_id} - {today}',
-                'page_title': f'OSM Diff {diff_id}:{j} Processed {today}',
+                'document_title': 'OSM Diff {diff_id}:{j:03d} - {today}'.format(
+                    diff_id=diff_id,
+                    j=j,
+                    today=today
+                ),
+                'page_title': 'OSM Diff {diff_id}:{j:03d} | Processed {today}'.format(
+                    diff_id=diff_id,
+                    j=j,
+                    today=str(today)
+                ),
                 'diff_id': diff_id,
                 'map_x': polygon.the_geom.centroid.x,
                 'map_y': polygon.the_geom.centroid.y,
                 'milepoint_geojson': serialize('geojson', routes).replace(r'\"', "'"),
                 'ways_geojson': serialize('geojson', ways).replace(r'\"', "'"),
+                'data_dict': json.dumps(choices),
             }
             output_path = os.path.abspath(os.path.join(
                 os.path.dirname(__file__),

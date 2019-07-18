@@ -49,7 +49,6 @@ class MilepointRoute(models.Model):
     dot_id = models.CharField(max_length=6, blank=False)
     county_order = models.IntegerField()
     route_number = models.CharField(blank=True, max_length=3)
-    route_suffix = models.CharField(max_length=4, blank=True)
     edited_date = models.DateTimeField(null=True)
     edited_by = models.CharField(max_length=100)
     created_date = models.DateTimeField(null=True)
@@ -74,11 +73,13 @@ class MilepointRoute(models.Model):
     )
     direction = models.IntegerField(choices=DIRECTION_CHOICES)
 
-    INTERSTATE_SIGNING = 0
-    US_SIGNING = 1
-    NY_SIGNING = 2
+    INTERSTATE_SIGNING = 1
+    US_SIGNING = 2
+    NY_SIGNING = 3
+    UNSIGNED = -9999
     SIGNING_CHOICES = (
-        (INTERSTATE_SIGNING, 'I'), (US_SIGNING, 'US'), (NY_SIGNING, 'NY'),
+        (INTERSTATE_SIGNING, 'I'), (US_SIGNING, 'US'),
+        (NY_SIGNING, 'NY'), (UNSIGNED, ''),
     )
     roadway_signing = models.IntegerField(choices=SIGNING_CHOICES, null=True)
 
@@ -219,6 +220,17 @@ class MilepointRoute(models.Model):
         (NO_PARKWAY, 'Not a Parkway'),
     )
     parkway_flag = models.CharField(choices=PARKWAY_CHOICES, default=NO_PARKWAY, max_length=3)
+
+    ROUTE_SUFFIX_CHOICES = (
+        ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'),
+        ('E', 'E'), ('F', 'F'), ('G', 'G'), ('H', 'H'),
+        ('I', 'I'), ('J', 'J'), ('K', 'K'), ('L', 'L'),
+        ('M', 'M'), ('N', 'N'), ('O', 'O'), ('P', 'P'),
+        ('Q', 'Q'), ('R', 'R'), ('S', 'S'), ('T', 'T'),
+        ('U', 'U'), ('V', 'V'), ('W', 'W'), ('X', 'X'),
+        ('Y', 'Y'), ('Z', 'Z'), ('0', '')
+    )
+    route_suffix = models.CharField(max_length=4, choices=ROUTE_SUFFIX_CHOICES)
 
     # Django Model specific fields
     model_created_date = models.DateTimeField(auto_now_add=True)
