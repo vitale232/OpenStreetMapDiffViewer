@@ -20,6 +20,6 @@ from osm_sniffer import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('<int:diff_id>/index/', views.index, name='index'),
+    path('<int:diff_id>/', views.index, name='index'),
     path('<int:diff_id>/map/', views.map_view, name='map_view'),
 ]
