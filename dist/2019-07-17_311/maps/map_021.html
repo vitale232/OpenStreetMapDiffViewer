@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>OSM Diff 311:021 - 2019-07-17</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+
+	
+	<!-- ESRI Leaflet -->
+	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://bootswatch.com/3/darkly/bootstrap.min.css" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<style>
+		body {
+			padding: 2px;
+			padding-top: 65px;
+			margin: 0;
+		}
+		html, body, #map {
+			/* height: 95%;
+			width: 100vw; */
+			width: calc( 100vw - 64px );
+			height: calc( 100vh - 100px );
+			margin: auto;
+		}
+		#basemaps-picker {
+			position: absolute;
+			top: 75px;
+			right: 35px;
+			z-index: 400;
+			background: white;
+			padding: 10px;
+		}
+		.dropdown-menu {
+			overflow-y: scroll;
+			max-height: 400px;
+		}
+		.legend {
+			line-height: 18px;
+			color: #555;
+			/* width: 400px; */
+		}
+		.legend i {
+			width: 10px;
+			height: 10px;
+			float: left;
+			margin-right: 8px;
+			opacity: 0.7;
+		}
+		.info {
+			padding: 6px 8px;
+			font-size: 1.25em;
+			background: white;
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+			border-radius: 5px;
+		}
+		.info h4 {
+			margin: 0 0 5px;
+			color: #777;
+		}
+	</style>
+	
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<!-- Navbar Container -->
+	<div class="container">
+
+		<!-- Navbar Header [contains both toggle button and navbar brand] -->
+		<div class="navbar-header">
+			<!-- Toggle Button [handles opening navbar components on mobile screens]-->
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded="false">
+				<i class="glyphicon glyphicon-align-center"></i>
+			</button>
+
+			<!-- Navbar Brand -->
+			<p class="navbar-brand">
+				OSM Diff 311:021 | Processed 2019-07-17
+			</p>
+		</div>
+
+
+		<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
+		<div class="collapse navbar-collapse" id="exampleNavComponents">
+
+			<!-- Navbar Menu -->
+			<ul class="nav navbar-nav navbar-right">
+
+				<!-- Navbar link with a dropdown menu -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						More Maps from this Diff
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="../index.html"><b>Home</b></a></li>
+						
+						<li><a href="./map_000.html">Diff 311:000</a></li>
+						
+						<li><a href="./map_001.html">Diff 311:001</a></li>
+						
+						<li><a href="./map_002.html">Diff 311:002</a></li>
+						
+						<li><a href="./map_003.html">Diff 311:003</a></li>
+						
+						<li><a href="./map_004.html">Diff 311:004</a></li>
+						
+						<li><a href="./map_005.html">Diff 311:005</a></li>
+						
+						<li><a href="./map_006.html">Diff 311:006</a></li>
+						
+						<li><a href="./map_007.html">Diff 311:007</a></li>
+						
+						<li><a href="./map_008.html">Diff 311:008</a></li>
+						
+						<li><a href="./map_009.html">Diff 311:009</a></li>
+						
+						<li><a href="./map_010.html">Diff 311:010</a></li>
+						
+						<li><a href="./map_011.html">Diff 311:011</a></li>
+						
+						<li><a href="./map_012.html">Diff 311:012</a></li>
+						
+						<li><a href="./map_013.html">Diff 311:013</a></li>
+						
+						<li><a href="./map_014.html">Diff 311:014</a></li>
+						
+						<li><a href="./map_015.html">Diff 311:015</a></li>
+						
+						<li><a href="./map_016.html">Diff 311:016</a></li>
+						
+						<li><a href="./map_017.html">Diff 311:017</a></li>
+						
+						<li><a href="./map_018.html">Diff 311:018</a></li>
+						
+						<li><a href="./map_019.html">Diff 311:019</a></li>
+						
+						<li><a href="./map_020.html">Diff 311:020</a></li>
+						
+						<li><a href="./map_021.html">Diff 311:021</a></li>
+						
+						<li><a href="./map_022.html">Diff 311:022</a></li>
+						
+						<li><a href="./map_023.html">Diff 311:023</a></li>
+						
+						<li><a href="./map_024.html">Diff 311:024</a></li>
+						
+						<li><a href="./map_025.html">Diff 311:025</a></li>
+						
+						<li><a href="./map_026.html">Diff 311:026</a></li>
+						
+						<li><a href="./map_027.html">Diff 311:027</a></li>
+						
+						<li><a href="./map_028.html">Diff 311:028</a></li>
+						
+						<li><a href="./map_029.html">Diff 311:029</a></li>
+						
+						<li><a href="./map_030.html">Diff 311:030</a></li>
+						
+						<li><a href="./map_031.html">Diff 311:031</a></li>
+						
+						<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
+					</ul>
+				</li>
+			</ul>	
+		</div>
+	</div>
+</nav>
+
+<div id="map"></div>
+<div id="basemaps-picker" class="form-group leaflet-bar">
+	<select class="form-control" name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+		<option value="Default">Default Basemap</option>
+		<option value="ShadedRelief">Shaded Relief</option>
+		<option value="Streets">Esri Streets</option>
+		<option value="Imagery">Imagery</option>
+		<option value="ImageryClarity">Imagery (Clarity)</option>
+		<option value="ImageryFirefly">Imagery (Firefly)</option>
+		<option value="Physical">Physical</option>
+	</select>
+</div>
+
+<script>
+	var myWays = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"diff_id": 311, "osm_id": 20116908, "tags": "{'name': 'Kennedy Road', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Monroe, NY', 'tiger:reviewed': 'no', 'tiger:zip_left': '14580', 'tiger:name_base': 'Kennedy', 'tiger:name_type': 'Rd', 'tiger:zip_right': '14580'}", "meta": "{'version': '4', 'changeset': '0', 'timestamp': '2019-07-16T11:08:56Z'}", "tainted": true, "type": 0, "created_date": "2019-07-17", "pk": "969"}, "geometry": {"type": "LineString", "coordinates": [[-77.3950538, 43.1740692], [-77.3790996, 43.1741437]]}}, {"type": "Feature", "properties": {"diff_id": 311, "osm_id": 51137543, "tags": "{'ref': 'CR 6', 'name': 'Salt Road', 'name_1': 'County Road 6', 'highway': 'tertiary', 'tiger:cfcc': 'A41', 'tiger:county': 'Monroe, NY', 'tiger:zip_left': '14450', 'tiger:name_base': 'Salt', 'tiger:name_type': 'Rd', 'tiger:zip_right': '14450', 'tiger:name_base_1': 'County Road 6'}", "meta": "{'version': '8', 'changeset': '0', 'timestamp': '2019-07-16T10:15:07Z'}", "tainted": true, "type": 0, "created_date": "2019-07-17", "pk": "994"}, "geometry": {"type": "LineString", "coordinates": [[-77.4004686, 43.1713451], [-77.4004703, 43.1711737]]}}]};
+	var myRoutes = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"route_id": "140843011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "140843", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{76B486D4-3C8D-4F74-933B-22F95A21B861}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 28, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:13.605Z", "model_edited_date": "2019-07-12T15:46:13.605Z", "pk": "303895"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.40046803489513, 43.130567996044434], [-77.40047600332485, 43.13142198206228], [-77.40050698638079, 43.1333070237103], [-77.40052097431737, 43.13529804262395], [-77.40051893925309, 43.13662199496302], [-77.40053001844896, 43.13854797254835], [-77.40054999035226, 43.14246003095783], [-77.40054200792699, 43.14508298270315], [-77.40055300012985, 43.14751203197286], [-77.40056198439147, 43.15246800777155], [-77.40055105129545, 43.15725097488305], [-77.40054703412616, 43.15843899938065], [-77.40053800729794, 43.15965297123761], [-77.40052505603319, 43.161579987113015], [-77.40050801203893, 43.165481013883245], [-77.40049605634762, 43.16661697861968], [-77.40047198674755, 43.17062097920225], [-77.40045498763361, 43.1711070282588], [-77.4004560360252, 43.17298602425493], [-77.40043300410993, 43.17405901008659], [-77.40041997325203, 43.1758109800628], [-77.40040102879263, 43.1781779770888], [-77.40039998629392, 43.18161998003444], [-77.40038995486618, 43.18301198370932], [-77.40038195717568, 43.18466299774839], [-77.40037898514402, 43.18750301162695], [-77.40036102982573, 43.19291397013959], [-77.40033904272197, 43.19529696275343], [-77.40034800563113, 43.19576400630854], [-77.40038396900482, 43.196225980876804], [-77.40039105750799, 43.19630002726643], [-77.4004300435936, 43.19670097941102], [-77.40043497217474, 43.19742598985929], [-77.40042800340214, 43.198789022359826], [-77.40043203994657, 43.200169021700205], [-77.40044801161874, 43.201573982142335], [-77.40044800095232, 43.20377003215329], [-77.40044794312342, 43.204327036986825], [-77.40040403293222, 43.20928498292574], [-77.40037002790335, 43.210786976046755], [-77.40033804506515, 43.21150600672715], [-77.39999896700493, 43.21760395812999], [-77.39999198468966, 43.218109963105945], [-77.40000096663593, 43.21816001824765], [-77.40008603891613, 43.21893799992191], [-77.40011598299505, 43.21935904000274], [-77.40013196040633, 43.219901030066545], [-77.40013395070191, 43.22013996083897], [-77.40013499561529, 43.220495966572514], [-77.40013904059667, 43.22130797403992], [-77.40013899324104, 43.22135695809497], [-77.40013898177115, 43.221409993303936], [-77.40012899335528, 43.22164800492929], [-77.40011898896178, 43.22189502111964], [-77.40010604623241, 43.22245301531605], [-77.40011099957157, 43.223056015151464], [-77.40018803298848, 43.22645502736146], [-77.40027706243848, 43.23027203236106], [-77.40030804203779, 43.23166001379835], [-77.40032406253908, 43.23257603744379], [-77.40044099193588, 43.238130987603405], [-77.400501040628, 43.240801007415584], [-77.40051104479446, 43.24129395812991], [-77.40052693922755, 43.24182397253119], [-77.40055994798131, 43.24296204209722], [-77.40057596167111, 43.24398098244727], [-77.4005910580837, 43.24456900048984], [-77.40060298331638, 43.245207958839494], [-77.40063404161918, 43.246778990998266], [-77.40066201538785, 43.24833099864311], [-77.40068197811543, 43.24904902484793], [-77.40073201722996, 43.25187700400962], [-77.40074698881267, 43.25281897899759], [-77.40076602393532, 43.25408997190265], [-77.40078194259218, 43.25585202872119], [-77.4007890256432, 43.25661201398889], [-77.40081900737407, 43.25911400930827], [-77.40087297483684, 43.264904998615215], [-77.40090297255341, 43.26776400623111], [-77.4009380454281, 43.26828299082443]]]}}, {"type": "Feature", "properties": {"route_id": "140847011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "140847", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{1B830AA4-47C7-42CA-B850-A46B6DEFA47B}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 28, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:13.621Z", "model_edited_date": "2019-07-12T15:46:13.621Z", "pk": "303899"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.50786697185049, 43.182398993555005], [-77.50770701479996, 43.18239899022035], [-77.50561502271044, 43.182404964223], [-77.50216795148751, 43.18240499528948], [-77.49886295444803, 43.182407039846275], [-77.49704604413374, 43.182411977100045], [-77.49583094591084, 43.18241401540369], [-77.49378595684082, 43.18241100302461], [-77.49307103204202, 43.182410025678514], [-77.49100303382306, 43.182407014933425], [-77.48869604400228, 43.18239998446821], [-77.48460505400392, 43.18236901783965], [-77.48180195496333, 43.182355969524224], [-77.4808219968983, 43.18235202372493], [-77.47938698085383, 43.18234704283518], [-77.47476497638533, 43.18231697215901], [-77.47196499609723, 43.18231099833335], [-77.470658970315, 43.18230699084189], [-77.46251001559502, 43.18226703862627], [-77.46176900321701, 43.18226597690239], [-77.45994902637956, 43.18226201591321], [-77.45933294685061, 43.1822589708511], [-77.4583029944426, 43.182254016181325], [-77.45277203873137, 43.18222602581076], [-77.45191495652779, 43.18222396828558], [-77.45090104647109, 43.182214010664076], [-77.44637401646949, 43.18218003458112], [-77.44338605967195, 43.182147037172086], [-77.44202701548635, 43.18213402046314], [-77.4381730066079, 43.18205896097719], [-77.43468895129254, 43.18199201230281], [-77.43155598599132, 43.18192298440542], [-77.4307320247819, 43.181908988276994], [-77.42195699860955, 43.1818169595046], [-77.41169796202693, 43.181709013775034], [-77.40830099201047, 43.18168399429153], [-77.40372006025316, 43.18163901733775], [-77.4022959727784, 43.18163301793562], [-77.40039998629392, 43.18161998003444], [-77.39241394738201, 43.181612034382], [-77.38958499760027, 43.18162598677919], [-77.38454201165607, 43.18163995936282], [-77.38117099993784, 43.181662034622306], [-77.37803300667485, 43.181674032156145], [-77.37762604874786, 43.181697982206586], [-77.37734095586852, 43.18173596513369], [-77.37695204661173, 43.18181599450339], [-77.37663200592554, 43.181910979003916], [-77.37647701360392, 43.18196597505465], [-77.37613896594064, 43.182116978991644], [-77.37536896417326, 43.182500982892144], [-77.37513703193335, 43.18258999088616], [-77.37488997047323, 43.1826759810419], [-77.37480198067726, 43.18270103958177]]]}}, {"type": "Feature", "properties": {"route_id": "150795011", "from_date": "2009-01-01T00:00:00Z", "to_date": null, "dot_id": "150795", "county_order": 1, "route_number": "", "route_suffix": "0", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": null, "created_by": "", "global_id": "{A9C2B6D1-F588-4AD8-B7C3-9A2FD92E65D3}", "conc_hierarchy": 9999900, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 59, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:46:15.361Z", "model_edited_date": "2019-07-12T15:46:15.361Z", "pk": "304576"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.37480198067726, 43.18270103958177], [-77.37458404843065, 43.18276400339708], [-77.37432593919328, 43.182818976836536], [-77.37404094947343, 43.182862982279296], [-77.3738170454886, 43.18288302806149], [-77.37343699298644, 43.182902983018245], [-77.37160994291595, 43.18293296779701], [-77.37056797956866, 43.18293899645476], [-77.36697896008776, 43.182932036570165], [-77.36623596299093, 43.18293399775526], [-77.3651489634146, 43.182940008488984], [-77.36307803248677, 43.18297003862055], [-77.36073203280351, 43.182988962396884], [-77.35967201985332, 43.18301201229572], [-77.3584269719996, 43.18303895891333], [-77.35759499283502, 43.18306602026992], [-77.35680197010598, 43.1830790363166], [-77.35574595776484, 43.18310700973956], [-77.35495605409452, 43.18311796776559], [-77.35199199263081, 43.18319797238577], [-77.3512769952024, 43.18320502309698], [-77.35031399265893, 43.18323598612382], [-77.34968901519491, 43.18324495839289], [-77.34886195708953, 43.18326897364791], [-77.34576696859222, 43.18332998578896], [-77.34443396384464, 43.18334498771894], [-77.34341504115972, 43.18336497330455], [-77.34255005432667, 43.18336901023506], [-77.34190495153187, 43.18337303965735], [-77.34046002868257, 43.18339596000652], [-77.33632100788891, 43.18344503465578], [-77.33447593974505, 43.1834939727934], [-77.33422295633953, 43.183494004815834], [-77.33331603467477, 43.183501979344406], [-77.33259804310907, 43.18352104001241], [-77.32969199394276, 43.18357803241127], [-77.32692498779159, 43.18361897522935], [-77.32531904228497, 43.183624000576785], [-77.3222919781852, 43.183670029171296], [-77.32081999126443, 43.183687037736824], [-77.3193879462021, 43.18369304230233], [-77.31834996231123, 43.183716972746375], [-77.31714396438703, 43.18371998679613], [-77.31375702140028, 43.18377704302264], [-77.31250004726907, 43.18378896328909], [-77.30895796258774, 43.18383703880174], [-77.30873402388676, 43.18383399672568], [-77.30582403917691, 43.18386596960839], [-77.30194699427683, 43.18391697983485], [-77.30125797396376, 43.18391500056949], [-77.2999360163748, 43.183929981236126], [-77.29929698152984, 43.183932027194366], [-77.29816294581136, 43.183951042322555], [-77.29768700459046, 43.183948000511954], [-77.2903439461165, 43.1839239587979], [-77.28935502468778, 43.18393097554886], [-77.28905401204128, 43.183953029266824], [-77.28901804940807, 43.18396203314073], [-77.28890605741063, 43.18403396842709]]]}}, {"type": "Feature", "properties": {"route_id": "144318011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "144318", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2017-11-02T15:06:32Z", "created_by": "ELRS", "global_id": "{581FEAD0-0CA8-4DF7-B8AA-ADF7E3F3EDB2}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 28, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:48:38.051Z", "model_edited_date": "2019-07-12T15:48:38.051Z", "pk": "364110"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.38110697879218, 43.17412298366972], [-77.38110501630888, 43.17433201453846], [-77.38112798992337, 43.17623000429056], [-77.38117099993784, 43.181662034622306]]]}}, {"type": "Feature", "properties": {"route_id": "144336011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "144336", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2017-11-02T15:06:32Z", "created_by": "ELRS", "global_id": "{E1632A88-71FE-4DD0-BC1C-7A552DF9AF0F}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 28, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:48:38.082Z", "model_edited_date": "2019-07-12T15:48:38.082Z", "pk": "364125"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.41188404524091, 43.174134011081506], [-77.40984898485802, 43.174120010809595], [-77.40663302442344, 43.174082031209416], [-77.40407297350205, 43.17406402900938], [-77.40043300410993, 43.17405901008659], [-77.39648898954249, 43.174056015688535], [-77.39286098092737, 43.17408003885754], [-77.38882606068705, 43.1740900275151], [-77.38205997363178, 43.17411403043365], [-77.38123895088019, 43.17412203636412], [-77.38110697879218, 43.17412298366972], [-77.37802496910427, 43.174141017560274], [-77.37641297626026, 43.17415796172831], [-77.37626105669096, 43.174148963027456], [-77.37600598978085, 43.174125989713346], [-77.37581101283283, 43.17407898645425], [-77.37561104138844, 43.17399201743762], [-77.37548796652796, 43.1739210090463], [-77.37534998796099, 43.17380195696109], [-77.37526894533138, 43.173713957474625], [-77.37494302222507, 43.17321198348995], [-77.37486805130483, 43.17310602906322], [-77.37476603075389, 43.17301000083241], [-77.37467125037814, 43.172956079393714]]]}}, {"type": "Feature", "properties": {"route_id": "151615011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "151615", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2017-11-02T15:06:32Z", "created_by": "ELRS", "global_id": "{FE9C1A2B-869C-4B00-9A66-8EC797769532}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 59, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:48:51.122Z", "model_edited_date": "2019-07-12T15:48:51.122Z", "pk": "370600"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.37007098704419, 43.146538957028014], [-77.37003201549014, 43.146990972666906], [-77.36979997090981, 43.149214993100365], [-77.36962395619894, 43.151138997206715], [-77.36949201078154, 43.15248202770966], [-77.36933902188252, 43.15407302313507], [-77.36915800804634, 43.15577598229014], [-77.36910296947734, 43.156483963045034], [-77.36910493928909, 43.15672902028313], [-77.36926299548803, 43.16019403513978], [-77.36940905684607, 43.16260696069094], [-77.36950705198487, 43.164365006072565], [-77.3695149482134, 43.16449603548742], [-77.36971503576065, 43.16766897494748], [-77.36991701731394, 43.17072796865763], [-77.370023964296, 43.172993038987876], [-77.37008903344466, 43.17407698032333], [-77.3701340048418, 43.17532503640794], [-77.37025003246997, 43.177325009976705], [-77.37032103008856, 43.17883203003332], [-77.37033198521533, 43.17904196346908], [-77.3703470095725, 43.17926802029682], [-77.37038395264202, 43.17996499816668], [-77.37044900379244, 43.181013011357116], [-77.37055205948334, 43.182673969723666], [-77.37056797956866, 43.18293899645476], [-77.37069102699373, 43.185185989749854], [-77.37076894532314, 43.186530967006426], [-77.37079395802166, 43.18696400528825], [-77.37084696189689, 43.18738898960457], [-77.37096694149513, 43.18787201348719], [-77.37099900941229, 43.188001010398494], [-77.37105098792071, 43.188211983732494], [-77.37110904699867, 43.188436967688574], [-77.37169200978504, 43.190721962733], [-77.37222303064124, 43.19274195482474], [-77.37336695267406, 43.192730012558684], [-77.37426399031936, 43.19270499679212], [-77.37453099729386, 43.192707015902364], [-77.3746689527954, 43.192726031382435], [-77.37477294472836, 43.1927609693225], [-77.37489695379618, 43.19281701166466], [-77.3749380095374, 43.192876037448684], [-77.37497802643735, 43.19295903619707], [-77.37499195352603, 43.19304203657591], [-77.37499797743467, 43.19311799767698], [-77.37499503669578, 43.193314982500446], [-77.37498205574371, 43.19433795887578], [-77.37501904592685, 43.196172983919546], [-77.37502105197215, 43.19641497736068], [-77.37507995500494, 43.202620042574374]]]}}, {"type": "Feature", "properties": {"route_id": "151646011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "151646", "county_order": 1, "route_number": "", "route_suffix": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2017-11-02T15:06:32Z", "created_by": "ELRS", "global_id": "{C9773E69-A64C-4BEB-9892-8B7F861758D3}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 59, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "model_created_date": "2019-07-12T15:48:51.177Z", "model_edited_date": "2019-07-12T15:48:51.177Z", "pk": "370624"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.37467105161986, 43.17295596646524], [-77.37464397629608, 43.17294302226235], [-77.37453399090403, 43.172923966014174], [-77.37411301360252, 43.17291803008525], [-77.37290604741403, 43.17293804031075], [-77.37212398920984, 43.17294796343341], [-77.370023964296, 43.172993038987876], [-77.3681030350036, 43.17304697315939], [-77.3664759637454, 43.17307102258241], [-77.36488194769008, 43.173125970365184], [-77.3632129644561, 43.173147958710096], [-77.36097100647693, 43.1732039949468], [-77.35687902005907, 43.17330596707935], [-77.35609100718474, 43.1733340018484], [-77.3544840274389, 43.1733689920192], [-77.35317397035217, 43.17341198647633], [-77.35057596434504, 43.17349396418562], [-77.35001697042634, 43.17351103614584], [-77.34886498014423, 43.17354397940117], [-77.34664195148693, 43.17360997070097], [-77.34503103224463, 43.17364202735791], [-77.3441840303038, 43.17367200008481], [-77.34321501150737, 43.17369303141401], [-77.34239997446814, 43.17371603287283], [-77.34177301186656, 43.173751024730194]]]}}]};
+
+	var map = L.map('map').setView([43.17327702600027, -77.38994683922894], 15.0);
+	var layer = L.esri.basemapLayer('Streets').addTo(map);
+	var layerLabels;
+
+	function setBasemap(basemap) {
+		if (layer) {
+			map.removeLayer(layer);
+		}
+		// if (!basemap.includes('Default')) {
+		console.log(basemap.indexOf('Default'));
+		if (basemap.indexOf('Default') === -1) {
+			layer = L.esri.basemapLayer(basemap);
+			map.addLayer(layer);
+		}
+
+		if (layerLabels) {
+			map.removeLayer(layerLabels);
+		}
+
+		// if (basemap.includes('Imagery')) {
+		if (basemap.indexOf('Imagery') > -1) {
+			layerLabels = L.esri.basemapLayer('ImageryLabels');
+			map.addLayer(layerLabels);
+		}
+
+		if (basemap === 'Default') {
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+			}).addTo(map);
+		}
+	}
+
+	function changeBasemap(basemaps) {
+		var basemap = basemaps.value;
+		setBasemap(basemap);
+	}
+
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+	}).addTo(map);
+
+	function getMilepointColor(x) {
+		switch(x){
+			case 1:
+				return '#1d8fc1';
+			case 2:
+				return '#4bb1e7';
+			case 3:
+				return '#88d2f2';
+			case 5:
+				return '#8f12c7';
+		}
+	};
+	L.geoJSON(myRoutes, {style: function(feature) {
+		return { 'color': getMilepointColor(feature.properties.roadway_type) };
+	}}).bindPopup(function (layer) {
+		return '<dl>'.concat(
+			'<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
+			'<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
+			'<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
+			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order, '</dd>',
+			'<dt>Roadway Type:</dt> <dd>', layer.feature.properties.roadway_type, '</dd>',
+			'<dt>Route Signing:</dt> <dd>', layer.feature.properties.roadway_signing, '</dd>',
+			'<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
+			'<dt>Route Suffix:</dt> <dd>', layer.feature.properties.route_suffix, '</dd>',
+			'<dt>Direction Code:</dt> <dd>', layer.feature.properties.direction, '</dd>',
+			'<dt>County:</dt> <dd>', layer.feature.properties.county, '</dd>',
+			'<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
+			'</dl>');
+		}).addTo(map);
+	
+	L.geoJSON(myWays).setStyle({
+		color: '#ffff7f',
+		dashArray: '4',
+	}).bindPopup(
+		function(layer) {
+			return '<dl>'.concat(
+				'<dt>OSM ID:</dt> <dd><a href="https://openstreetmap.org/way/', layer.feature.properties.osm_id, '">', layer.feature.properties.osm_id, '</a>', '</dd>',
+				'<dt>Tags:</dt> <dd>', layer.feature.properties.tags , '</dd>',
+				'<dt>Meta:</dt> <dd>', layer.feature.properties.meta, '</dd>',
+				'<dt>OSM Feature Type:</dt> <dd>', layer.feature.properties.type , '</dd>',
+				'<dt>Tainted:</dt> <dd>', layer.feature.properties.tainted, '</dd>',
+				'</dl>');
+		}
+	).addTo(map);
+
+	function getLegendColor(value) {
+		switch(value) {
+			case 0:
+				return '#1d8fc1';
+			case 1:
+				return '#4bb1e7';
+			case 2:
+				return '#88d2f2';
+			case 3:
+				return '#8f12c7';
+			case 4:
+				return '#ffff7f';
+
+		}
+	}
+	var legend = L.control({position: 'bottomright'});
+	legend.onAdd = function(map) {
+		var div = L.DomUtil.create('div', 'info legend');
+		var htmlLabels = [];
+		var labels = [
+			'Milepoint Local Road',
+			'Milepoint Ramp',
+			'Milepoint Signed Route',
+			'Milepoint Non-Mainline',
+			'OpenStreetMap Geometry',
+		];
+		
+		for (var i = 0; i < labels.length; i++) {
+			htmlLabels.push(
+				'<i style="background:' + getLegendColor(i) + '"></i>' + labels[i]
+			);
+		}
+
+		div.innerHTML += htmlLabels.join('<br>');
+		return div;
+	};
+	legend.addTo(map);
+
+</script>
+</body>
+</html>

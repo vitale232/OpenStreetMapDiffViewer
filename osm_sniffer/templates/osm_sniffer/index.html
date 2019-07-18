@@ -48,51 +48,51 @@
 			height: calc( 100vh - 100px );
 			margin: auto;
 		}
+		.dropdown-menu {
+			overflow-y: scroll;
+			max-height: 400px;
+		}
 	</style>
 	
 </head>
 <nav class="navbar navbar-default navbar-fixed-top">
-	<!-- Navbar Container -->
-	<div class="container">
-
-		<!-- Navbar Header [contains both toggle button and navbar brand] -->
-		<div class="navbar-header">
-			<!-- Toggle Button [handles opening navbar components on mobile screens]-->
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded"false">
-				<i class="glyphicon glyphicon-align-center"></i>
-			</button>
-
-			<!-- Navbar Brand -->
-			<p class="navbar-brand">
-				{{ page_title }}
-			</p>
+		<!-- Navbar Container -->
+		<div class="container">
+	
+			<!-- Navbar Header [contains both toggle button and navbar brand] -->
+			<div class="navbar-header navbar-left">
+	
+				<!-- Navbar Brand -->
+				<p class="navbar-brand">
+					{{ page_title }}
+				</p>
+			</div>
+	
+	
+			<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
+			<div class="collapse navbar-collapse" id="exampleNavComponents">
+	
+				<!-- Navbar Menu -->
+				<ul class="nav navbar-nav navbar-right">
+	
+					<!-- Navbar link with a dropdown menu -->
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							More Maps from this Diff
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="../index.html"><b>Home</b></a></li>
+							{% for link, link_text in links %}
+							<li><a href="{{ link }}">{{ link_text }}</a></li>
+							{% endfor %}
+							<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
+						</ul>
+					</li>
+				</ul>	
+			</div>
 		</div>
-
-
-		<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
-		<div class="collapse navbar-collapse" id="exampleNavComponents">
-
-			<!-- Navbar Menu -->
-			<ul class="nav navbar-nav navbar-right">
-
-				<!-- Navbar link with a dropdown menu -->
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						View Maps in the Diff
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="javascript:history.go(-1)"><b>Home</b></a></li>
-						{% for link, link_text in links %}
-						<li><a href="{{ link }}">{{ link_text }}</a></li>
-						{% endfor %}
-						<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
-					</ul>
-				</li>
-			</ul>	
-		</div>
-	</div>
-</nav>
+	</nav>
 <h2> About this project </h2>
 <p>
     This project was developed in an attempt to assist NYSDOT employees in maintaining
@@ -123,15 +123,55 @@
     more rapidly.
 </p>
 
-<h2> Usage Tips </h2>
-<p>
-	When viewing maps, the default basemap is <a href="https://openstreetmap.org">OpenStreetMap</a>, served from their
-	infrastructure. The benefit of using OSM as the default basemap is that the OSM edit, which shows up yellow on the maps,
-	corresponds with the way the basemap is drawn. There are other services that provide OpenStreetMap tiles that are much faster,
-	but they do not have the latest data.
-	If the speed of the basemap becomes an issue, simply change the basemap to something other than the
-	default (e.g. Imagery, Esri Streets, etc.).
-</p>
+<h2> Q&A </h2>
+
+<div class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" href="#collapse1">Why is the default basemap so slow?</a>
+			</h4>
+		</div>
+		<div id="collapse1" class="panel-collapse collapse">
+		<div class="panel-body">
+			<p>
+				When viewing maps, the default basemap is <a href="https://openstreetmap.org">OpenStreetMap</a>, served from their
+				infrastructure. The benefit of using OSM as the default basemap is that the OSM edit, which shows up yellow on the maps,
+				corresponds with the way the basemap is drawn. There are other services that provide OpenStreetMap tiles that are much faster,
+				but they do not have the latest data.
+				If the speed of the basemap becomes an issue, simply change the basemap to something other than the
+				default (e.g. Imagery, Esri Streets, etc.).
+			</p>
+		</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" href="#collapse2">Why is the OSM geometry (the yellow line) not following the roadways?</a>
+			</h4>
+		</div>
+		<div id="collapse2" class="panel-collapse collapse">
+		<div class="panel-body">
+			<p>
+				The OSM data that are visualized in these maps have been through the wringer. First of all, the OSM diffs were intended to 
+				let systems know that the OSM source data has changed. It's probably not intended for human consumption. Further, the OSM 
+				data format is not immediately GIS-friendly. The data are processed by 3 separate tools prior to making their way into this map.
+				Sometimes georeferencing errors will occur in these processes.
+			</p>
+			<p>
+				If you are unclear as to what the OSM geometry should be, you can click on the yellow line, which will bring up a pop-up with 
+				that way's data. In the popup, click on the OSM ID, which should be a blue hyperlink. This will take you to the OSM data for that 
+				particular roadway, which will include the true geometry as represented in OSM along with the edit history for that stretch of road.
+			</p>
+		</div>
+		</div>
+	</div>
+</div>
+
 <h2>
     Summary for Processing Date {{ processing_date }} on OSM diff {{ diff_id }}
 </h2>

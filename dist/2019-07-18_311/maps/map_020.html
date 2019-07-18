@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>OSM Diff 311:020 - 2019-07-18</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+
+	
+	<!-- ESRI Leaflet -->
+	<script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://bootswatch.com/3/darkly/bootstrap.min.css" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<style>
+		body {
+			padding: 2px;
+			padding-top: 65px;
+			margin: 0;
+		}
+		html, body, #map {
+			/* height: 95%;
+			width: 100vw; */
+			width: calc( 100vw - 64px );
+			height: calc( 100vh - 100px );
+			margin: auto;
+		}
+		#basemaps-picker {
+			position: absolute;
+			top: 75px;
+			right: 35px;
+			z-index: 400;
+			background: #222222;
+			padding: 10px;
+		}
+		.dropdown-menu {
+			overflow-y: scroll;
+			max-height: 400px;
+		}
+		.legend {
+			line-height: 18px;
+		}
+		.legend i {
+			width: 10px;
+			height: 10px;
+			float: left;
+			margin-right: 8px;
+		}
+		.info {
+			padding: 6px 8px;
+			font-size: 1.25em;
+			background: #222222;
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+			border-radius: 5px;
+		}
+		.info h4 {
+			margin: 0 0 5px;
+			color: #777;
+		}
+	</style>
+	
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<!-- Navbar Container -->
+	<div class="container">
+
+		<!-- Navbar Header [contains both toggle button and navbar brand] -->
+		<div class="navbar-header">
+			<!-- Toggle Button [handles opening navbar components on mobile screens]-->
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded="false">
+				<i class="glyphicon glyphicon-align-center"></i>
+			</button>
+
+			<!-- Navbar Brand -->
+			<p class="navbar-brand">
+				OSM Diff 311:020 | Processed 2019-07-18
+			</p>
+		</div>
+
+
+		<!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
+		<div class="collapse navbar-collapse" id="exampleNavComponents">
+
+			<!-- Navbar Menu -->
+			<ul class="nav navbar-nav navbar-right">
+
+				<!-- Navbar link with a dropdown menu -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						More Maps from this Diff
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="../index.html"><b>Home</b></a></li>
+						
+						<li><a href="./map_000.html">Diff 311:000</a></li>
+						
+						<li><a href="./map_001.html">Diff 311:001</a></li>
+						
+						<li><a href="./map_002.html">Diff 311:002</a></li>
+						
+						<li><a href="./map_003.html">Diff 311:003</a></li>
+						
+						<li><a href="./map_004.html">Diff 311:004</a></li>
+						
+						<li><a href="./map_005.html">Diff 311:005</a></li>
+						
+						<li><a href="./map_006.html">Diff 311:006</a></li>
+						
+						<li><a href="./map_007.html">Diff 311:007</a></li>
+						
+						<li><a href="./map_008.html">Diff 311:008</a></li>
+						
+						<li><a href="./map_009.html">Diff 311:009</a></li>
+						
+						<li><a href="./map_010.html">Diff 311:010</a></li>
+						
+						<li><a href="./map_011.html">Diff 311:011</a></li>
+						
+						<li><a href="./map_012.html">Diff 311:012</a></li>
+						
+						<li><a href="./map_013.html">Diff 311:013</a></li>
+						
+						<li><a href="./map_014.html">Diff 311:014</a></li>
+						
+						<li><a href="./map_015.html">Diff 311:015</a></li>
+						
+						<li><a href="./map_016.html">Diff 311:016</a></li>
+						
+						<li><a href="./map_017.html">Diff 311:017</a></li>
+						
+						<li><a href="./map_018.html">Diff 311:018</a></li>
+						
+						<li><a href="./map_019.html">Diff 311:019</a></li>
+						
+						<li><a href="./map_020.html">Diff 311:020</a></li>
+						
+						<li><a href="./map_021.html">Diff 311:021</a></li>
+						
+						<li><a href="./map_022.html">Diff 311:022</a></li>
+						
+						<li><a href="./map_023.html">Diff 311:023</a></li>
+						
+						<li><a href="./map_024.html">Diff 311:024</a></li>
+						
+						<li><a href="./map_025.html">Diff 311:025</a></li>
+						
+						<li><a href="./map_026.html">Diff 311:026</a></li>
+						
+						<li><a href="./map_027.html">Diff 311:027</a></li>
+						
+						<li><a href="./map_028.html">Diff 311:028</a></li>
+						
+						<li><a href="./map_029.html">Diff 311:029</a></li>
+						
+						<li><a href="./map_030.html">Diff 311:030</a></li>
+						
+						<li><a href="./map_031.html">Diff 311:031</a></li>
+						
+						<li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
+					</ul>
+				</li>
+			</ul>	
+		</div>
+	</div>
+</nav>
+
+<div id="map"></div>
+<div id="basemaps-picker" class="form-group leaflet-bar">
+	<select class="form-control" name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+		<option value="Default">Default Basemap</option>
+		<option value="ShadedRelief">Shaded Relief</option>
+		<option value="Streets">Esri Streets</option>
+		<option value="Imagery">Imagery</option>
+		<option value="ImageryClarity">Imagery (Clarity)</option>
+		<option value="ImageryFirefly">Imagery (Firefly)</option>
+		<option value="Physical">Physical</option>
+	</select>
+</div>
+
+<script>
+	var myWays = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"diff_id": 311, "osm_id": 20119031, "tags": "{'name': 'Ladue Road', 'highway': 'residential', 'tiger:cfcc': 'A41', 'tiger:county': 'Monroe, NY', 'tiger:reviewed': 'no', 'tiger:zip_left': '14420', 'tiger:name_base': 'Ladue', 'tiger:name_type': 'Rd', 'tiger:zip_right': '14420'}", "meta": "{'version': '5', 'changeset': '0', 'timestamp': '2019-07-16T09:14:04Z'}", "tainted": true, "type": 0, "created_date": "2019-07-17", "pk": "971"}, "geometry": {"type": "LineString", "coordinates": [[-77.9734452, 43.1493255], [-77.974741, 43.1493188]]}}]};
+	var myRoutes = {"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:4326"}}, "features": [{"type": "Feature", "properties": {"route_id": "145316011", "from_date": "2007-01-01T00:00:00Z", "to_date": null, "dot_id": "145316", "county_order": 1, "route_number": "", "edited_date": "2019-06-25T13:31:18Z", "edited_by": "AVITALE", "created_date": "2017-11-02T15:06:32Z", "created_by": "ELRS", "global_id": "{A35DBEC9-D4BA-4FDD-A119-1D8B02911934}", "conc_hierarchy": 9999999, "direction": 0, "roadway_signing": -9999, "roadway_type": 1, "county": 28, "route_qualifier": 10, "roadway_feature": -9999, "parkway_flag": "No", "route_suffix": "", "model_created_date": "2019-07-12T15:48:40.044Z", "model_edited_date": "2019-07-12T15:48:40.044Z", "pk": "364973"}, "geometry": {"type": "MultiLineString", "coordinates": [[[-77.99723598656041, 43.1488489559813], [-77.99650704663863, 43.14888004105314], [-77.99240295426537, 43.14903895904034], [-77.99077893793874, 43.14911396328905], [-77.98996299977873, 43.14914404115914], [-77.98858503615115, 43.14918097416172], [-77.98831003510826, 43.14919797763115], [-77.98720096781531, 43.149239029484654], [-77.98707594831126, 43.1492449975159], [-77.98653901697158, 43.14924696079156], [-77.98422795384407, 43.14927697072849], [-77.9825279867938, 43.14927496475388], [-77.98126405439878, 43.14929001575151], [-77.97718396040578, 43.149309008161296], [-77.97645602002578, 43.14931796925073], [-77.97473900321019, 43.14932196369745], [-77.9742270067303, 43.14933096366965], [-77.971656000587, 43.14934902338016], [-77.97020798637213, 43.14933902353537], [-77.96988602005062, 43.14933100105227], [-77.96948105603674, 43.149346023031626], [-77.96899896046445, 43.149390959405295], [-77.96654304920443, 43.149756982970864], [-77.96418599931434, 43.150131015182424], [-77.96291598718702, 43.150354014451956], [-77.96221200602541, 43.15045698645431], [-77.96204905060183, 43.150472013725754], [-77.96040601635563, 43.15054698861377], [-77.95919095230022, 43.15060699063855], [-77.95833704303101, 43.15064097677375], [-77.95768403025498, 43.15067399093107], [-77.95724802178408, 43.15070598003596], [-77.9570300227632, 43.150745024232634], [-77.95633796524184, 43.15088898026563], [-77.95566200552064, 43.15102000025776], [-77.95547503514295, 43.15104203193276], [-77.95516503612411, 43.15106301179251], [-77.95501693849604, 43.15106999149597], [-77.95436998571832, 43.151063032094676], [-77.9513949627209, 43.15105397921558], [-77.94987105959248, 43.15104198895655], [-77.94907696675011, 43.15104401860101], [-77.94827004588613, 43.15103502842768], [-77.94671997786818, 43.151038977782875], [-77.9459319500378, 43.15102903387383], [-77.94389196509304, 43.151030982053314], [-77.9421159668474, 43.15101403464539], [-77.94173797260508, 43.15101998037216], [-77.94039195522174, 43.151022014349586]]]}}]};
+	var dataDefinitions = {"roadwayDirection": {"0": "0 - Primary Direction with Undivided Inventory", "1": "1 - Primary Direction with Divided Inventory", "2": "2 - Reverse Direction with Divided Inventory", "3": "3 - Reverse Direction with No Inventory"}, "roadwayType": {"1": "Road", "2": "Ramp", "3": "Route", "5": "Non-Mainline"}, "roadwaySigning": {"1": "I", "2": "US", "3": "NY", "-9999": ""}, "county": {"1": "Albany", "2": "Allegany", "3": "Bronx", "4": "Broome", "5": "Cattaraugus", "6": "Cayuga", "7": "Chautauqua", "8": "Chemung", "9": "Chenango", "10": "Clinton", "11": "Columbia", "12": "Cortland", "13": "Delaware", "14": "Dutchess", "15": "Erie", "16": "Essex", "17": "Franklin", "18": "Fulton", "19": "Genesee", "20": "Greene", "21": "Hamilton", "22": "Herkimer", "23": "Jefferson", "24": "Kings", "25": "Lewis", "26": "Livingston", "27": "Madison", "28": "Monroe", "29": "Montgomery", "30": "Nassau", "31": "New York", "32": "Niagara", "33": "Oneida", "34": "Onondaga", "35": "Ontario", "36": "Orange", "37": "Orleans", "38": "Oswego", "39": "Otsego", "40": "Putnam", "41": "Queens", "42": "Rensselaer", "43": "Richmond", "44": "Rockland", "45": "St Lawrence", "46": "Saratoga", "47": "Schenectady", "48": "Schoharie", "49": "Schuyler", "50": "Seneca", "51": "Steuben", "52": "Suffolk", "53": "Sullivan", "54": "Tioga", "55": "Tompkins", "56": "Ulster", "57": "Warren", "58": "Washington", "59": "Wayne", "60": "Westchester", "61": "Wyoming", "62": "Yates"}, "roadwayQualifier": {"1": "Alternate", "2": "Business Route", "3": "Bypass", "4": "Spur", "5": "Loop", "6": "Proposed", "7": "Temporary", "8": "Truck Route", "9": "None of the Above", "10": "No Qualifier"}, "roadwayFeature": {"1": "Welcome Center", "2": "Rest Area (With Restrooms)", "3": "Parking Area (Without Restrooms", "4": "Scenic Area", "5": "Slip Ramp", "6": "Roundabout", "null": "None"}, "routeSuffix": {"A": "A", "B": "B", "C": "C", "D": "D", "E": "E", "F": "F", "G": "G", "H": "H", "I": "I", "J": "J", "K": "K", "L": "L", "M": "M", "N": "N", "O": "O", "P": "P", "Q": "Q", "R": "R", "S": "S", "T": "T", "U": "U", "V": "V", "W": "W", "X": "X", "Y": "Y", "Z": "Z", "0": ""}}
+
+	var map = L.map('map').setView([43.14932215000001, -77.9740931], 15.0);
+	var layer = L.esri.basemapLayer('Streets').addTo(map);
+	var layerLabels;
+
+	function setBasemap(basemap) {
+		if (layer) {
+			map.removeLayer(layer);
+		}
+		// if (!basemap.includes('Default')) {
+		if (basemap.indexOf('Default') === -1) {
+			layer = L.esri.basemapLayer(basemap);
+			map.addLayer(layer);
+		}
+
+		if (layerLabels) {
+			map.removeLayer(layerLabels);
+		}
+
+		// if (basemap.includes('Imagery')) {
+		if (basemap.indexOf('Imagery') > -1) {
+			layerLabels = L.esri.basemapLayer('ImageryLabels');
+			map.addLayer(layerLabels);
+		}
+
+		if (basemap === 'Default') {
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+			}).addTo(map);
+		}
+	}
+
+	function changeBasemap(basemaps) {
+		var basemap = basemaps.value;
+		setBasemap(basemap);
+	}
+
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+	}).addTo(map);
+
+	function getMilepointColor(x) {
+		switch(x){
+			case 1:
+				return '#1d8fc1';
+			case 2:
+				return '#4bb1e7';
+			case 3:
+				return '#88d2f2';
+			case 5:
+				return '#8f12c7';
+		}
+	};
+	console.log(dataDefinitions);
+	console.log(dataDefinitions.roadwayType);
+	L.geoJSON(myRoutes, {style: function(feature) {
+		return { 'color': getMilepointColor(feature.properties.roadway_type) };
+	}}).bindPopup(function (layer) {
+		return '<dl>'.concat(
+			'<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
+			'<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
+			'<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
+			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order, '</dd>',
+			'<dt>Roadway Type:</dt> <dd>', dataDefinitions.roadwayType[layer.feature.properties.roadway_type], '</dd>',
+			'<dt>Route Signing:</dt> <dd>', dataDefinitions.roadwaySigning[layer.feature.properties.roadway_signing], '</dd>',
+			'<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
+			'<dt>Route Suffix:</dt> <dd>', dataDefinitions.routeSuffix[layer.feature.properties.route_suffix], '</dd>',
+			'<dt>Direction Code:</dt> <dd>', dataDefinitions.roadwayDirection[layer.feature.properties.direction], '</dd>',
+			'<dt>County:</dt> <dd>', dataDefinitions.county[layer.feature.properties.county], '</dd>',
+			'<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
+			'</dl>');
+		}).addTo(map);
+	
+	L.geoJSON(myWays).setStyle({
+		color: '#ffff7f',
+		dashArray: '4',
+	}).bindPopup(
+		function(layer) {
+			return '<dl>'.concat(
+				'<dt>OSM ID:</dt> <dd><a href="https://openstreetmap.org/way/', layer.feature.properties.osm_id, '">', layer.feature.properties.osm_id, '</a>', '</dd>',
+				'<dt>Tags:</dt> <dd>', layer.feature.properties.tags , '</dd>',
+				'<dt>Meta:</dt> <dd>', layer.feature.properties.meta, '</dd>',
+				'<dt>OSM Feature Type:</dt> <dd>', layer.feature.properties.type , '</dd>',
+				'<dt>Tainted:</dt> <dd>', layer.feature.properties.tainted, '</dd>',
+				'</dl>');
+		}
+	).addTo(map);
+
+	function getLegendColor(value) {
+		switch(value) {
+			case 0:
+				return '#1d8fc1';
+			case 1:
+				return '#4bb1e7';
+			case 2:
+				return '#88d2f2';
+			case 3:
+				return '#8f12c7';
+			case 4:
+				return '#ffff7f';
+
+		}
+	}
+	var legend = L.control({position: 'bottomright'});
+	legend.onAdd = function(map) {
+		var div = L.DomUtil.create('div', 'info legend');
+		var htmlLabels = [];
+		var labels = [
+			'Milepoint Local Road',
+			'Milepoint Ramp',
+			'Milepoint Signed Route',
+			'Milepoint Non-Mainline',
+			'OpenStreetMap Geometry',
+		];
+		
+		for (var i = 0; i < labels.length; i++) {
+			htmlLabels.push(
+				'<i style="background:' + getLegendColor(i) + '"></i>' + labels[i]
+			);
+		}
+
+		div.innerHTML += htmlLabels.join('<br>');
+		return div;
+	};
+	legend.addTo(map);
+
+</script>
+</body>
+</html>

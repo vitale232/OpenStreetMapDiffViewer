@@ -55,29 +55,26 @@
 			top: 75px;
 			right: 35px;
 			z-index: 400;
-			background: white;
+			background: #222222;
 			padding: 10px;
 		}
 		.dropdown-menu {
 			overflow-y: scroll;
-			max-height: 800px;
+			max-height: 400px;
 		}
 		.legend {
 			line-height: 18px;
-			color: #555;
-			/* width: 400px; */
 		}
 		.legend i {
 			width: 10px;
 			height: 10px;
 			float: left;
 			margin-right: 8px;
-			opacity: 0.7;
 		}
 		.info {
 			padding: 6px 8px;
 			font-size: 1.25em;
-			background: white;
+			background: #222222;
 			box-shadow: 0 0 15px rgba(0,0,0,0.2);
 			border-radius: 5px;
 		}
@@ -147,6 +144,7 @@
 <script>
 	var myWays = {{ ways_geojson|safe }};
 	var myRoutes = {{ milepoint_geojson|safe }};
+	var dataDefinitions = {{ data_dict|safe }}
 
 	var map = L.map('map').setView([{{ map_y }}, {{ map_x }}], 15.0);
 	var layer = L.esri.basemapLayer('Streets').addTo(map);
@@ -156,7 +154,8 @@
 		if (layer) {
 			map.removeLayer(layer);
 		}
-		if (!basemap.includes('Default')) {
+		// if (!basemap.includes('Default')) {
+		if (basemap.indexOf('Default') === -1) {
 			layer = L.esri.basemapLayer(basemap);
 			map.addLayer(layer);
 		}
@@ -165,7 +164,8 @@
 			map.removeLayer(layerLabels);
 		}
 
-		if (basemap.includes('Imagery')) {
+		// if (basemap.includes('Imagery')) {
+		if (basemap.indexOf('Imagery') > -1) {
 			layerLabels = L.esri.basemapLayer('ImageryLabels');
 			map.addLayer(layerLabels);
 		}
@@ -189,7 +189,7 @@
 	function getMilepointColor(x) {
 		switch(x){
 			case 1:
-				return '#0483bb';
+				return '#1d8fc1';
 			case 2:
 				return '#4bb1e7';
 			case 3:
@@ -198,19 +198,21 @@
 				return '#8f12c7';
 		}
 	};
+	console.log(dataDefinitions);
 	L.geoJSON(myRoutes, {style: function(feature) {
 		return { 'color': getMilepointColor(feature.properties.roadway_type) };
 	}}).bindPopup(function (layer) {
 		return '<dl>'.concat(
 			'<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
+			'<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
 			'<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
 			'<dt>County Order:</dt> <dd>', layer.feature.properties.county_order, '</dd>',
-			'<dt>Roadway Type:</dt> <dd>', layer.feature.properties.roadway_type, '</dd>',
-			'<dt>Route Signing:</dt> <dd>', layer.feature.properties.roadway_signing, '</dd>',
+			'<dt>Roadway Type:</dt> <dd>', dataDefinitions.roadwayType[layer.feature.properties.roadway_type], '</dd>',
+			'<dt>Route Signing:</dt> <dd>', dataDefinitions.roadwaySigning[layer.feature.properties.roadway_signing], '</dd>',
 			'<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
-			'<dt>Route Suffix:</dt> <dd>', layer.feature.properties.route_suffix, '</dd>',
-			'<dt>Direction Code:</dt> <dd>', layer.feature.properties.direction, '</dd>',
-			'<dt>County:</dt> <dd>', layer.feature.properties.county, '</dd>',
+			'<dt>Route Suffix:</dt> <dd>', dataDefinitions.routeSuffix[layer.feature.properties.route_suffix], '</dd>',
+			'<dt>Direction Code:</dt> <dd>', dataDefinitions.roadwayDirection[layer.feature.properties.direction], '</dd>',
+			'<dt>County:</dt> <dd>', dataDefinitions.county[layer.feature.properties.county], '</dd>',
 			'<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
 			'</dl>');
 		}).addTo(map);
@@ -233,7 +235,7 @@
 	function getLegendColor(value) {
 		switch(value) {
 			case 0:
-				return '#0483bb';
+				return '#1d8fc1';
 			case 1:
 				return '#4bb1e7';
 			case 2:
@@ -262,14 +264,11 @@
 				'<i style="background:' + getLegendColor(i) + '"></i>' + labels[i]
 			);
 		}
-		console.log(htmlLabels.join('<br>'));
 
 		div.innerHTML += htmlLabels.join('<br>');
-		console.log(div);
 		return div;
 	};
 	legend.addTo(map);
-	console.log(legend);
 
 </script>
 </body>
