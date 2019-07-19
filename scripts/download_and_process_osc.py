@@ -71,7 +71,7 @@ filter_params = [
     r'D:\Program_Files\osmfilter\osmfilter.exe',
     o5m_path,
     '--keep=highway=',
-    '--drop=highway=service highway=footway highway=pedestrian highway=path highway=track highway=steps',
+    '--drop=highway=service highway=footway highway=pedestrian highway=path highway=track highway=steps highway=cycleway',
     '-o={}'.format(osm_path),
     '--verbose'
 ]
