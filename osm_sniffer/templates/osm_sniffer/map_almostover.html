@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>{{ document_title }}</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+
+
+  <!-- ESRI Leaflet -->
+  <script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
+
+  <!-- Leaflet Almost Over to more easily view attributes -->
+  <script>L.Map.mergeOptions({almostOver:!0,almostDistance:25,almostSamplingPeriod:50,almostOnMouseMove:!0}),L.Handler.AlmostOver=L.Handler.extend({includes:L.Mixin.Events,initialize:function(e){var t;this._map=e,this._layers=[],this._previous=null,this._marker=null,this._buffer=0,this.__mouseMoveSampling=(t=new Date,function(e){var i=new Date;i-t<this._map.options.almostSamplingPeriod||0===this._layers.length||(t=i,this._map.fire("mousemovesample",{latlng:e.latlng}))})},addHooks:function(){this._map.options.almostOnMouseMove&&(this._map.on("mousemove",this.__mouseMoveSampling,this),this._map.on("mousemovesample",this._onMouseMove,this)),this._map.on("click dblclick",this._onMouseClick,this);this._map;function e(){this._buffer=this._map.layerPointToLatLng([0,0]).lat-this._map.layerPointToLatLng([this._map.options.almostDistance,this._map.options.almostDistance]).lat}this._map.on("viewreset zoomend",e,this),this._map.whenReady(e,this)},removeHooks:function(){this._map.off("mousemovesample"),this._map.off("mousemove",this.__mouseMoveSampling,this),this._map.off("click dblclick",this._onMouseClick,this)},addLayer:function(e){"function"==typeof e.eachLayer?e.eachLayer(function(e){this.addLayer(e)},this):("function"==typeof this.indexLayer&&this.indexLayer(e),this._layers.push(e))},removeLayer:function(e){if("function"==typeof e.eachLayer)e.eachLayer(function(e){this.removeLayer(e)},this);else{"function"==typeof this.unindexLayer&&this.unindexLayer(e);var t=this._layers.indexOf(e);0<=t&&this._layers.splice(t,1)}this._previous=null},getClosest:function(e){var t=L.GeometryUtil.closestLayerSnap,i=this._map.options.almostDistance,s=[];return s="function"==typeof this.searchBuffer?this.searchBuffer(e,this._buffer):this._layers,t(this._map,s,e,i,!1)},_onMouseMove:function(e){var t=this.getClosest(e.latlng);t?(this._previous?L.stamp(this._previous.layer)!=L.stamp(t.layer)&&(this._map.fire("almost:out",{layer:this._previous.layer}),this._map.fire("almost:over",{layer:t.layer,latlng:t.latlng})):this._map.fire("almost:over",{layer:t.layer,latlng:t.latlng}),this._map.fire("almost:move",{layer:t.layer,latlng:t.latlng})):this._previous&&this._map.fire("almost:out",{layer:this._previous.layer}),this._previous=t},_onMouseClick:function(e){var t=this.getClosest(e.latlng);t&&this._map.fire("almost:"+e.type,{layer:t.layer,latlng:t.latlng})}}),void 0!==L.LayerIndexMixin&&L.Handler.AlmostOver.include(L.LayerIndexMixin),L.Map.addInitHook("addHandler","almostOver",L.Handler.AlmostOver);</script>
+  <script type='text/javascript' src="https://cdn.rawgit.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://bootswatch.com/3/darkly/bootstrap.min.css" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      padding: 2px;
+      padding-top: 65px;
+      margin: 0;
+    }
+    html, body, #map {
+      /* height: 95%;
+      width: 100vw; */
+      width: calc( 100vw - 64px );
+      height: calc( 100vh - 100px );
+      margin: auto;
+    }
+    #basemaps-picker {
+      position: absolute;
+      bottom: 40px;
+      right: 35px;
+      z-index: 400;
+      background: #222222;
+      padding: 10px;
+    }
+    .dropdown-menu {
+      overflow-y: scroll;
+      max-height: 400px;
+    }
+    .legend {
+      line-height: 18px;
+    }
+    .legend i {
+      width: 10px;
+      height: 10px;
+      float: left;
+      margin-right: 8px;
+    }
+    .info {
+      padding: 6px 8px;
+      font-size: 1.25em;
+      background: #222222;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
+    }
+    .info h4 {
+      margin: 0 0 5px;
+      color: #777;
+    }
+  </style>
+
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <!-- Navbar Container -->
+  <div class="container">
+
+    <!-- Navbar Header [contains both toggle button and navbar brand] -->
+    <div class="navbar-header">
+      <!-- Toggle Button [handles opening navbar components on mobile screens]-->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded="false">
+        <i class="glyphicon glyphicon-align-center"></i>
+      </button>
+
+      <!-- Navbar Brand -->
+      <a class="navbar-brand" href="#">
+        {{ page_title }}
+      </a>
+    </div>
+
+
+    <!-- Navbar Collapse [contains navbar components such as navbar menu and forms ] -->
+    <div class="collapse navbar-collapse" id="exampleNavComponents">
+
+      <!-- Navbar Menu -->
+      <ul class="nav navbar-nav navbar-right">
+        {% if previous_link %}
+        <li><a href="{{ previous_link }}">Previous Map</a></li>
+        {% endif %}
+        {% if next_link %}
+        <li><a href="{{ next_link }}">Next Map</a></li>
+        {% endif %}
+        <!-- Navbar link with a dropdown menu -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            More Maps from this Diff
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="../index.html"><b>Home</b></a></li>
+            {% for link, link_text in links %}
+            <li><a href="{{ link }}">{{ link_text }}</a></li>
+            {% endfor %}
+            <li><a href="https://openstreetmap.org">OpenStreetMap.org</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="map"></div>
+<div id="basemaps-picker" class="form-group leaflet-bar">
+  <select class="form-control" name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+    <option value="Default">Default Basemap</option>
+    <option value="ShadedRelief">Shaded Relief</option>
+    <option value="Streets">Esri Streets</option>
+    <option value="Imagery">Imagery</option>
+    <option value="ImageryClarity">Imagery (Clarity)</option>
+    <option value="ImageryFirefly">Imagery (Firefly)</option>
+    <option value="Physical">Physical</option>
+  </select>
+</div>
+
+<script>
+  // var map = L.map('map').setView([48.86, 2.35], 11);
+  // var layer = L.esri.basemapLayer('Streets');
+  // var line = L.polyline([
+  //   [48.87, 2.3],
+  //   [48.87, 2.4]
+  // ], {
+  //   weight: 1
+  // }).bindPopup('line of width 1 px with almostOver').addTo(map);
+
+  // map.almostOver.addLayer(line);
+
+  // map.on('almost:click', function(e) {
+  //   var layer = e.layer;
+  //   console.log(layer);
+  //   console.log(typeof layer);
+
+  //   if (layer.openPopup) {
+  //     layer.fire('click', e);
+  //   }
+  // });
+
+  // var line2 = L.polyline([
+  //   [48.85, 2.3],
+  //   [48.85, 2.4]
+  // ], {
+  //   weight: 1,
+  //   color: 'red'
+  // }).bindPopup('line of width 1 px without almostOver').addTo(map);
+
+  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  // }).addTo(map);
+
+  var myWays = {{ ways_geojson|safe }};
+  var myRoutes = {{ milepoint_geojson|safe }};
+  var dataDefinitions = {{ data_dict|safe }}
+
+  var map = L.map('map').setView([{{ map_y }}, {{ map_x }}], 15.0);
+  // var layer = L.esri.basemapLayer('Streets');
+  var layerLabels;
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+  }).addTo(map);
+
+  function getMilepointColor(x) {
+    switch(x){
+      case 1:
+        return '#1d8fc1';
+      case 2:
+        return '#4bb1e7';
+      case 3:
+        return '#88d2f2';
+      case 5:
+        return '#8f12c7';
+    }
+  };
+
+  var routeLines = L.geoJSON(myRoutes, {style: function(feature) {
+    return { 'color': getMilepointColor(feature.properties.roadway_type) };
+  }}).bindPopup(function (layer) {
+      console.log('layer from bind');
+      console.log(layer);
+    return '<dl>'.concat(
+      '<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
+      '<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
+      '<dt>From Date:</dt> <dd>', layer.feature.properties.from_date, '</dd>',
+      '<dt>County Order:</dt> <dd>', layer.feature.properties.county_order.toString().padStart(2, 0), '</dd>',
+      '<dt>Roadway Type:</dt> <dd>', dataDefinitions.roadwayType[layer.feature.properties.roadway_type], '</dd>',
+      '<dt>Route Signing:</dt> <dd>', dataDefinitions.roadwaySigning[layer.feature.properties.roadway_signing], '</dd>',
+      '<dt>Route Number:</dt> <dd>', layer.feature.properties.route_number, '</dd>',
+      '<dt>Route Suffix:</dt> <dd>', dataDefinitions.routeSuffix[layer.feature.properties.route_suffix], '</dd>',
+      '<dt>Direction Code:</dt> <dd>', dataDefinitions.roadwayDirection[layer.feature.properties.direction], '</dd>',
+      '<dt>County:</dt> <dd>', dataDefinitions.county[layer.feature.properties.county], '</dd>',
+      '<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
+      '</dl>');
+  }).addTo(map);
+  
+  map.almostOver.addLayer(routeLines);
+  console.log('routeLines');
+  console.log(routeLines);
+  // map.on('click'), function(e) {
+  //   console.log('click');
+  // }
+
+    console.log('getlayers');
+  console.log(routeLines.getLayers());
+  map.on('almost:click', function(e) {
+      e.layer.setStyle({weight: 10});
+      e.layer.openPopup()
+      e.layer.fire('click', e);
+      map.addLayer(e.layer);
+      map.openPopup();
+    //   e.layer.feature.openPopup();
+      console.log('e from almost');
+      console.log(e);
+      console.log('layer from almost');
+      console.log(e.layer);
+    // console.log('almost event');
+    // console.log(e);
+    // var clickLayer = e.layer;
+    // console.log('amost click layer')
+    // console.log(clickLayer);
+    // clickLayer.fire('click', e);
+    // console.log(layer);
+    // if (layer.openPopup) {
+    //   layer.fire('click', e);
+    // layer.fireEvent('click');
+    // }
+  });
+
+  L.geoJSON(myWays).setStyle({
+    color: '#ffff7f',
+    dashArray: '4',
+  }).bindPopup(
+    function(layer) {
+      return '<dl>'.concat(
+        '<dt>OSM ID:</dt> <dd><a href="https://openstreetmap.org/way/', layer.feature.properties.osm_id, '">', layer.feature.properties.osm_id, '</a>', '</dd>',
+        '<dt>Tags:</dt> <dd>', layer.feature.properties.tags , '</dd>',
+        '<dt>Meta:</dt> <dd>', layer.feature.properties.meta, '</dd>',
+        '<dt>OSM Feature Type:</dt> <dd>', layer.feature.properties.type , '</dd>',
+        '<dt>Tainted:</dt> <dd>', layer.feature.properties.tainted, '</dd>',
+        '</dl>');
+    }
+  ).addTo(map);
+
+  function getLegendColor(value) {
+    switch(value) {
+      case 0:
+        return '#1d8fc1';
+      case 1:
+        return '#4bb1e7';
+      case 2:
+        return '#88d2f2';
+      case 3:
+        return '#8f12c7';
+      case 4:
+        return '#ffff7f';
+
+    }
+  }
+
+  var legend = L.control({position: 'bottomleft'});
+  legend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    var htmlLabels = [];
+    var labels = [
+      'Milepoint Local Road',
+      'Milepoint Ramp',
+      'Milepoint Signed Route',
+      'Milepoint Non-Mainline',
+      'OpenStreetMap Geometry',
+    ];
+
+    for (var i = 0; i < labels.length; i++) {
+      htmlLabels.push(
+        '<i style="background:' + getLegendColor(i) + '"></i>' + labels[i]
+      );
+    }
+
+    div.innerHTML += htmlLabels.join('<br>');
+    return div;
+  };
+  legend.addTo(map);
+
+</script>
+</body>
+</html>
