@@ -101,7 +101,6 @@ class Command(BaseCommand):
             from pprint import pprint
             # pprint(build_param[0])
             try:
-                print(i)
                 if i-1 < 0:
                     raise IndexError("Can't allow negative index.")
                 previous_link = links[i-1][0]
