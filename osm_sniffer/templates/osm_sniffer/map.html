@@ -16,6 +16,10 @@
   <!-- ESRI Leaflet -->
   <script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
 
+  <!-- Leaflet Almost Over to more easily view attributes -->
+  <!-- <script>L.Map.mergeOptions({almostOver:!0,almostDistance:25,almostSamplingPeriod:50,almostOnMouseMove:!0}),L.Handler.AlmostOver=L.Handler.extend({includes:L.Mixin.Events,initialize:function(e){var t;this._map=e,this._layers=[],this._previous=null,this._marker=null,this._buffer=0,this.__mouseMoveSampling=(t=new Date,function(e){var i=new Date;i-t<this._map.options.almostSamplingPeriod||0===this._layers.length||(t=i,this._map.fire("mousemovesample",{latlng:e.latlng}))})},addHooks:function(){this._map.options.almostOnMouseMove&&(this._map.on("mousemove",this.__mouseMoveSampling,this),this._map.on("mousemovesample",this._onMouseMove,this)),this._map.on("click dblclick",this._onMouseClick,this);this._map;function e(){this._buffer=this._map.layerPointToLatLng([0,0]).lat-this._map.layerPointToLatLng([this._map.options.almostDistance,this._map.options.almostDistance]).lat}this._map.on("viewreset zoomend",e,this),this._map.whenReady(e,this)},removeHooks:function(){this._map.off("mousemovesample"),this._map.off("mousemove",this.__mouseMoveSampling,this),this._map.off("click dblclick",this._onMouseClick,this)},addLayer:function(e){"function"==typeof e.eachLayer?e.eachLayer(function(e){this.addLayer(e)},this):("function"==typeof this.indexLayer&&this.indexLayer(e),this._layers.push(e))},removeLayer:function(e){if("function"==typeof e.eachLayer)e.eachLayer(function(e){this.removeLayer(e)},this);else{"function"==typeof this.unindexLayer&&this.unindexLayer(e);var t=this._layers.indexOf(e);0<=t&&this._layers.splice(t,1)}this._previous=null},getClosest:function(e){var t=L.GeometryUtil.closestLayerSnap,i=this._map.options.almostDistance,s=[];return s="function"==typeof this.searchBuffer?this.searchBuffer(e,this._buffer):this._layers,t(this._map,s,e,i,!1)},_onMouseMove:function(e){var t=this.getClosest(e.latlng);t?(this._previous?L.stamp(this._previous.layer)!=L.stamp(t.layer)&&(this._map.fire("almost:out",{layer:this._previous.layer}),this._map.fire("almost:over",{layer:t.layer,latlng:t.latlng})):this._map.fire("almost:over",{layer:t.layer,latlng:t.latlng}),this._map.fire("almost:move",{layer:t.layer,latlng:t.latlng})):this._previous&&this._map.fire("almost:out",{layer:this._previous.layer}),this._previous=t},_onMouseClick:function(e){var t=this.getClosest(e.latlng);t&&this._map.fire("almost:"+e.type,{layer:t.layer,latlng:t.latlng})}}),void 0!==L.LayerIndexMixin&&L.Handler.AlmostOver.include(L.LayerIndexMixin),L.Map.addInitHook("addHandler","almostOver",L.Handler.AlmostOver);</script>
+  <script type='text/javascript' src="https://cdn.rawgit.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script> -->
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -115,6 +119,8 @@
         <li><a href="{{ next_link }}">Next Map</a></li>
         {% endif %}
         <!-- Navbar link with a dropdown menu -->
+        <li><a href="#"></a> </li>
+        <li><a href="#"></a> </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             More Maps from this Diff
@@ -152,14 +158,17 @@
   var dataDefinitions = {{ data_dict|safe }}
 
   var map = L.map('map').setView([{{ map_y }}, {{ map_x }}], 15.0);
-  var layer = L.esri.basemapLayer('Streets');
   var layerLabels;
+  var layer;
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+  }).addTo(map);
 
   function setBasemap(basemap) {
     if (layer) {
       map.removeLayer(layer);
     }
-    // if (!basemap.includes('Default')) {
     if (basemap.indexOf('Default') === -1) {
       layer = L.esri.basemapLayer(basemap);
       map.addLayer(layer);
@@ -169,7 +178,6 @@
       map.removeLayer(layerLabels);
     }
 
-    // if (basemap.includes('Imagery')) {
     if (basemap.indexOf('Imagery') > -1) {
       layerLabels = L.esri.basemapLayer('ImageryLabels');
       map.addLayer(layerLabels);
@@ -187,10 +195,6 @@
     setBasemap(basemap);
   }
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
-  }).addTo(map);
-
   function getMilepointColor(x) {
     switch(x){
       case 1:
@@ -203,10 +207,11 @@
         return '#8f12c7';
     }
   };
-  console.log(dataDefinitions);
-  L.geoJSON(myRoutes, {style: function(feature) {
-    return { 'color': getMilepointColor(feature.properties.roadway_type) };
-  }}).bindPopup(function (layer) {
+
+  var routeLines = L.geoJSON(myRoutes, {
+      style: function(feature) {
+          return { 'color': getMilepointColor(feature.properties.roadway_type) };
+  }}).setStyle({ weight: 3.5 }).bindPopup(function (layer) {
     return '<dl>'.concat(
       '<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
       '<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
@@ -220,11 +225,12 @@
       '<dt>County:</dt> <dd>', dataDefinitions.county[layer.feature.properties.county], '</dd>',
       '<dt>Parkway:</dt>  <dd>', layer.feature.properties.parkway_flag, '</dd>',
       '</dl>');
-    }).addTo(map);
+  }).addTo(map);
 
   L.geoJSON(myWays).setStyle({
     color: '#ffff7f',
     dashArray: '4',
+    weight: 3.5,
   }).bindPopup(
     function(layer) {
       return '<dl>'.concat(
@@ -252,7 +258,9 @@
 
     }
   }
+
   var legend = L.control({position: 'bottomleft'});
+
   legend.onAdd = function(map) {
     var div = L.DomUtil.create('div', 'info legend');
     var htmlLabels = [];
