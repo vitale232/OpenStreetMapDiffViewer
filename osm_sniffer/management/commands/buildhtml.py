@@ -29,8 +29,6 @@ class Command(BaseCommand):
             raise CommandError('Only process one diff_id. You provided %s' % len(options['diff_id']))
         diff_id = options['diff_id'][0]
 
-        build_params = []
-        links = []
         try:
             polygons = OsmDiffBuffer.objects.filter(
                 diff_id=diff_id
@@ -38,6 +36,8 @@ class Command(BaseCommand):
         except OsmDiffBuffer.DoesNotExist:
             raise CommandError('No OsmDiffBuffer objects for diff_id=%s' % diff_id)
         
+        build_params = []
+        links = []
         feature_count = len(polygons)
         i = 1
         for j, polygon in enumerate(polygons):
@@ -97,8 +97,23 @@ class Command(BaseCommand):
             self.stdout.write(f'Processed {i} of {feature_count} polygons.')
             i += 1
 
-        for build_param in build_params:
+        for i, build_param in enumerate(build_params):
+            from pprint import pprint
+            # pprint(build_param[0])
+            try:
+                print(i)
+                if i-1 < 0:
+                    raise IndexError("Can't allow negative index.")
+                previous_link = links[i-1][0]
+            except IndexError:
+                previous_link = None
+            try:
+                next_link = links[i+1][0]
+            except IndexError:
+                next_link = None
             build_param[0]['links'] = links
+            build_param[0]['next_link'] = next_link
+            build_param[0]['previous_link'] = previous_link
 
         build_count = len(build_params)
         i = 1

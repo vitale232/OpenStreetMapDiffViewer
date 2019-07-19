@@ -97,9 +97,9 @@
       </button>
 
       <!-- Navbar Brand -->
-      <p class="navbar-brand">
+      <a class="navbar-brand" href="#">
         {{ page_title }}
-      </p>
+      </a>
     </div>
 
 
@@ -108,7 +108,12 @@
 
       <!-- Navbar Menu -->
       <ul class="nav navbar-nav navbar-right">
-
+        {% if previous_link %}
+        <li><a href="{{ previous_link }}">Previous Map</a></li>
+        {% endif %}
+        {% if next_link %}
+        <li><a href="{{ next_link }}">Next Map</a></li>
+        {% endif %}
         <!-- Navbar link with a dropdown menu -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -147,7 +152,7 @@
   var dataDefinitions = {{ data_dict|safe }}
 
   var map = L.map('map').setView([{{ map_y }}, {{ map_x }}], 15.0);
-  var layer = L.esri.basemapLayer('Streets').addTo(map);
+  var layer = L.esri.basemapLayer('Streets');
   var layerLabels;
 
   function setBasemap(basemap) {
