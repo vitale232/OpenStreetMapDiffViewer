@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('<int:diff_id>/', views.index, name='index'),
     path('<int:diff_id>/map/', views.map_view, name='map_view'),
+    path('<int:diff_id>/map_almostover/', views.almostover_map_view, name='map_view')
 ]
