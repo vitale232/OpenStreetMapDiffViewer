@@ -47,6 +47,31 @@ def map_view(request, diff_id):
     }
     return render(request, 'osm_sniffer/map.html', context)
 
+def almostover_map_view(request, diff_id):
+    polygons = OsmDiffBuffer.objects.filter(
+        diff_id=diff_id
+    )
+    routes = MilepointRoute.objects.filter(
+        the_geom__intersects=polygons[0].the_geom
+    )
+    ways = OsmDiff.objects.filter(
+        type=OsmDiff.WAY
+    ).filter(
+        diff_id=diff_id
+    )
+
+    context = {
+        'document_title': 'Test Title',
+        'page_title': f'OSM Diff: {diff_id} from https://download.geofabrik.de/north-america/us/new-york.html',        
+        'map_x': polygons[0].the_geom.centroid.x,
+        'map_y': polygons[0].the_geom.centroid.y,
+        'links': [['./test.html', 'Dead link'], ['https://google.com', 'Google']],
+        'milepoint_geojson': serialize('geojson', routes).replace(r'\"', "'"),
+        'ways_geojson': serialize('geojson', ways).replace(r'\"', "'"),
+        'data_dict': json.dumps(MilepointRoute.MILEPOINT_CHOICES)
+    }
+    return render(request, 'osm_sniffer/map_almostover.html', context)
+
 def index(request, diff_id):
     context = {
         'processing_date': datetime.date.today(),
