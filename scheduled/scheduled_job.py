@@ -67,7 +67,6 @@ def get_diff_ids_download_and_load_data(BASE_DIR=BASE_DIR):
         build_html(diff_id, logger=logger)
 
 
-
 def get_diff_number(logger=None):
     server_url = 'https://download.geofabrik.de/north-america/us/new-york-updates/000/002/'
 

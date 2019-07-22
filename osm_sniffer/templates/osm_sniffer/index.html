@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="./static/favicon.ico" />
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
@@ -112,7 +112,7 @@
   OpenStreetMap is a modern web mapping dataset that is similar in characteristics to more popular mapping
   products, such as Google Maps and Bing Maps. There are some major differences between OSM and
   the commodotized mapping datasets. Namely, OSM is open in that anyone can download or edit the data.
-  OSM has an active community base in Europe, and its popularity is increasing in the United States as well.
+  OSM has an active community base across the world, with over 2M registered users.
   As contributors edit the "ways", or roads, in OSM, the edits show up in the OSM diff files, which we download
   from a company called <a href="https://download.geofabrik.de/north-america/us/new-york.html">Geofabrik</a>.
 </p>
@@ -121,6 +121,33 @@
   where changes were made are recorded, and a map is rendered of the area showing the New York State LRS and the
   OSM diff data for that location. Hopefully this will help NYSDOT realize roadway realignments and mapping errors
   more rapidly.
+</p>
+
+<h2> How the maps are made </h2>
+<p>
+  There is an automated script that downloads the OSM diff data from Geofabrik's servers.
+  The data is ingested into a PostgreSQL database that is housed on a PC workstation. The database 
+  which consumes the OSM diffs also has a recent copy of the Milepoint LRS loaded in as a table.
+  From there, we use a simple geospatial analysis to select the correct GIS data for display. 
+  The GIS data is then rendered to a series of maps using Django, a Python web framework for perfectionists
+  with a deadline
+</p>
+
+<p>
+  <img src="./static/explanation_image.png" alt="awesome GIS screenshot that explains it all">
+</p>
+
+<p>
+  The above image helps to explain the data that you can see in these maps. In the screenshot, two example 
+  OSM ways from the diff file are visualized in yellow. This is where the analysis starts. We then calculate a 
+  buffer of approximately 1 km in each direction from those ways. If the buffer polygons intersect one another, 
+  they get dissolved into one polygon.
+</p>
+
+<p>
+  The polygon from the buffer represents the edited area on OpenStreetMap. We use these polygons to select 
+  any Milepoint geometry that touches the polygon. From there, the data are serialized, packed into an HTML template, 
+  and saved into a distributable archive.
 </p>
 
 <h2> Q&A </h2>

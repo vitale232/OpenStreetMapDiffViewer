@@ -126,6 +126,14 @@ class Command(BaseCommand):
         index_context['links'] = index_links
         index_context['page_title'] = f'OSM Diff {diff_id} Processed {today}'
         index_context['processing_date'] = str(today)
+        index_context['explanation_image'] = os.path.abspath(os.path.join(
+            os.path.dirname(build_param[-1]),
+            '..',
+            'static',
+            'explanation_image.png'
+        ))
+        if not os.path.isdir(os.path.dirname(index_context['explanation_image'])):
+            os.makedirs(os.path.dirname(index_context['explanation_image']))
         index_filepath = os.path.abspath(os.path.join(
             os.path.dirname(build_param[-1]),
             '..',
@@ -143,9 +151,17 @@ class Command(BaseCommand):
             'static',
             'favicon.ico'
         ))
+        image_filepath = os.path.abspath(os.path.join(
+            os.path.dirname(favicon_filepath),
+            'explanation_image.png'
+        ))
         shutil.copyfile(
             favicon_filepath,
-            os.path.join(os.path.dirname(index_filepath), 'favicon.ico')
+            os.path.join(os.path.dirname(index_filepath), 'static', 'favicon.ico')
+        )
+        shutil.copyfile(
+            image_filepath,
+            index_context['explanation_image']
         )
     
         end_time = datetime.datetime.now()
