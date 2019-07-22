@@ -228,7 +228,7 @@ class MilepointRoute(models.Model):
         ('M', 'M'), ('N', 'N'), ('O', 'O'), ('P', 'P'),
         ('Q', 'Q'), ('R', 'R'), ('S', 'S'), ('T', 'T'),
         ('U', 'U'), ('V', 'V'), ('W', 'W'), ('X', 'X'),
-        ('Y', 'Y'), ('Z', 'Z'), ('0', '')
+        ('Y', 'Y'), ('Z', 'Z'), ('0', ''), ('', '')
     )
     route_suffix = models.CharField(max_length=4, choices=ROUTE_SUFFIX_CHOICES)
 
