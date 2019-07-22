@@ -54,15 +54,21 @@ def get_diff_ids_download_and_load_data(BASE_DIR=BASE_DIR):
     diff_ids = get_diff_number(logger=logger)
 
     for diff_id in diff_ids:
+        logger.info('\n\n')
         logger.info(f'Downloading Diff ID: {diff_id}')
         download_process_diff(diff_id, logger=logger)
+        
+        logger.info('\n\n')
+        logger.info(f'Loading into database - Diff ID: {diff_id}')
         load_osm_diff(diff_id, logger=logger)
+
+        logger.info('\n\n')
+        logger.info(f'Building HTML for diff ID: {diff_id}')
         build_html(diff_id, logger=logger)
 
 
 
 def get_diff_number(logger=None):
-    print(logger)
     server_url = 'https://download.geofabrik.de/north-america/us/new-york-updates/000/002/'
 
     if logger:
@@ -95,6 +101,15 @@ def get_diff_number(logger=None):
 
     max_local_diff_query = OsmDiff.objects.aggregate(Max('diff_id'))
     max_local_diff_id = max_local_diff_query['diff_id__max']
+    if max_local_diff_id is None:
+        logger.info('No diffs exist in the database.')
+        answer = input('Do you want to download all existing diffs? [y/N]')
+        
+        if answer.lower() not in ['yes', 'y']:
+            raise SystemExit('User specificed system exit!')
+        
+        max_local_diff_id = 0
+
     if logger:
         logger.info(f'Finding Diff IDs on Remote that are > {max_local_diff_id}')
 
@@ -111,8 +126,9 @@ def get_diff_number(logger=None):
 def download_process_diff(diff_id, logger=None):
     start_time = datetime.datetime.now()
 
-    print(f'\nExecuting script: {os.path.abspath(__file__)}')
-    print(f'Start time: {start_time}')
+    if logger:
+        logger.info(f'Executing script: {os.path.abspath(__file__)}')
+        logger.info(f'Start time: {start_time}')
 
     download_url = f'https://download.geofabrik.de/north-america/us/new-york-updates/000/002/{diff_id}.osc.gz'
 
