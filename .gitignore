@@ -7,3 +7,4 @@ secrets.py
 *.pyc
 **/__pycache__
 dist/**/*.html
+dist/logs/*
