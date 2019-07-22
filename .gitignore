@@ -6,5 +6,6 @@ secrets.py
 !.vscode/extensions.json
 *.pyc
 **/__pycache__
-dist/**/*.html
+dist/**
 dist/logs/*
+!dist/*.zip
