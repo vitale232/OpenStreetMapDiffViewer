@@ -1,4 +1,5 @@
 import os
+import sys
 
 from .secrets import (
     db_host, db_name, db_password, db_port, db_username, secret_key
@@ -123,3 +124,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'log_to_stdout': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            },
+        },
+    'loggers': {
+        'osm_sniffer': {
+            'handlers': ['log_to_stdout'],
+            'level': 'DEBUG',
+            'propagate': True,
+            }
+        }
+    }
