@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
         if len(options['diff_id']) > 1:
             raise CommandError('Only process one diff_id. You provided %s' % len(options['diff_id']))
-        diff_id = options['diff_id'][0]
+        diff_id = int(options['diff_id'][0])
 
         try:
             polygons = OsmDiffBuffer.objects.filter(
@@ -52,6 +52,8 @@ class Command(BaseCommand):
             try:
                 ways = OsmDiff.objects.filter(
                     type=OsmDiff.WAY
+                ).filter(
+                    diff_id=diff_id
                 ).filter(
                     the_geom__intersects=polygon.the_geom
                 )
