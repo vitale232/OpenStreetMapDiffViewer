@@ -61,16 +61,8 @@ class Command(BaseCommand):
                 raise CommandError('No OsmDiff objects for diff_id=%s' % diff_id)
 
             map_context = {
-                'document_title': 'OSM Diff {diff_id}:{j:03d} - {today}'.format(
-                    diff_id=diff_id,
-                    j=j,
-                    today=today
-                ),
-                'page_title': 'OSM Diff {diff_id}:{j:03d} | Processed {today}'.format(
-                    diff_id=diff_id,
-                    j=j,
-                    today=str(today)
-                ),
+                'document_title': f'OSM Diff {diff_id}:{j:03d} - {today}',
+                'page_title': f'OSM Diff {diff_id}:{j:03d} | Processed {today}',
                 'diff_id': diff_id,
                 'map_x': polygon.the_geom.centroid.x,
                 'map_y': polygon.the_geom.centroid.y,
@@ -91,8 +83,8 @@ class Command(BaseCommand):
 
             links.append(
                 [
-                    './map_{j:03d}.html'.format(j=j),
-                    'Diff {diff_id}:{j:03d}'.format(diff_id=diff_id, j=j)
+                    f'./map_{j:03d}.html',
+                    f'Diff {diff_id}:{j:03d}'
                 ]
             )
             build_params.append([map_context, 'osm_sniffer/map.html', output_path])
@@ -100,11 +92,7 @@ class Command(BaseCommand):
             i += 1
 
         for i, build_param in enumerate(build_params):
-            from pprint import pprint
-            # pprint(build_param[0])
             try:
-                if i-1 < 0:
-                    raise IndexError("Can't allow negative index.")
                 previous_link = links[i-1][0]
             except IndexError:
                 previous_link = None
@@ -147,8 +135,7 @@ class Command(BaseCommand):
             '..',
             'index.html'
         ))
-        # self.stdout.write(index_context)
-        # self.stdout.write(index_filepath)
+
         views.render_to_file(index_context, 'osm_sniffer/index.html', index_filepath)
 
         favicon_filepath = os.path.abspath(os.path.join(
