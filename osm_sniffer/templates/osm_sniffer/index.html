@@ -52,6 +52,13 @@
       overflow-y: scroll;
       max-height: 400px;
     }
+    .image-size {
+      max-width: 1000px;
+      margin: auto;
+    }
+    .caption-text {
+      color: #a7a9ac;
+    }
   </style>
 
 </head>
@@ -94,6 +101,7 @@
     </div>
   </nav>
 <h2> About this project </h2>
+
 <p>
   This project was developed in an attempt to assist NYSDOT employees in maintaining
   their Milepoint Linear Referencing System (LRS). The LRS is a GIS dataset that maps the roadways
@@ -108,6 +116,15 @@
   we've developed a system to ingest <a href="https://openstreetmap.org">OpenStreetMap (OSM)</a> "diff" files,
   or difference files.
 </p>
+<p>
+  <img src="{{ unbuilt_road }}" class="image-size" alt="Responsive image">
+  <div class="caption center-block caption-text">
+    The above image is an example OSM diff that identified a location where NYSDOT does not currently
+    have a record for the pavement. It is up to the analyst as to whether or not this roadway truly 
+    belongs in NYSDOT's records.
+  </div>
+</p>
+
 <p>
   OpenStreetMap is a modern web mapping dataset that is similar in characteristics to more popular mapping
   products, such as Google Maps and Bing Maps. There are some major differences between OSM and
@@ -141,13 +158,13 @@
   The above image helps to explain the data that you can see in these maps. In the screenshot, two example 
   OSM ways from the diff file are visualized in yellow. This is where the analysis starts. We then calculate a 
   buffer of approximately 1 km in each direction from those ways. If the buffer polygons intersect one another, 
-  they get dissolved into one polygon.
+  they get dissolved into one polygon (shown in red above).
 </p>
 
 <p>
   The polygon from the buffer represents the edited area on OpenStreetMap. We use these polygons to select 
-  any Milepoint geometry that touches the polygon. From there, the data are serialized, packed into an HTML template, 
-  and saved into a distributable archive.
+  any Milepoint geometry (show in blue above) that touches the polygon. From there, the data are serialized 
+  (converted to a web-native format called geoJSON), packed into an HTML template, and saved into a distributable archive.
 </p>
 
 <h2> Q&A </h2>

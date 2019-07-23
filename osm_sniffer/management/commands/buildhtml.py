@@ -134,6 +134,12 @@ class Command(BaseCommand):
             'static',
             'explanation_image.png'
         ))
+        index_context['unbuilt_road'] = os.path.abspath(os.path.join(
+            os.path.dirname(build_param[-1]),
+            '..',
+            'static',
+            'unbuilt_road.png'
+        ))
         if not os.path.isdir(os.path.dirname(index_context['explanation_image'])):
             os.makedirs(os.path.dirname(index_context['explanation_image']))
         index_filepath = os.path.abspath(os.path.join(
@@ -153,7 +159,7 @@ class Command(BaseCommand):
             'static',
             'favicon.ico'
         ))
-        image_filepath = os.path.abspath(os.path.join(
+        explanation_image_filepath = os.path.abspath(os.path.join(
             os.path.dirname(favicon_filepath),
             'explanation_image.png'
         ))
@@ -162,8 +168,15 @@ class Command(BaseCommand):
             os.path.join(os.path.dirname(index_filepath), 'static', 'favicon.ico')
         )
         shutil.copyfile(
-            image_filepath,
+            explanation_image_filepath,
             index_context['explanation_image']
+        )
+        shutil.copyfile(
+            os.path.join(
+                os.path.dirname(explanation_image_filepath),
+                os.path.basename(index_context['unbuilt_road'])
+            ),
+            index_context['unbuilt_road']
         )
     
         end_time = datetime.datetime.now()
@@ -171,14 +184,3 @@ class Command(BaseCommand):
             f'Processing completed in {end_time-start_time}\n' +
             f'Build folder: {os.path.dirname(index_filepath)}'
         ))
-    # def render_to_file(self, context, template, filepath):
-    #     diff_id = context['diff_id']
-    #     html_string = render_to_string(template, context=context)
-
-    #     if not os.path.isdir(os.path.dirname(filepath)):
-    #         os.makedirs(os.path.dirname(filepath))
-
-    #     with open(filepath, 'w') as file_:
-    #         file_.write(html_string)
-        
-    #     return True
