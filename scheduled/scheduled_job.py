@@ -65,26 +65,25 @@ def get_diff_ids_download_and_load_data(BASE_DIR=BASE_DIR):
         logger.info('\n\n')
         logger.info(f'Building HTML for diff ID: {diff_id}')
         build_html(diff_id, logger=logger)
+        
+        return logger
 
 
 def get_diff_number(logger=None):
+    if not logger:
+        logger = initialize_logger()
     server_url = 'https://download.geofabrik.de/north-america/us/new-york-updates/000/002/'
 
-    if logger:
-        logger.info(f'\nSending get request to url: {server_url}')
-
+    logger.info(f'\nSending get request to url: {server_url}')
     page = requests.get(server_url, verify=False)
+    logger.debug(page)
 
-    if logger:
-        logger.debug(page)
     if page.status_code != 200:
         logger.error('ERROR: Something went wrong with the request')
 
     soup = BeautifulSoup(page.content,  'html.parser')
     table = soup.find('table')
-
-    if logger:
-        logging.debug('HTML table from the server:\n' + table.prettify())
+    logging.debug('HTML table from the server:\n' + table.prettify())
 
     osc_data = []
     for data in table.find_all('a'):
@@ -95,8 +94,7 @@ def get_diff_number(logger=None):
             pass
 
     remote_diff_ids = [int(diff.split('.')[0]) for diff in osc_data]
-    if logger:
-        logger.debug(f'REMOTE DIFF IDS: {remote_diff_ids}')
+    logger.debug(f'REMOTE DIFF IDS: {remote_diff_ids}')
 
     max_local_diff_query = OsmDiff.objects.aggregate(Max('diff_id'))
     max_local_diff_id = max_local_diff_query['diff_id__max']
@@ -109,25 +107,25 @@ def get_diff_number(logger=None):
         
         max_local_diff_id = 0
 
-    if logger:
-        logger.info(f'Finding Diff IDs on Remote that are > {max_local_diff_id}')
+    logger.info(f'Finding Diff IDs on Remote that are > {max_local_diff_id}')
 
     to_download_diff_ids = [diff_id for diff_id in remote_diff_ids if diff_id > max_local_diff_id]
     
-    if logger:
-        logger.info(f'Diff IDs to download: {to_download_diff_ids}')
+    logger.info(f'Diff IDs to download: {to_download_diff_ids}')
     
     if len(to_download_diff_ids) < 1:
         logger.error('There are no new diffs to process. Exiting.')
+        input('\nProcessing completed with no changes. Press [ENTER] to exit.')
 
     return to_download_diff_ids
 
 def download_process_diff(diff_id, logger=None):
+    if not logger:
+        logger = initialize_logger()
     start_time = datetime.datetime.now()
 
-    if logger:
-        logger.info(f'Executing script: {os.path.abspath(__file__)}')
-        logger.info(f'Start time: {start_time}')
+    logger.info(f'Executing script: {os.path.abspath(__file__)}')
+    logger.info(f'Start time: {start_time}')
 
     download_url = f'https://download.geofabrik.de/north-america/us/new-york-updates/000/002/{diff_id}.osc.gz'
 
@@ -145,18 +143,16 @@ def download_process_diff(diff_id, logger=None):
     if not os.path.isdir(os.path.dirname(download_path)):
         os.makedirs(os.path.dirname(download_path))
 
-    if logger:
-        logger.info(f'Downloading OSM Diff file from:\n {download_url}')
-        logger.debug(f'Saving file to:\n {download_path}')
-
+    logger.info(f'Downloading OSM Diff file from:\n {download_url}')
+    logger.debug(f'Saving file to:\n {download_path}')
     response = requests.get(download_url, verify=False)
 
     if response.status_code == 200:
         with open(download_path, 'wb') as download:
             download.write(response.content)
-    if logger:
-        logger.info('Download successful')
-        logger.info(f'Unzipping downloaded gzip file:\n {download_path}')
+
+    logger.info('Download successful')
+    logger.info(f'Unzipping downloaded gzip file:\n {download_path}')
 
     with gzip.open(download_path, 'rb') as gzip_file:
         osc_contents = gzip_file.read()
@@ -165,9 +161,9 @@ def download_process_diff(diff_id, logger=None):
     with open(osc_filepath, 'w', encoding=sys.stdout.encoding) as osc_file:
         osc_file.write(osc_contents.decode(sys.stdout.encoding))
 
-    if logger:
-        logger.info('Processing downloaded data using OSM tools')
-        logger.debug(f'Converting .osc to .o5m')
+    logger.info('Processing downloaded data using OSM tools')
+    logger.debug(f'Converting .osc to .o5m')
+
     o5m_path = os.path.join(
         os.path.dirname(download_path),
         os.path.basename(download_path).split('.')[0] + '.o5m'
@@ -177,13 +173,12 @@ def download_process_diff(diff_id, logger=None):
         download_path,
         f'-o={o5m_path}'
     ]
-    if logger:
-        logger.debug(' Command: {}'.format(' '.join(convert_params)))
+    
+    logger.debug(' Command: {}'.format(' '.join(convert_params)))
     subprocess.call(convert_params)
-    if logger:
-        logger.debug('Conversion successful')
+    logger.debug('Conversion successful')
 
-        logger.debug(f'Filtering on "highway" tag and saving as OSM file')
+    logger.debug(f'Filtering on "highway" tag and saving as OSM file')
     osm_path = o5m_path.replace('.o5m', '.osm')
     filter_params = [
         r'D:\Program_Files\osmfilter\osmfilter.exe',
@@ -193,13 +188,11 @@ def download_process_diff(diff_id, logger=None):
         '-o={}'.format(osm_path),
         '--verbose'
     ]
-    if logger:
-        logger.debug(' Command: {}'.format(' '.join(filter_params)))
+    logger.debug(' Command: {}'.format(' '.join(filter_params)))
     subprocess.call(filter_params)
-    if logger:
-        logger.debug('Filtering successful')
+    logger.debug('Filtering successful')
 
-        logger.debug(f'\nConverting OSM File to geoJSON')
+    logger.debug(f'\nConverting OSM File to geoJSON')
     geojson_path = osm_path.replace('.osm', '.geojson')
     geojson_params = [
         'osmtogeojson',
@@ -207,25 +200,25 @@ def download_process_diff(diff_id, logger=None):
         '-n',
         osm_path
     ]
-    if logger:
-        logger.debug(' Command: {}'.format(' '.join(geojson_params)))
+    logger.debug(' Command: {}'.format(' '.join(geojson_params)))
+
     with open(geojson_path, 'w') as geojson_file:
         subprocess.call(geojson_params, stdout=geojson_file, stderr=geojson_file, shell=True)
-    if logger:
-        logger.debug('Conversion successful')
+    logger.debug('Conversion successful')
 
     end_time = datetime.datetime.now()
-    if logger:
-        logger.info(f'Completed at: {end_time}')
-        logger.info(f'Execution time: {end_time-start_time}')
+    logger.info(f'Completed at: {end_time}')
+    logger.info(f'Execution time: {end_time-start_time}')
     
     return osm_path
 
 def load_osm_diff(diff_id, logger=None):
     start_time = datetime.datetime.now()
-    if logger:
-        logger.info(f'Executing script:   {os.path.abspath(__file__)}')
-        logger.info(f'Execution start at: {start_time}')
+    if not logger:
+        logger = initialize_logger()
+    
+    logger.info(f'Executing script:   {os.path.abspath(__file__)}')
+    logger.info(f'Execution start at: {start_time}')
 
     model_layer_mapping = {
         'osm_id': 'id',
@@ -236,8 +229,7 @@ def load_osm_diff(diff_id, logger=None):
     }
 
     geojson_path = r'D:\OpenStreetMap\diff_data\{diff_id}\{diff_id}.geojson'.format(diff_id=diff_id)
-    if logger:
-        logger.debug(f'Input geoJSON file: {geojson_path}')
+    logger.debug(f'Input geoJSON file: {geojson_path}')
 
     data_source = DataSource(geojson_path)
     layer = data_source[0]
@@ -271,11 +263,10 @@ def load_osm_diff(diff_id, logger=None):
             route = OsmDiff(**feature_data)
             route.save()
 
-            if logger:
-                if i % 10 == 0:
-                    logger.debug(f'Processed {i} of {feature_count} features')
-                if i == feature_count:
-                    logger.debug(f'Processed {i} of {feature_count} features')
+            if i % 10 == 0:
+                logger.debug(f'Processed {i} of {feature_count} features')
+            if i == feature_count:
+                logger.debug(f'Processed {i} of {feature_count} features')
             i += 1
         except Exception as exc:
             logger.error(f'\n\nFailed on feautre {i} of {feature_count}')
@@ -283,8 +274,7 @@ def load_osm_diff(diff_id, logger=None):
             logger.exception(exc)
             i += 1
 
-    if logger:
-        logger.debug('\nCreating buffer polygons of the newly generated ways and saving to database')
+    logger.debug('\nCreating buffer polygons of the newly generated ways and saving to database')
     ways = OsmDiff.objects.filter(
         type=OsmDiff.WAY
     ).filter(
@@ -295,9 +285,8 @@ def load_osm_diff(diff_id, logger=None):
         LineString(way.the_geom).buffer(0.01) for way in ways
     ]
     multi_polys = cascaded_union(polys)
-
-    if logger:
-        logger.debug('Saving polygons to database')
+    
+    logger.debug('Saving polygons to database')
     feature_count = len(multi_polys)
     i = 0
     for poly in multi_polys:
@@ -308,26 +297,27 @@ def load_osm_diff(diff_id, logger=None):
         )
         osm_diff_buffer.save()
 
-        if logger:
-            if i % 10 == 0:
-                logger.debug(f'Processed {i} of {feature_count} features')
-            if i == feature_count:
-                logger.debug(f'Processed {i} of {feature_count} features')
+        if i % 10 == 0:
+            logger.debug(f'Processed {i} of {feature_count} features')
+        if i == feature_count:
+            logger.debug(f'Processed {i} of {feature_count} features')
         i += 1
 
     end_time = datetime.datetime.now()
-    if logger:
-        logger.info(f'Execution complete at:  {end_time}')
-        logger.info(f'Execution run time:     {end_time-start_time}')
+    
+    logger.info(f'Execution complete at:  {end_time}')
+    logger.info(f'Execution run time:     {end_time-start_time}')
     
 
 def build_html(diff_id, logger=None):
     build_html_args = [
-        'python', os.path.abspath(os.path.join('..', 'manage.py')), 'buildhtml', str(diff_id)
+        'python',
+        os.path.abspath(os.path.join('..', 'manage.py')),
+        'buildhtml',
+        str(diff_id)
     ]
-    if logger:
-        logger.info('Building HTML')
-        logger.debug(' '.join(build_html_args))
+    logger.info('Building HTML')
+    logger.debug(' '.join(build_html_args))
     
     subprocess.call(build_html_args)
 
@@ -351,5 +341,7 @@ def initialize_logger(log_path=None, log_level=logging.INFO):
 
 
 if __name__ == '__main__':
-    get_diff_ids_download_and_load_data()
+    start_time = datetime.datetime.now()
+    logger = get_diff_ids_download_and_load_data()
+    logger.info(f'Scheduled job run time: {start_time-datetime.datetime.now()}')
     input('\nProcessing complete. Press [ENTER] to exit.')
