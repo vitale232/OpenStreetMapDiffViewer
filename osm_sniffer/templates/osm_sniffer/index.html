@@ -117,19 +117,26 @@
   or difference files.
 </p>
 <p>
+  <br>
   <img src="{{ unbuilt_road }}" class="image-size" alt="Responsive image">
   <div class="caption center-block caption-text">
     The above image is an example OSM diff that identified a location where NYSDOT does not currently
-    have a record for the pavement. It is up to the analyst as to whether or not this roadway truly 
-    belongs in NYSDOT's records.
+    have record of the roadway. When a NYSDOT analyst is provided a map like this, they can quickly and 
+    efficiently determine whether or not the roadway belongs in NYDOT's inventory, enabling them to can act appropriately.
   </div>
+  <br>
 </p>
 
 <p>
-  OpenStreetMap is a modern web mapping dataset that is similar in characteristics to more popular mapping
+  OpenStreetMap (OSM) is a modern web mapping dataset that is similar in characteristics to more popular mapping
   products, such as Google Maps and Bing Maps. There are some major differences between OSM and
   the commodotized mapping datasets. Namely, OSM is open in that anyone can download or edit the data.
-  OSM has an active community base across the world, with over 2M registered users.
+</p>
+
+<p>
+  OSM originated in the United Kingdom in 2004, and it was inspired by the success of the user-edited encyclopedia 
+  we've all come to know and love, <a href="https://wikipedia.org">Wikipedia</a>.
+  OSM has an active community base across the world, with over 2M registered users. 
   As contributors edit the "ways", or roads, in OSM, the edits show up in the OSM diff files, which we download
   from a company called <a href="https://download.geofabrik.de/north-america/us/new-york.html">Geofabrik</a>.
 </p>
@@ -152,11 +159,12 @@
 
 <p>
   <img src="./static/explanation_image.png" alt="awesome GIS screenshot that explains it all">
+  <br>
 </p>
 
 <p>
   The above image helps to explain the data that you can see in these maps. In the screenshot, two example 
-  OSM ways from the diff file are visualized in yellow. This is where the analysis starts. We then calculate a 
+  OSM ways from the diff file are visualized in yellow. This is where the analysis starts. We calculate a 
   buffer of approximately 1 km in each direction from those ways. If the buffer polygons intersect one another, 
   they get dissolved into one polygon (shown in red above).
 </p>
@@ -164,7 +172,28 @@
 <p>
   The polygon from the buffer represents the edited area on OpenStreetMap. We use these polygons to select 
   any Milepoint geometry (show in blue above) that touches the polygon. From there, the data are serialized 
-  (converted to a web-native format called geoJSON), packed into an HTML template, and saved into a distributable archive.
+  (converted to a web-native format called geoJSON), packed into an HTML template, and saved into a distributable archive. 
+   
+</p>
+  Each individual polygon is treated as its own edit area, and as such it is assigned a unique ID. The IDs are coposed as follows:
+  <ul>
+    <li>
+      OSM_DIFF_ID:OSM_POLYGON_ID
+    </li>
+  </ul>
+  For example:
+  <ul>
+    <li>
+      317:000 - This ID is the first polygon processed from diff 317
+    </li>
+    <li>
+      310:028 - This ID is the twenty-eight polygon processed from diff 310
+    </li>
+  </ul>
+  The IDs are listed in  the summary section below and in the "More Maps from this Diff" dropdown in the navigation bar. They're 
+  nothing more than a handy way to identify which map you are looking at, so that these maps can be more easily shared.
+<p>
+
 </p>
 
 <h2> Q&A </h2>
