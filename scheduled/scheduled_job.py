@@ -343,5 +343,5 @@ def initialize_logger(log_path=None, log_level=logging.INFO):
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
     logger = get_diff_ids_download_and_load_data()
-    logger.info(f'Scheduled job run time: {start_time-datetime.datetime.now()}')
+    logger.info(f'Scheduled job run time: {datetime.datetime.now()-start_time}')
     input('\nProcessing complete. Press [ENTER] to exit.')
