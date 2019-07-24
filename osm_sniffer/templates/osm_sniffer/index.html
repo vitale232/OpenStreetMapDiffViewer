@@ -16,13 +16,9 @@
   <!-- ESRI Leaflet -->
   <script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js" integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ==" crossorigin=""></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
@@ -150,11 +146,13 @@
 <h2> How the maps are made </h2>
 <p>
   There is an automated script that downloads the OSM diff data from Geofabrik's servers.
-  The data is ingested into a PostgreSQL database that is housed on a PC workstation. The database 
-  which consumes the OSM diffs also has a recent copy of the Milepoint LRS loaded in as a table.
-  From there, we use a simple geospatial analysis to select the correct GIS data for display. 
-  The GIS data is then rendered to a series of maps using Django, a Python web framework for perfectionists
-  with a deadline
+  The data is ingested into a <a href="https://www.postgresql.org/">PostgreSQL</a> database that is housed on a PC
+  workstation. The database also has a recent copy of the Milepoint LRS loaded
+  in as a table. From there, we use a simple geospatial analysis to select the correct GIS data for display. 
+  The GIS data is rendered to a series of HTML maps using <a href="https://www.djangoproject.com/">Django</a>,
+  a <a href="https://python.org">Python</a> <a href="https://en.wikipedia.org/wiki/Web_framework">web framework</a>
+  for <a href="https://www.dot.ny.gov/index">perfectionists</a> with a 
+  <a href="https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page09.cfm">deadline</a>.
 </p>
 
 <p>
@@ -172,10 +170,11 @@
 <p>
   The polygon from the buffer represents the edited area on OpenStreetMap. We use these polygons to select 
   any Milepoint geometry (show in blue above) that touches the polygon. From there, the data are serialized 
-  (converted to a web-native format called geoJSON), packed into an HTML template, and saved into a distributable archive. 
+  (converted to a web-native format called <a href="https://geojson.org/">geoJSON</a>), packed into an HTML 
+  template, and saved into a distributable archive. 
    
 </p>
-  Each individual polygon is treated as its own edit area, and as such it is assigned a unique ID. The IDs are coposed as follows:
+  Each individual polygon is treated as its own edit area, and as such it is assigned a unique ID. The IDs are composed as follows:
   <ul>
     <li>
       OSM_DIFF_ID:OSM_POLYGON_ID
