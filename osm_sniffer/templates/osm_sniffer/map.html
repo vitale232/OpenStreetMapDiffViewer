@@ -195,18 +195,33 @@
     setBasemap(basemap);
   }
 
+  // This color scheme is similar to Roads and Highways templates
   function getMilepointColor(x) {
     switch(x){
       case 1:
-        return '#1d8fc1';
+        return '#4bb1e7'; // Roads are blue
       case 2:
-        return '#4bb1e7';
+        return '#F742F9'; // Ramps are magenta
       case 3:
-        return '#88d2f2';
+        return '#9600FF'; // Routes are purple
       case 5:
-        return '#8f12c7';
+        return '#FFCE00'; // Non-mainline is orange
     }
   };
+
+  // This color scheme is different shades of blue, purple for non-mainline
+  // function getMilepointColor(x) {
+  //   switch(x){
+  //     case 1:
+  //       return '#1d8fc1';
+  //     case 2:
+  //       return '#4bb1e7';
+  //     case 3:
+  //       return '#88d2f2';
+  //     case 5:
+  //       return '#8f12c7';
+  //   }
+  // };
 
   var routeLines = L.geoJSON(myRoutes, {
       style: function(feature) {
