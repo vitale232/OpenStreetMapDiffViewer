@@ -96,7 +96,7 @@
       </div>
     </div>
   </nav>
-<h2> About this project </h2>
+<h1> About OSM Sniffer </h1>
 
 <p>
   This project was developed in an attempt to assist NYSDOT employees in maintaining
@@ -152,7 +152,7 @@
 
 </p>
 <p>
-  As contributors edit the "ways", or roads, in OSM, the edits show up in the OSM diff files, which we download
+  As OpenStreetMap contributors edit the "ways", or roads, in OSM, the edits show up in the OSM diff files, which we download
   from a company called <a href="https://download.geofabrik.de/north-america/us/new-york.html">Geofabrik</a>.
   Whenever a new diff file is available from OSM, we process the latest changes in a database. The locations
   where changes were made are recorded, and a map is rendered of the area showing the New York State LRS and the
@@ -173,7 +173,14 @@
 </p>
 
 <p>
+  <br>
   <img src="./static/explanation_image.png" alt="awesome GIS screenshot that explains it all">
+  <div class="caption center-block caption-text">
+    An example image showing how the maps are produced. The yellow OSM way geometry is buffered by 1 kilometer 
+    in each direction. If multiple ways are within the 1km buffer, they're treated as one polygon. The red polygon 
+    is used to select roads from the blue Milepoint network. The data are then loaded into the browser and 
+    displayed on a map.
+  </div>
   <br>
 </p>
 
@@ -187,8 +194,8 @@
 <p>
   The polygon from the buffer represents the edited area on OpenStreetMap. We use these polygons to select 
   any Milepoint geometry (show in blue above) that touches the polygon. From there, the data are serialized 
-  (converted to a web-native format called <a href="https://geojson.org/">geoJSON</a>), packed into an HTML 
-  template, and saved into a distributable archive. 
+  (converted to a web-native format called <a href="https://geojson.org/">geoJSON</a>), packed into an 
+  <a href="https://www.w3schools.com/html/html_intro.asp">HTML</a> template, and saved into a distributable archive. 
    
 </p>
   Each individual polygon is treated as its own edit area, and as such it is assigned a unique ID. The IDs are composed as follows:

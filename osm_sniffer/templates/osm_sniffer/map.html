@@ -259,19 +259,31 @@
   ).addTo(map);
 
   function getLegendColor(value) {
-    switch(value) {
+    // Need to use sequential codes in switch, not data codes like in getMilepointColor()
+    switch(value){
       case 0:
-        return '#1d8fc1';
+        return '#4bb1e7'; // Roads are blue
       case 1:
-        return '#4bb1e7';
+        return '#F742F9'; // Ramps are magenta
       case 2:
-        return '#88d2f2';
+        return '#9600FF'; // Routes are purple
       case 3:
-        return '#8f12c7';
+        return '#FFCE00'; // Non-mainline is orange
       case 4:
-        return '#ffff7f';
-
+        return '#ffff7f'; // OSM ways are yellow
     }
+    // switch(value) {
+    //   case 0:
+    //     return '#1d8fc1';
+    //   case 1:
+    //     return '#4bb1e7';
+    //   case 2:
+    //     return '#88d2f2';
+    //   case 3:
+    //     return '#8f12c7';
+    //   case 4:
+    //     return '#ffff7f';
+    // }
   }
 
   var legend = L.control({position: 'bottomleft'});
