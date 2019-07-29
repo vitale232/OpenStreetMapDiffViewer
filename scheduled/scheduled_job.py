@@ -54,6 +54,7 @@ def get_diff_ids_download_and_load_data(BASE_DIR=BASE_DIR):
     diff_ids = get_diff_number(logger=logger)
 
     for diff_id in diff_ids:
+        logger.info(f'Working on Diff ID: {diff_id}')
         logger.info('\n\n')
         logger.info(f'Downloading Diff ID: {diff_id}')
         download_process_diff(diff_id, logger=logger)
@@ -66,7 +67,7 @@ def get_diff_ids_download_and_load_data(BASE_DIR=BASE_DIR):
         logger.info(f'Building HTML for diff ID: {diff_id}')
         build_html(diff_id, logger=logger)
         
-        return logger
+    return logger
 
 
 def get_diff_number(logger=None):
