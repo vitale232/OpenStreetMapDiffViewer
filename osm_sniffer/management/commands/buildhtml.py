@@ -122,12 +122,7 @@ class Command(BaseCommand):
             'static',
             'explanation_image.png'
         ))
-        index_context['unbuilt_road'] = os.path.abspath(os.path.join(
-            os.path.dirname(build_param[-1]),
-            '..',
-            'static',
-            'unbuilt_road.png'
-        ))
+        index_context['unbuilt_road'] = './static/unbuilt_road.png'
         if not os.path.isdir(os.path.dirname(index_context['explanation_image'])):
             os.makedirs(os.path.dirname(index_context['explanation_image']))
         index_filepath = os.path.abspath(os.path.join(
@@ -163,7 +158,10 @@ class Command(BaseCommand):
                 os.path.dirname(explanation_image_filepath),
                 os.path.basename(index_context['unbuilt_road'])
             ),
-            index_context['unbuilt_road']
+            os.path.join(
+                os.path.dirname(index_context['explanation_image']),
+                os.path.basename(index_context['unbuilt_road'])
+            )
         )
     
         end_time = datetime.datetime.now()
