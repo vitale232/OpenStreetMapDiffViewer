@@ -188,7 +188,8 @@ def download_process_diff(diff_id, logger=None):
         (
             '--drop=highway=service highway=footway highway=pedestrian ' +
             'highway=path highway=track highway=steps highway=cycleway ' +
-            'highway=bridleway access=private highway=raceway'
+            'highway=bridleway access=private highway=raceway ' +
+            'highway=abandoned'
         ),
         '-o={}'.format(osm_path),
         '--verbose'
