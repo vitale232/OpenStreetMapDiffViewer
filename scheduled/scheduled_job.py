@@ -185,7 +185,7 @@ def download_process_diff(diff_id, logger=None):
         r'D:\Program_Files\osmfilter\osmfilter.exe',
         o5m_path,
         '--keep=highway=',
-        '--drop=highway=service highway=footway highway=pedestrian highway=path highway=track highway=steps highway=cycleway highway=bridleway',
+        '--drop=highway=service highway=footway highway=pedestrian highway=path highway=track highway=steps highway=cycleway highway=bridleway access=private',
         '-o={}'.format(osm_path),
         '--verbose'
     ]
