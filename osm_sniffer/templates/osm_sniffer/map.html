@@ -143,12 +143,16 @@
 <div id="basemaps-picker" class="form-group leaflet-bar">
   <select class="form-control" name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
     <option value="Default">Default Basemap</option>
+    <option value="Wikimedia">Wikimedia</option>
+    <option value="CartoDBDarkMatter">CartoDB Dark Matter</option>
+    <option value="CartoDBPositron">CartoDB Positron</option>
+    <option value="StamenToner">Stamen Toner</option>
     <option value="ShadedRelief">Shaded Relief</option>
+    <option value="Physical">Physical</option>
     <option value="Streets">Esri Streets</option>
     <option value="Imagery">Imagery</option>
     <option value="ImageryClarity">Imagery (Clarity)</option>
     <option value="ImageryFirefly">Imagery (Firefly)</option>
-    <option value="Physical">Physical</option>
   </select>
 </div>
 
@@ -219,7 +223,7 @@
   var layerLabels;
   var layer;
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
   }).addTo(map);
 
@@ -227,7 +231,11 @@
     if (layer) {
       map.removeLayer(layer);
     }
-    if (basemap.indexOf('Default') === -1) {
+    if (basemap.indexOf('Default') === -1 &&
+        basemap.indexOf('Wikimedia') === -1 &&
+        basemap.indexOf('CartoDBDarkMatter') === -1 &&
+        basemap.indexOf('CartoDBPositron') &&
+        basemap.indexOf('StamenToner') === -1) {
       layer = L.esri.basemapLayer(basemap);
       map.addLayer(layer);
     }
@@ -242,9 +250,47 @@
     }
 
     if (basemap === 'Default') {
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
-      }).addTo(map);
+      });
+      layer.addTo(map);
+    }
+
+    if (basemap === 'Wikimedia') {
+      layer = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
+        attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+        minZoom: 1,
+        maxZoom: 19
+        });
+        layer.addTo(map);
+    }
+
+    if (basemap === 'CartoDBDarkMatter') {
+      layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+        });
+        layer.addTo(map);
+    }
+
+    if (basemap === 'CartoDBPositron') {
+      layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+        });
+        layer.addTo(map);
+    }
+
+    if (basemap === 'StamenToner') {
+      layer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        minZoom: 0,
+        maxZoom: 20,
+        ext: 'png'});
+      layer.addTo(map);
     }
   }
 
