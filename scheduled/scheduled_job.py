@@ -1,7 +1,7 @@
 # Set up Django scripting environment
 import os
 import sys
-project_path = r'D:\OpenStreetMap\osmdiff_viewer'
+project_path = r'D:\OpenStreetMap\OpenStreetMapDiffViewer'
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'osmdiff_viewer.settings')
 sys.path.append(project_path)
 
@@ -16,7 +16,6 @@ import datetime
 import json
 import logging
 import gzip
-import requests
 import subprocess
 import sys
 
@@ -24,6 +23,7 @@ from bs4 import BeautifulSoup
 from django.db.models import Max
 from django.contrib.gis.gdal import DataSource, OGRGeometry
 from django.utils.timezone import make_aware
+import requests
 from shapely.geometry import LineString
 from shapely.ops import cascaded_union
 
@@ -103,10 +103,17 @@ def get_diff_number(logger=None):
         logger.info('No diffs exist in the database.')
         answer = input('Do you want to download all existing diffs? [y/N]')
         
-        if answer.lower() not in ['yes', 'y']:
-            raise SystemExit('User specificed system exit!')
-        
-        max_local_diff_id = 0
+        if answer.lower() in ['yes', 'y', 'yeah', 'sure']:
+            max_local_diff_id = 0
+        else:
+            diff_answer = input(
+                'Which diff would you like to start with? [input a number to continue, anything else to exit] '
+            )
+            
+            try:
+                max_local_diff_id = int(diff_answer)
+            except:
+                raise SystemExit(f'Exiting due to user input: {diff_answer}')
 
     logger.info(f'Finding Diff IDs on Remote that are > {max_local_diff_id}')
 
@@ -170,7 +177,7 @@ def download_process_diff(diff_id, logger=None):
         os.path.basename(download_path).split('.')[0] + '.o5m'
     )
     convert_params = [
-        r'D:\Program_Files\osmconvert\osmconvert64-0.8.8p.exe',
+        r'D:\Program_Files\osmconvert\osmconvert64.exe',
         download_path,
         f'-o={o5m_path}'
     ]
