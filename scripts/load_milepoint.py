@@ -1,7 +1,7 @@
 # Set up Django scripting environment
 import os
 import sys
-project_path = r'D:\OpenStreetMap\osmdiff_viewer'
+project_path = r'D:\OpenStreetMap\OpenStreetMapDiffViewer'
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'osmdiff_viewer.settings')
 sys.path.append(project_path)
 
