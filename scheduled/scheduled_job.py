@@ -101,7 +101,7 @@ def get_diff_number(logger=None):
     max_local_diff_id = max_local_diff_query['diff_id__max']
     if max_local_diff_id is None:
         logger.info('No diffs exist in the database.')
-        answer = input('Do you want to download all existing diffs? [y/N]')
+        answer = input('Do you want to download all existing diffs? [y/N] ')
         
         if answer.lower() in ['yes', 'y', 'yeah', 'sure']:
             max_local_diff_id = 0
@@ -159,71 +159,76 @@ def download_process_diff(diff_id, logger=None):
         with open(download_path, 'wb') as download:
             download.write(response.content)
 
-    logger.info('Download successful')
-    logger.info(f'Unzipping downloaded gzip file:\n {download_path}')
+    try:
+        logger.info('Download successful')
+        logger.info(f'Unzipping downloaded gzip file:\n {download_path}')
 
-    with gzip.open(download_path, 'rb') as gzip_file:
-        osc_contents = gzip_file.read()
+        with gzip.open(download_path, 'rb') as gzip_file:
+            osc_contents = gzip_file.read()
 
-    osc_filepath = download_path[:-3]
-    with open(osc_filepath, 'w', encoding=sys.stdout.encoding) as osc_file:
-        osc_file.write(osc_contents.decode(sys.stdout.encoding))
+        osc_filepath = download_path[:-3]
+        with open(osc_filepath, 'w', encoding=sys.stdout.encoding) as osc_file:
+            osc_file.write(osc_contents.decode(sys.stdout.encoding))
 
-    logger.info('Processing downloaded data using OSM tools')
-    logger.debug(f'Converting .osc to .o5m')
+        logger.info('Processing downloaded data using OSM tools')
+        logger.debug(f'Converting .osc to .o5m')
 
-    o5m_path = os.path.join(
-        os.path.dirname(download_path),
-        os.path.basename(download_path).split('.')[0] + '.o5m'
-    )
-    convert_params = [
-        r'D:\Program_Files\osmconvert\osmconvert64.exe',
-        download_path,
-        f'-o={o5m_path}'
-    ]
-    
-    logger.debug(' Command: {}'.format(' '.join(convert_params)))
-    subprocess.call(convert_params)
-    logger.debug('Conversion successful')
+        o5m_path = os.path.join(
+            os.path.dirname(download_path),
+            os.path.basename(download_path).split('.')[0] + '.o5m'
+        )
+        convert_params = [
+            r'D:\Program_Files\osmconvert\osmconvert64.exe',
+            download_path,
+            f'-o={o5m_path}'
+        ]
+        
+        logger.debug(' Command: {}'.format(' '.join(convert_params)))
+        subprocess.call(convert_params)
+        logger.debug('Conversion successful')
 
-    logger.debug(f'Filtering on "highway" tag and saving as OSM file')
-    osm_path = o5m_path.replace('.o5m', '.osm')
-    filter_params = [
-        r'D:\Program_Files\osmfilter\osmfilter.exe',
-        o5m_path,
-        '--keep=highway=',
-        (
-            '--drop=highway=service highway=footway highway=pedestrian ' +
-            'highway=path highway=track highway=steps highway=cycleway ' +
-            'highway=bridleway access=private highway=raceway ' +
-            'highway=abandoned construction=footway'
-        ),
-        '-o={}'.format(osm_path),
-        '--verbose'
-    ]
-    logger.debug(' Command: {}'.format(' '.join(filter_params)))
-    subprocess.call(filter_params)
-    logger.debug('Filtering successful')
+        logger.debug(f'Filtering on "highway" tag and saving as OSM file')
+        osm_path = o5m_path.replace('.o5m', '.osm')
+        filter_params = [
+            r'D:\Program_Files\osmfilter\osmfilter.exe',
+            o5m_path,
+            '--keep=highway=',
+            (
+                '--drop=highway=service highway=footway highway=pedestrian ' +
+                'highway=path highway=track highway=steps highway=cycleway ' +
+                'highway=bridleway access=private highway=raceway ' +
+                'highway=abandoned construction=footway'
+            ),
+            '-o={}'.format(osm_path),
+            '--verbose'
+        ]
+        logger.debug(' Command: {}'.format(' '.join(filter_params)))
+        subprocess.call(filter_params)
+        logger.debug('Filtering successful')
 
-    logger.debug(f'\nConverting OSM File to geoJSON')
-    geojson_path = osm_path.replace('.osm', '.geojson')
-    geojson_params = [
-        'osmtogeojson',
-        '-e',
-        '-n',
-        osm_path
-    ]
-    logger.debug(' Command: {}'.format(' '.join(geojson_params)))
+        logger.debug(f'\nConverting OSM File to geoJSON')
+        geojson_path = osm_path.replace('.osm', '.geojson')
+        geojson_params = [
+            'osmtogeojson',
+            '-e',
+            '-n',
+            osm_path
+        ]
+        logger.debug(' Command: {}'.format(' '.join(geojson_params)))
 
-    with open(geojson_path, 'w') as geojson_file:
-        subprocess.call(geojson_params, stdout=geojson_file, stderr=geojson_file, shell=True)
-    logger.debug('Conversion successful')
+        with open(geojson_path, 'w') as geojson_file:
+            subprocess.call(geojson_params, stdout=geojson_file, stderr=geojson_file, shell=True)
+        logger.debug('Conversion successful')
 
-    end_time = datetime.datetime.now()
-    logger.info(f'Completed at: {end_time}')
-    logger.info(f'Execution time: {end_time-start_time}')
-    
-    return osm_path
+        end_time = datetime.datetime.now()
+        logger.info(f'Completed at: {end_time}')
+        logger.info(f'Execution time: {end_time-start_time}')
+        
+        return osm_path
+    except Exception as exc:
+        logger.error(f'An error occurred: download_process_diff: {diff_id}')
+        logger.exception(exc)
+        return None
 
 def load_osm_diff(diff_id, logger=None):
     start_time = datetime.datetime.now()
@@ -244,82 +249,88 @@ def load_osm_diff(diff_id, logger=None):
     geojson_path = r'D:\OpenStreetMap\diff_data\{diff_id}\{diff_id}.geojson'.format(diff_id=diff_id)
     logger.debug(f'Input geoJSON file: {geojson_path}')
 
-    data_source = DataSource(geojson_path)
-    layer = data_source[0]
+    try:
+        data_source = DataSource(geojson_path)
+        layer = data_source[0]
 
-    feature_count = len(layer)
-    i = 1
-    for feature in layer:
-        try:
-            feature_data = {
-                key: feature.get(value) for (key, value) in model_layer_mapping.items()
-            }
+        feature_count = len(layer)
+        i = 1
+        for feature in layer:
+            try:
+                feature_data = {
+                    key: feature.get(value) for (key, value) in model_layer_mapping.items()
+                }
 
-            # Use OGRGeometry to strip z-values from polyline vertices
-            geometry = OGRGeometry(feature.geom.ewkt)
-            geometry.coord_dim = 2
-            feature_data['the_geom'] = geometry.ewkt
-            feature_data['diff_id'] = diff_id
+                # Use OGRGeometry to strip z-values from polyline vertices
+                geometry = OGRGeometry(feature.geom.ewkt)
+                geometry.coord_dim = 2
+                feature_data['the_geom'] = geometry.ewkt
+                feature_data['diff_id'] = diff_id
 
-            if feature_data['type'] == 'way':
-                feature_data['type'] = OsmDiff.WAY
-            if feature_data['type'] == 'node':
-                feature_data['type'] = OsmDiff.NODE
-            if feature_data['type'] == 'relation':
-                feature_data['type'] = OsmDiff.RELATION
+                if feature_data['type'] == 'way':
+                    feature_data['type'] = OsmDiff.WAY
+                if feature_data['type'] == 'node':
+                    feature_data['type'] = OsmDiff.NODE
+                if feature_data['type'] == 'relation':
+                    feature_data['type'] = OsmDiff.RELATION
 
-            if isinstance(feature_data['tags'], str):
-                feature_data['tags'] = json.loads(feature_data['tags'])
-            if isinstance(feature_data['meta'], str):
-                feature_data['meta'] = json.loads(feature_data['meta'])
+                if isinstance(feature_data['tags'], str):
+                    feature_data['tags'] = json.loads(feature_data['tags'])
+                if isinstance(feature_data['meta'], str):
+                    feature_data['meta'] = json.loads(feature_data['meta'])
 
-            route = OsmDiff(**feature_data)
-            route.save()
+                route = OsmDiff(**feature_data)
+                route.save()
+
+                if i % 10 == 0:
+                    logger.debug(f'Processed {i} of {feature_count} features')
+                if i == feature_count:
+                    logger.debug(f'Processed {i} of {feature_count} features')
+                i += 1
+            except Exception as exc:
+                logger.error(f'\n\nFailed on feautre {i} of {feature_count}')
+                logger.error(feature_data)
+                logger.exception(exc)
+                i += 1
+
+        logger.debug('\nCreating buffer polygons of the newly generated ways and saving to database')
+        ways = OsmDiff.objects.filter(
+            type=OsmDiff.WAY
+        ).filter(
+            diff_id=diff_id
+        )
+
+        polys = [
+            LineString(way.the_geom).buffer(0.01) for way in ways
+        ]
+        multi_polys = cascaded_union(polys)
+        
+        logger.debug('Saving polygons to database')
+        feature_count = len(multi_polys)
+        i = 0
+        for poly in multi_polys:
+            osm_diff_buffer = OsmDiffBuffer(
+                diff_id=diff_id,
+                created_date=datetime.datetime.today(),
+                the_geom=poly.wkt
+            )
+            osm_diff_buffer.save()
 
             if i % 10 == 0:
                 logger.debug(f'Processed {i} of {feature_count} features')
             if i == feature_count:
                 logger.debug(f'Processed {i} of {feature_count} features')
             i += 1
-        except Exception as exc:
-            logger.error(f'\n\nFailed on feautre {i} of {feature_count}')
-            logger.error(feature_data)
-            logger.exception(exc)
-            i += 1
 
-    logger.debug('\nCreating buffer polygons of the newly generated ways and saving to database')
-    ways = OsmDiff.objects.filter(
-        type=OsmDiff.WAY
-    ).filter(
-        diff_id=diff_id
-    )
-
-    polys = [
-        LineString(way.the_geom).buffer(0.01) for way in ways
-    ]
-    multi_polys = cascaded_union(polys)
-    
-    logger.debug('Saving polygons to database')
-    feature_count = len(multi_polys)
-    i = 0
-    for poly in multi_polys:
-        osm_diff_buffer = OsmDiffBuffer(
-            diff_id=diff_id,
-            created_date=datetime.datetime.today(),
-            the_geom=poly.wkt
-        )
-        osm_diff_buffer.save()
-
-        if i % 10 == 0:
-            logger.debug(f'Processed {i} of {feature_count} features')
-        if i == feature_count:
-            logger.debug(f'Processed {i} of {feature_count} features')
-        i += 1
-
-    end_time = datetime.datetime.now()
-    
-    logger.info(f'Execution complete at:  {end_time}')
-    logger.info(f'Execution run time:     {end_time-start_time}')
+        end_time = datetime.datetime.now()
+        
+        logger.info(f'Execution complete at:  {end_time}')
+        logger.info(f'Execution run time:     {end_time-start_time}')
+        return True
+    except Exception as exc:
+        logger.error(f'An error occurred: load_osm_diff: {diff_id}')
+        logger.exception(exc)
+        return False
     
 
 def build_html(diff_id, logger=None):
