@@ -111,7 +111,7 @@ def get_diff_number(logger=None):
             )
             
             try:
-                max_local_diff_id = int(diff_answer)
+                max_local_diff_id = int(diff_answer)-1
             except:
                 raise SystemExit(f'Exiting due to user input: {diff_answer}')
 
