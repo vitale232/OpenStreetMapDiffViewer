@@ -313,24 +313,14 @@
     }
   };
 
-  // This color scheme is different shades of blue, purple for non-mainline
-  // function getMilepointColor(x) {
-  //   switch(x){
-  //     case 1:
-  //       return '#1d8fc1';
-  //     case 2:
-  //       return '#4bb1e7';
-  //     case 3:
-  //       return '#88d2f2';
-  //     case 5:
-  //       return '#8f12c7';
-  //   }
-  // };
-
   var routeLines = L.geoJSON(myRoutes, {
       style: function(feature) {
           return { 'color': getMilepointColor(feature.properties.roadway_type) };
-  }}).setStyle({ weight: 3.5 }).bindPopup(function (layer) {
+      },
+      coordsToLatLng: function(coords) {
+        return new L.LatLng(coords[0], coords[1]);
+      }
+    }).setStyle({ weight: 3.5 }).bindPopup(function (layer) {
     return '<dl>'.concat(
       '<dt>Route ID:</dt> <dd>', layer.feature.properties.route_id, '</dd>',
       '<dt>DOT ID:</dt> <dd>', layer.feature.properties.dot_id, '</dd>',
@@ -376,18 +366,6 @@
       case 4:
         return '#ffff7f'; // OSM ways are yellow
     }
-    // switch(value) {
-    //   case 0:
-    //     return '#1d8fc1';
-    //   case 1:
-    //     return '#4bb1e7';
-    //   case 2:
-    //     return '#88d2f2';
-    //   case 3:
-    //     return '#8f12c7';
-    //   case 4:
-    //     return '#ffff7f';
-    // }
   }
 
   var legend = L.control({position: 'bottomleft'});
